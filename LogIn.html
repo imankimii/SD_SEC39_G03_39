@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Form Hotel S Damansara</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="main">
+	
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="login-form" class="login-form">
+                        <h2 class="form-title">Log In Account</h2>
+						
+						<!--Email-->
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                        </div>
+						
+						<!--Password-->
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+						
+						<!--Submit Button-->
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Log In"/>
+                        </div>
+						
+                    </form>
+					
+					<!--Forgot Password Session-->
+                    <p class="forgotpasshere">
+                        Forgot <a href="#" class="wordhere-link">Username/Password?</a>
+                    </p>
+					
+					<!--Register Session-->
+                    <p class="signuphere">
+                        Didn't have an account? <a href="Registration.html" class="wordhere-link">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
