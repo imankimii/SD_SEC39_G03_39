@@ -1,0 +1,41 @@
+<?php
+$host = "localhost";
+$dbUsername = "root";
+$dbPassword = "";
+$dbName = "hotelsdamansara";
+
+// Connect to database server
+$conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
+
+// Check connection to database
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $CustName = $_POST["CustName"];
+    $CustEmail = $_POST["CustEmail"];
+    $password = $_POST["password"];
+    $rePassword = $_POST["re_password"];
+
+    // Check if passwords match
+    if ($password !== $rePassword) {
+        echo "Passwords do not match";
+    } else {
+        // Hash the password before inserting to the database
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert customer data to databae
+        $sql = "INSERT INTO customer (CustName, CustEmail, password) VALUES ('$CustName', '$CustEmail', '$hashedPassword')";
+
+        if ($conn->query($sql) === TRUE) {
+            header("Location: LogIn.php");// Go to Login page
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+
+$conn->close();
+?>

@@ -366,6 +366,13 @@ input[type=checkbox]:not(old):checked + label > span:before {
   z-index: 2;
   color: #555; }
 
+.error-popup {
+    display: none;
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
 @media screen and (max-width: 768px) {
   .container {
     width: calc(100% - 40px);
