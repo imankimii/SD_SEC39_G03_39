@@ -20,19 +20,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if passwords match
     if ($password !== $rePassword) {
-        echo "Passwords do not match";
+        // Display a message that password did not match
+        header("Location: Registration.php?password_mismatch=true");
+        exit();
     } else {
-        // Hash the password before inserting to the database
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // Check if email already exists
+        $emailCheckQuery = "SELECT CustEmail FROM customer WHERE CustEmail = '$CustEmail'";
+        $emailCheckResult = $conn->query($emailCheckQuery);
 
-        // Insert customer data to databae
-        $sql = "INSERT INTO customer (CustName, CustEmail, password) VALUES ('$CustName', '$CustEmail', '$hashedPassword')";
-
-        if ($conn->query($sql) === TRUE) {
-            header("Location: LogIn.php");// Go to Login page
-            exit();
+        if ($emailCheckResult->num_rows > 0) {
+            // Display a message that email already exists
+			header("Location: Registration.php?email=true");
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            // Hash the password before inserting it into the database
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert customer data into the database
+            $sql = "INSERT INTO customer (CustName, CustEmail, password) VALUES ('$CustName', '$CustEmail', '$hashedPassword')";
+
+            if ($conn->query($sql) === TRUE) {
+                header("Location: LogIn.php"); // Go to the Login page
+                exit();
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
     }
 }

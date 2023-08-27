@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2023 at 05:20 PM
+-- Generation Time: Aug 27, 2023 at 07:12 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -38,7 +38,10 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`CustName`, `CustEmail`, `password`) VALUES
-('Muhammad Iman Hakimi Bin Abu Supian', 'imanhakimi2206@gmail.com', '$2y$10$AVdp2cphcWXDcnaOzqLT6uYmGIuYuvBJ.YCDnpx.U9H9KqpilT2hq');
+('Muhammad Faris Bin Adnan', 'farismeow@gmail.com', '$2y$10$n95HGSwtoJiZBViaVO5BBeU68HivDk5OIGCKsvYcPmRLus1Nr2TNG'),
+('Muhammad Iman Hakimi Bin Abu Supian', 'imanhakimi2206@gmail.com', '$2y$10$AVdp2cphcWXDcnaOzqLT6uYmGIuYuvBJ.YCDnpx.U9H9KqpilT2hq'),
+('Nurin qistina binti mohd fadil', 'nurinqis@gmail.com', '$2y$10$233sXYl5RqqpKAU8psKYhOZMR206k5DT63H/.ejfpsIoQ/UemH9Pq'),
+('Muhammad Iman Hakimi Bin Abu Supian', 'painscreamx@gmail.com', '$2y$10$3kO7wijOTUJpXK9Y63ix2.8q4kEtvKf9xQuVZssyA/4L5BkjWMRiq');
 
 --
 -- Indexes for dumped tables
