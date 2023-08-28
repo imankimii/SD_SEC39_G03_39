@@ -39,6 +39,9 @@
                         <div class="form-group">
                             <input type="text" class="form-input" name="password" id="password" placeholder="Password" required/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            <?php if (isset($_GET['password'])): ?>
+                                <p class="error-message"></p>
+                            <?php endif; ?>
                         </div>
 
                         <!-- RePassword -->

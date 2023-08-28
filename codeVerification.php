@@ -1,4 +1,4 @@
-<?php
+<?php require_once "controllerUserData.php";
 $host = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
@@ -48,7 +48,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Form Hotel S Damansara</title>
+    <title>Code Verification</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
@@ -81,18 +81,12 @@ $conn->close();
         <section class="signup">
             <div class="container">
                 <div class="signup-content">
-                    <form method="POST" id="login-form" class="login-form">
-                        <h2 class="form-title">Log In Account</h2>
+                    <form method="POST" id="forgotpassword-form" class="forgotpassword-form" autocomplete="">
+                        <h2 class="form-title">Code Verification</h2>
 						
-						<!--Email-->
+						<!--Code-->
                         <div class="form-group">
-                            <input type="email" class="form-input" name="CustEmail" id="CustEmail" placeholder="Your Email"/>
-                        </div>
-						
-						<!--Password-->
-                        <div class="form-group">
-                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
-                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            <input type="number" class="form-input" name="otp" id="otp" placeholder="Enter Code"/>
                         </div>
 						
 						 <!-- Error Popup -->
@@ -100,20 +94,10 @@ $conn->close();
 						
 						<!--Submit Button-->
                         <div class="form-group">
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Log In"/>
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Submit"/>
                         </div>
 						
                     </form>
-					
-					<!--Forgot Password Session-->
-                    <p class="forgotpasshere">
-                        Forgot <a href="forgotPassword.php" class="wordhere-link">Username/Password?</a>
-                    </p>
-					
-					<!--Register Session-->
-                    <p class="signuphere">
-                        Didn't have an account? <a href="Registration.php" class="wordhere-link">Register here</a>
-                    </p>
                 </div>
             </div>
         </section>
