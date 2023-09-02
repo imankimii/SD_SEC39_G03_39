@@ -4,10 +4,10 @@ $dbUsername = "root";
 $dbPassword = "";
 $dbName = "hotelsdamansara";
 
-// Connect to database
+// Connect to the database
 $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
 
-// Check connection to database
+// Check the database connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -15,22 +15,36 @@ if ($conn->connect_error) {
 $loginError = ""; // Declare the error variable
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $CustEmail = $_POST["CustEmail"];
+    $Email = $_POST["Email"];
     $password = $_POST["password"];
 
-    // Retrieve hashed password from the database based email user input
-    $sql = "SELECT password FROM customer WHERE CustEmail = '$CustEmail'";
+    // Retrieve hashed password from the three tables based on email
+    $sql = "SELECT password, 'customer' AS user_type FROM customer WHERE CustEmail = '$Email'
+            UNION
+            SELECT password, 'staff' AS user_type FROM staff WHERE StaffEmail = '$Email'
+            UNION
+            SELECT password, 'admin' AS user_type FROM admin WHERE AdminEmail = '$Email'";
+    
     $result = $conn->query($sql);
 
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
         $hashedPassword = $row["password"];
+        $userType = $row["user_type"];
 
         // Verify the password input with hashed password
         if (password_verify($password, $hashedPassword)) {
-            // if password same allow user to go to the next page
-            header("Location: index.php"); // Go to Homepage
-            exit();
+            // Redirect users based on their user type
+            if ($userType === 'customer') {
+                header("Location: index.php"); // Go to homepage
+                exit();
+            } elseif ($userType === 'staff') {
+                header("Location: about.php"); // Go to staff dashboard
+                exit();
+            } elseif ($userType === 'admin') {
+                header("Location: gallery.php"); // Go to admin dashboard
+                exit();
+            }
         } else {
             $loginError = "Invalid email or password";
         }
@@ -86,7 +100,7 @@ $conn->close();
 						
 						<!--Email-->
                         <div class="form-group">
-                            <input type="email" class="form-input" name="CustEmail" id="CustEmail" placeholder="Your Email"/>
+                            <input type="email" class="form-input" name="Email" id="Email" placeholder="Your Email"/>
                         </div>
 						
 						<!--Password-->
