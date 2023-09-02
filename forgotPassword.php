@@ -106,7 +106,7 @@ $conn->close();
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="LogSigncss/style.css">
 	
 	<script>
     document.addEventListener("DOMContentLoaded", function() {

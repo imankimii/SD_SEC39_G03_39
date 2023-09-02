@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verify the password input with hashed password
         if (password_verify($password, $hashedPassword)) {
             // if password same allow user to go to the next page
-            header("Location: Registration.php"); // Go to Homepage
+            header("Location: index.php"); // Go to Homepage
             exit();
         } else {
             $loginError = "Invalid email or password";
@@ -54,7 +54,7 @@ $conn->close();
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="Logsigncss/style.css">
 	
 	<script>
     document.addEventListener("DOMContentLoaded", function() {
