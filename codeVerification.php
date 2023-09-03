@@ -1,8 +1,10 @@
-<?php require_once "controllerUserData.php";
+<?php
+session_start();
 $host = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
 $dbName = "hotelsdamansara";
+$errors = array();
 
 // Connect to database
 $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
@@ -12,31 +14,21 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$loginError = ""; // Declare the error variable
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $CustEmail = $_POST["CustEmail"];
-    $password = $_POST["password"];
-
-    // Retrieve hashed password from the database based email user input
-    $sql = "SELECT password FROM customer WHERE CustEmail = '$CustEmail'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-        $hashedPassword = $row["password"];
-
-        // Verify the password input with hashed password
-        if (password_verify($password, $hashedPassword)) {
-            // if password same allow user to go to the next page
-            header("Location: Registration.php"); // Go to Homepage
+if (isset($_POST['submit'])) {
+        $otp_code = mysqli_real_escape_string($conn, $_POST['otp']);
+        $check_code = "SELECT * FROM customer WHERE code = $otp_code";
+        $code_res = mysqli_query($conn, $check_code);
+        if(mysqli_num_rows($code_res) > 0){
+            $fetch_data = mysqli_fetch_assoc($code_res);
+            $CustEmail = $fetch_data['CustEmail'];
+            $_SESSION['CustEmail'] = $CustEmail;
+            $info = "Please create a new password that you have not used before.";
+            $_SESSION['info'] = $info;
+            header('Location: newPassword.php');
             exit();
-        } else {
-            $loginError = "Invalid email or password";
-        }
-    } else {
-        $loginError = "Invalid email or password";
-    }
+            }else{
+                $errors['otp-error'] = "You've entered incorrect code!";
+            }
 }
 
 $conn->close();
@@ -55,29 +47,9 @@ $conn->close();
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="LogSigncss/style.css">
-	
-	<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var errorPopup = document.getElementById("error-popup");
-
-        // Show the error popup
-        if (errorPopup.textContent.trim() !== "") {
-            errorPopup.style.display = "block";
-        }
-
-        // Add a click event to close the error popup
-        errorPopup.addEventListener("click", function() {
-            errorPopup.style.display = "none";
-        });
-    });
-	</script>
-
 </head>
-
 <body>
-
     <div class="main">
-	
         <section class="signup">
             <div class="container">
                 <div class="signup-content">
@@ -90,20 +62,18 @@ $conn->close();
                         </div>
 						
 						 <!-- Error Popup -->
-						<div id="error-popup" class="error-popup"><?php echo $loginError; ?></div>
+						<div id="error-popup" class="error-popup"></div>
 						
 						<!--Submit Button-->
                         <div class="form-group">
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Submit"/>
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Submit" a href="newPassword.php"/>
                         </div>
 						
                     </form>
                 </div>
             </div>
         </section>
-
     </div>
-
     <!-- JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>

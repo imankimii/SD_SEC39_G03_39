@@ -105,7 +105,7 @@ $conn->close();
 						
 						<!--Password-->
                         <div class="form-group">
-                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <input type="password" class="form-input" name="password" id="password" placeholder="Password"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
 						
@@ -121,7 +121,7 @@ $conn->close();
 					
 					<!--Forgot Password Session-->
                     <p class="forgotpasshere">
-                        Forgot <a href="forgotPassword.php" class="wordhere-link">Username/Password?</a>
+                        Forgot <a href="forgotPassword.php" class="wordhere-link">Password?</a>
                     </p>
 					
 					<!--Register Session-->
