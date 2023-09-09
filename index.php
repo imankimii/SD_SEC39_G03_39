@@ -55,11 +55,12 @@
             <div id="myNav" class="overlay">
               <div class="overlay-content">
                 <a href="index.php">Home</a>
-				<a href="LogIn.php">Login</a>
+				        <a href="LogIn.php">Login</a>
                 <a href="about.php">About</a>
                 <a href="gallery.php">Gallery</a>
                 <a href="service.php">Service</a>
                 <a href="blog.php">Blog</a>
+                <a href="profilePage.php">Profile</a>
               </div>
             </div>
           </div>
@@ -129,7 +130,6 @@
   <!-- end slider section -->
 
   <!-- about section -->
-
   <section class="about_section layout_padding ">
     <div class="container">
       <div class="row">
