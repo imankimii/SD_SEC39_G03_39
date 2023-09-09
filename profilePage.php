@@ -17,9 +17,11 @@
     <div class="rt-container>
             <div class="rt-heading">
             	<h1>Profile Page</h1>
-            </div>
-            <div class="rt-heading">
-                <button class="button" id="home-button" onclick="location.href='index.php'">Home</button>
+                <nav>
+                    <a href="customerHomepage.php" class="menu_item">Home</a>
+                    <a href="" class="menu_item">Booking History</a>
+                    <a href="editprofilePage.php" class="menu_item">Edit Profile</a>
+                </nav>  
             </div>
         </div>
 <section>
@@ -36,19 +38,9 @@
             <div class="profile-image-section">
                 <h3>Customer Name</h3>
                 <img src="images/profile.png" id="profile-pic">
-                <!--<label for="input-file" id="labelinputfile">update image</label>
-                <input type ="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
-                <script>
-                    let profileImage = document.querySelector("profile-pic");
-                    let input = document.querySelector("input-file");
-                    inputFile.onchange= function(){
-                        profilePic.src = URL.createObjectURL(inputFile.files[0]);
-                    }
-                </script>-->
             </div>
           <div class="card-body">
             <p class="mb-0"><strong class="pr-1">Name:</strong>customer name</p>
-            <p class="mb-0"><strong class="pr-1">Phone no:</strong>012-1233467</p>
             <p class="mb-0"><strong class="pr-1">Email:</strong>customremail@gmail.com</p>
           </div>
         </div>

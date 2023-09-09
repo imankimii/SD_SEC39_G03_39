@@ -1,4 +1,4 @@
-<?php //require_once "controllerUserData.php";
+<?php
 $host = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
@@ -91,7 +91,7 @@ $conn->close();
 						<!--Email-->
                         <div class="form-group">
                             <input type="email" class="form-input" name="CustEmail" id="CustEmail" placeholder="Your Email"/>
-                        </div>						
+                        </div>
 						<!--Submit Button-->
                         <div class="form-group">
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Submit" a href="codeVerification.php" class="wordhere-link"/>

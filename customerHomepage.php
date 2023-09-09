@@ -1,4 +1,5 @@
 <?php
+
 $host = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
@@ -11,12 +12,6 @@ $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
 // Check connection to database
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if the user is logged in
-if (isset($_SESSION['CustEmail'])) {
-  // User is logged in, display post-login homepage content
-  include("customerHomepage.php");
 }
 
 ?>
@@ -77,11 +72,12 @@ if (isset($_SESSION['CustEmail'])) {
             <div id="myNav" class="overlay">
               <div class="overlay-content">
                 <a href="index.php">Home</a>
-                <a href="LogIn.php">Log In</a>
+                <a href="profilePage.php">Profile</a>
                 <a href="about.php">About</a>
                 <a href="gallery.php">Gallery</a>
                 <a href="service.php">Service</a>
                 <a href="blog.php">Blog</a>
+                <a href="LogOut.php">Log Out</a>
               </div>
             </div>
           </div>

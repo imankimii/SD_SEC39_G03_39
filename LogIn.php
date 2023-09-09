@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $hashedPassword)) {
             // Redirect users based on their user type
             if ($userType === 'customer') {
-                header("Location: index.php"); // Go to homepage
+                header("Location: customerHomepage.php"); // Go to customer's homepage
                 exit();
             } elseif ($userType === 'staff') {
                 header("Location: about.php"); // Go to staff dashboard
@@ -53,7 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$conn->close();
 ?>
 
 <!DOCTYPE html>
