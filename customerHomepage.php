@@ -1,17 +1,9 @@
 <?php
-
-$host = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "hotelsdamansara";
-$errors = array();
-
-// Connect to database
-$conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
-
-// Check connection to database
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+session_start();
+// Check if the customer is not logged in
+if(!isset($_SESSION['CustEmail'])){
+    header('Location: LogIn.php');
+    exit();
 }
 
 ?>
@@ -71,8 +63,8 @@ if ($conn->connect_error) {
             </button>
             <div id="myNav" class="overlay">
               <div class="overlay-content">
-                <a href="index.php">Home</a>
                 <a href="profilePage.php">Profile</a>
+                <a href="index.php">Home</a>
                 <a href="about.php">About</a>
                 <a href="gallery.php">Gallery</a>
                 <a href="service.php">Service</a>

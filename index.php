@@ -1,17 +1,5 @@
 <?php
-$host = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "hotelsdamansara";
-$errors = array();
-
-// Connect to database
-$conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
-
-// Check connection to database
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once "database_connection.php";
 
 // Check if the user is logged in
 if (isset($_SESSION['CustEmail'])) {
@@ -76,8 +64,8 @@ if (isset($_SESSION['CustEmail'])) {
             </button>
             <div id="myNav" class="overlay">
               <div class="overlay-content">
-                <a href="index.php">Home</a>
                 <a href="LogIn.php">Log In</a>
+                <a href="index.php">Home</a>
                 <a href="about.php">About</a>
                 <a href="gallery.php">Gallery</a>
                 <a href="service.php">Service</a>
@@ -167,11 +155,16 @@ if (isset($_SESSION['CustEmail'])) {
               </h2>
             </div>
             <p>
-              Operating a 24-hour front desk, Hotel S Damansara features rooms with contemporary décor and parquet flooring. Free Wi-Fi is provided in its public areas and complimentary private parking is available.
-The hotel is located only a 10-minute drive to various shopping locations such as One Utama Shopping Complex, The Curve Shopping Mall and Tesco Hypermarket. Genting Highlands and KLIA/KLIA2 Airports are a 45-minute drive away.
-Air-conditioned rooms are equipped with a wardrobe, a flat-screen TV and a seating area. Private bathrooms offer a hairdryer and hot/cold shower facilities. Select rooms include a sofa.
-Hotel S Damansara provides rooms and facilities for disabled guests. Meeting/banqueting facilities are also available.
-Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving local cuisine.
+              Operating a 24-hour front desk, Hotel S Damansara features rooms with contemporary décor and parquet
+              flooring. Free Wi-Fi is provided in its public areas and complimentary private parking is available.
+              The hotel is located only a 10-minute drive to various shopping locations such as One Utama Shopping
+              Complex, The Curve Shopping Mall and Tesco Hypermarket. Genting Highlands and KLIA/KLIA2 Airports are a
+              45-minute drive away.
+              Air-conditioned rooms are equipped with a wardrobe, a flat-screen TV and a seating area. Private bathrooms
+              offer a hairdryer and hot/cold shower facilities. Select rooms include a sofa.
+              Hotel S Damansara provides rooms and facilities for disabled guests. Meeting/banqueting facilities are
+              also available.
+              Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving local cuisine.
             </p>
             <a href="">
               Read More
@@ -274,7 +267,8 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
                 Residential Decoration
               </h5>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque distinctio aspernatur officiis exercitationem asperiores praesentium
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque distinctio aspernatur officiis
+                exercitationem asperiores praesentium
               </p>
               <a href="">
                 Read More
@@ -292,7 +286,8 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
                 Ecommercial Decoration
               </h5>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque distinctio aspernatur officiis exercitationem asperiores praesentium
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque distinctio aspernatur officiis
+                exercitationem asperiores praesentium
               </p>
               <a href="">
                 Read More
@@ -310,7 +305,8 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
                 Office Decoration
               </h5>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque distinctio aspernatur officiis exercitationem asperiores praesentium
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque distinctio aspernatur officiis
+                exercitationem asperiores praesentium
               </p>
               <a href="">
                 Read More
@@ -347,7 +343,8 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
                 Velit tempora molestias quae
               </h5>
               <p>
-                Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum itaque sint quibusdam aut vel. A esse labore.
+                Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum
+                itaque sint quibusdam aut vel. A esse labore.
               </p>
               <a href="">
                 Read More
@@ -365,7 +362,8 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
                 Repudiandae voluptatum quaerat
               </h5>
               <p>
-                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
+                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit,
+                perspiciatis excepturi eius hic vero harum deleniti.
               </p>
               <a href="">
                 Read More
@@ -404,7 +402,9 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
                       </h6>
                     </div>
                     <p>
-                      Location : walking distance to MRT Sri Damansara Barat. Easy check in and check out process Staff : very helpful Room : comfort bed. Android TV inside the room, so we can enjoy YouTube & Netflix from TV. Got hairdryer. WiFi : laju Breakfast : buffet style, not many varieties but taste OK
+                      Location : walking distance to MRT Sri Damansara Barat. Easy check in and check out process Staff
+                      : very helpful Room : comfort bed. Android TV inside the room, so we can enjoy YouTube & Netflix
+                      from TV. Got hairdryer. WiFi : laju Breakfast : buffet style, not many varieties but taste OK
                     </p>
                     <i class="fa fa-quote-left" aria-hidden="true"></i>
                   </div>
@@ -426,7 +426,11 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
                       </h6>
                     </div>
                     <p>
-                      When i booked it was actually a standard room but the staff upgraded to a deluxe which have very nice view. I love the bfast buffet, especially the nasi goreng. Eventhough i booked through agoda like 5 minutes before checking in, but the staff kindly give me a room even the booking is not updated in their system yet. The best budget hotel so far since they allow for really early check in without additional charge. All in all, i just love this hotel and will definitely come again :)
+                      When i booked it was actually a standard room but the staff upgraded to a deluxe which have very
+                      nice view. I love the bfast buffet, especially the nasi goreng. Eventhough i booked through agoda
+                      like 5 minutes before checking in, but the staff kindly give me a room even the booking is not
+                      updated in their system yet. The best budget hotel so far since they allow for really early check
+                      in without additional charge. All in all, i just love this hotel and will definitely come again :)
                     </p>
                     <i class="fa fa-quote-left" aria-hidden="true"></i>
                   </div>
@@ -448,7 +452,11 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
                       </h6>
                     </div>
                     <p>
-                      Staff are friendly and helpful Took less than 10 min to check in Free parking available outside of hotel and underground Room and toilet are clean Tv with decent channel but only 5 channel available Aircond is a bit hard to adjust the temperature The space to pray is quite small. It fits just enough to perform prayer Breakfast with wide variety of food. Scrumptious and they kept refilled it
+                      Staff are friendly and helpful Took less than 10 min to check in Free parking available outside of
+                      hotel and underground Room and toilet are clean Tv with decent channel but only 5 channel
+                      available Aircond is a bit hard to adjust the temperature The space to pray is quite small. It
+                      fits just enough to perform prayer Breakfast with wide variety of food. Scrumptious and they kept
+                      refilled it
                     </p>
                     <i class="fa fa-quote-left" aria-hidden="true"></i>
                   </div>
@@ -511,7 +519,8 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
               Subscribe To Our Newsletter
             </h3>
             <p>
-              Neque, omnis? Maiores consectetur molestiae assumenda earum ea exercitationem velit tempora molestias quae, neque voluptas magnam maxime, repudiandae voluptatum quaerat tempore accusamus.
+              Neque, omnis? Maiores consectetur molestiae assumenda earum ea exercitationem velit tempora molestias
+              quae, neque voluptas magnam maxime, repudiandae voluptatum quaerat tempore accusamus.
             </p>
             <form action="">
               <input type="email" placeholder="Enter your email">
@@ -540,7 +549,8 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
               </a>
             </h4>
             <p class="mb-0">
-              Asperiores at, error, delectus aut voluptatem provident cum quam magni necessitatibus molestias eveniet reprehenderit maiores voluptate.
+              Asperiores at, error, delectus aut voluptatem provident cum quam magni necessitatibus molestias eveniet
+              reprehenderit maiores voluptate.
             </p>
           </div>
         </div>
@@ -550,7 +560,8 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
               Company
             </h4>
             <p class="mb-0">
-              when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
+              when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+              distribution of letters, as opposed to
             </p>
           </div>
         </div>
@@ -627,5 +638,4 @@ Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving l
   <script src="js/custom.js"></script>
 
 </body>
-
 </html>

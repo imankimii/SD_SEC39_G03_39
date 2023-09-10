@@ -1,17 +1,5 @@
 <?php
-$host = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "hotelsdamansara";
-
-// Connect to the database
-$conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
-
-// Check the database connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+require_once "database_connection.php";
 $loginError = ""; // Declare the error variable
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,6 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $hashedPassword)) {
             // Redirect users based on their user type
             if ($userType === 'customer') {
+                // Start a session and save the customer's email for another page
+                session_start();
+                $_SESSION["CustEmail"] = $Email;
                 header("Location: customerHomepage.php"); // Go to customer's homepage
                 exit();
             } elseif ($userType === 'staff') {
