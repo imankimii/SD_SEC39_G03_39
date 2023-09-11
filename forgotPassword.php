@@ -4,6 +4,8 @@ require_once "database_connection.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+$errors = array();
+
 //if user click submit button in forgot password form
 if(isset($_POST['submit'])){
     $CustEmail = $_POST['CustEmail'];
@@ -48,9 +50,12 @@ if(isset($_POST['submit'])){
                 exit();
             } catch (Exception $e) {
                 $errors['smtp-error'] = 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
-                echo $errors['smtp-error'];  // Display the error for debugging
             }
+        } else {
+            $errors['database-error'] = 'Database error: Unable to update code.';
         }
+    } else {
+        $errors['email-not-found'] = 'Email not found in the database.';
     }
 }
 
@@ -92,5 +97,13 @@ $conn->close();
     <!-- JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+    // JavaScript code to display errors using alerts
+        <?php if (!empty($errors)) { ?>
+            <?php foreach ($errors as $error) { ?>
+                alert('<?php echo $error; ?>');
+            <?php } ?>
+        <?php } ?>
+    </script>
 </body>
 </html>
