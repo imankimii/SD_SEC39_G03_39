@@ -30,10 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: customerHomepage.php"); // Go to customer's homepage
                 exit();
             } elseif ($userType === 'staff') {
-                header("Location: about.php"); // Go to staff dashboard
+				session_start();
+                $_SESSION["StaffEmail"] = $Email;
+                header("Location: dashboardStaff.php"); // Go to staff dashboard
                 exit();
             } elseif ($userType === 'admin') {
-                header("Location: gallery.php"); // Go to admin dashboard
+				session_start();
+                $_SESSION["AdminEmail"] = $Email;
+                header("Location: dashboardAdmin.php"); // Go to admin dashboard
                 exit();
             }
         } else {

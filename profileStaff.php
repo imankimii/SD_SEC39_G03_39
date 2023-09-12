@@ -1,20 +1,23 @@
 <?php
 session_start();
 // Check if the customer is logged in
-if (!isset($_SESSION['CustEmail'])) {
+if (!isset($_SESSION['StaffEmail'])) {
   header('Location: LogIn.php');
   exit();
 }
 require_once "database_connection.php";
 
 /* Fetch Customer Name and Email */
-$CustEmail = $_SESSION['CustEmail'];
-$sql = "SELECT * FROM customer WHERE CustEmail = '$CustEmail'";
+$StaffEmail = $_SESSION['StaffEmail'];
+$sql = "SELECT * FROM Staff WHERE StaffEmail = '$StaffEmail'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-$CustName = $row['CustName'];
-$CustEmail = $row['CustEmail'];
-$ProfilePicture = $row['ProfilePicture'];
+$StaffID = $row['StaffID'];
+$StaffName = $row['StaffName'];
+$Gender = $row['Gender'];
+$Race = $row['Race'];
+$NoPhone = $row['NoPhone'];
+$State = $row['State'];
 
 // Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {
@@ -42,10 +45,9 @@ if (empty($ProfilePicture)) {
   <div class="ScriptHeader">
     <div class="rt-container>
             <div class=" rt-heading">
-      <h1>Profile Page</h1>
+      <h1>Staff Profile Page</h1>
       <nav>
-        <a href="customerHomepage.php" class="menu_item">Home</a>
-        <a href="" class="menu_item">Booking History</a>
+        <a href="dashboardStaff.php" class="menu_item">Dashboard</a>
         <a href="editprofilePage.php" class="menu_item">Edit Profile</a>
       </nav>
     </div>
@@ -63,14 +65,14 @@ if (empty($ProfilePicture)) {
                   <div class="card shadow-sm">
                     <div class="profile-image-section">
                       <h3>Profile Page</h3>
-                      <img src="<?php echo $ProfilePicture; ?>" id="profile-pic">
+                      <img src="" >
                     </div>
                     <div class="card-body">
                       <p class="mb-0"><strong class="pr-1">Name:</strong>
-                        <?php echo $CustName; ?>
+                        <?php echo $StaffName; ?>
                       </p>
                       <p class="mb-0"><strong class="pr-1">Email:</strong>
-                        <?php echo $CustEmail; ?>
+                        <?php echo $StaffEmail; ?>
                       </p>
                     </div>
                   </div>
@@ -78,34 +80,34 @@ if (empty($ProfilePicture)) {
                 <div class="col-lg-8">
                   <div class="card shadow-sm">
                     <div class="card-header bg-transparent border-0">
-                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Customer Information</h3>
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Staff Information</h3>
                     </div>
                     <div class="card-body pt-0">
                       <table class="table table-bordered">
                         <tr>
-                          <th width="30%">Room Type</th>
+                          <th width="30%">Staff ID</th>
                           <td width="2%">:</td>
-                          <td>Deluxe King</td>
+                          <td><?php echo $StaffID; ?></td>
                         </tr>
                         <tr>
-                          <th width="30%">Room Number</th>
+                          <th width="30%">Gender</th>
                           <td width="2%">:</td>
-                          <td>202</td>
+                          <td><?php echo $Gender; ?></td>
                         </tr>
                         <tr>
-                          <th width="30%">Duration</th>
+                          <th width="30%">Race</th>
                           <td width="2%">:</td>
-                          <td>3 Days 2 Night</td>
+                          <td><?php echo $Race; ?></td>
+                        </tr>
+						<tr>
+                          <th width="30%">No Phone</th>
+                          <td width="2%">:</td>
+                          <td><?php echo $NoPhone; ?></td>
                         </tr>
                         <tr>
-                          <th width="30%">Add On</th>
+                          <th width="30%">State</th>
                           <td width="2%">:</td>
-                          <td>Breakfast x 2</td>
-                        </tr>
-                        <tr>
-                          <th width="30%">Services</th>
-                          <td width="2%">:</td>
-                          <td>Room Cleaning and Spa</td>
+                          <td><?php echo $State; ?></td>
                         </tr>
                       </table>
                     </div>
