@@ -14,6 +14,11 @@ $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 $StaffName = $row['StaffName'];
 $StaffEmail = $row['StaffEmail'];
+
+// Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
+if (empty($ProfilePicture)) {
+  $ProfilePicture = "images\profile.png";
+}
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -83,7 +88,8 @@ $StaffEmail = $row['StaffEmail'];
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
+								<img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
+                                <!--<img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">-->
                                 <span class="text-white font-medium"><?php echo $StaffName; ?></span>
                             </a>
                         </li>

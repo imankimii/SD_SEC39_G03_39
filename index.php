@@ -69,7 +69,6 @@ if (isset($_SESSION['CustEmail'])) {
                 <a href="about.php">About</a>
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
-                <a href="blog.php"></a>
               </div>
             </div>
           </div>
@@ -129,7 +128,7 @@ if (isset($_SESSION['CustEmail'])) {
           </p>
           <div>
             <a href="" class="slider-link">
-              CONTACT US
+              BOOK ROOM
             </a>
           </div>
         </div>
@@ -238,7 +237,7 @@ if (isset($_SESSION['CustEmail'])) {
       </div>
       <div class="btn-box">
         <a href="">
-          View All
+          BOOK EVENT
         </a>
       </div>
     </div>

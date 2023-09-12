@@ -7,6 +7,14 @@ if(!isset($_SESSION['CustEmail'])){
 }
 
 ?>
+
+<a href="profilePage.php">Profile</a>
+                <a href="about.php">About</a>
+                <a href="gallery.php">Gallery</a>
+                <a href="service.php">Service</a>
+                <a href="blog.php">Blog</a>
+                <a href="LogOut.php">Log Out</a>
+				
 <!DOCTYPE html>
 <html>
 
@@ -67,7 +75,6 @@ if(!isset($_SESSION['CustEmail'])){
                 <a href="about.php">About</a>
                 <a href="gallery.php">Gallery</a>
                 <a href="service.php">Service</a>
-                <a href="blog.php">Blog</a>
                 <a href="LogOut.php">Log Out</a>
               </div>
             </div>
@@ -128,7 +135,7 @@ if(!isset($_SESSION['CustEmail'])){
           </p>
           <div>
             <a href="" class="slider-link">
-              CONTACT US
+              BOOK ROOM
             </a>
           </div>
         </div>
@@ -237,7 +244,7 @@ if(!isset($_SESSION['CustEmail'])){
       </div>
       <div class="btn-box">
         <a href="">
-          View All
+          BOOK EVENT
         </a>
       </div>
     </div>
@@ -259,7 +266,7 @@ if(!isset($_SESSION['CustEmail'])){
         <div class="col-md-6 col-lg-4 mx-auto">
           <div class="box">
             <div class="img-box">
-              <img src="images/s1.jpg" alt="">
+              <img src="images/s1.jpg" alt="" style="width:128px;height:128px;">
             </div>
             <div class="detail-box">
               <h5>
@@ -277,7 +284,7 @@ if(!isset($_SESSION['CustEmail'])){
         <div class="col-md-6 col-lg-4 mx-auto">
           <div class="box">
             <div class="img-box">
-              <img src="images/s2.jpg" alt="">
+              <img src="images/s2.jpg" alt="" style="width:128px;height:128px;">
             </div>
             <div class="detail-box">
               <h5>
@@ -482,21 +489,7 @@ if(!isset($_SESSION['CustEmail'])){
   <section class="info_section ">
     <div class="container">
       <div class="row info_main_row">
-        <div class="col-md-6 col-lg-3">
-          <div class="info_insta">
-            <h4>
-              <a href="index.php" class="navbar-brand m-0 p-0">
-                <span>
-                  
-                </span>
-              </a>
-            </h4>
-            <p class="mb-0">
-              
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-5">
           <div class="info_detail">
             <h4>
               Company History

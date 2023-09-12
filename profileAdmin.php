@@ -65,7 +65,7 @@ if (empty($ProfilePicture)) {
                   <div class="card shadow-sm">
                     <div class="profile-image-section">
                       <h3>Profile Page</h3>
-                      <img src="" >
+                      <img src="<?php echo $ProfilePicture; ?>" id="profile-pic">
                     </div>
                     <div class="card-body">
                       <p class="mb-0"><strong class="pr-1">Name:</strong>
