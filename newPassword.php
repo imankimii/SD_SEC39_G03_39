@@ -1,18 +1,8 @@
 <?php
 session_start();
-$host = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "hotelsdamansara";
+require_once "database_connection.php";
+
 $errors = array();
-
-// Connect to database
-$conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
-
-// Check connection to database
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 if(isset($_POST['change-password'])){
     $_SESSION['info'] = "";
@@ -59,27 +49,30 @@ $conn->close();
                         <h2 class="form-title">New Password</h2>
 						
 						<!-- Password -->
-						<div class="form-group">
-							<input type="password" class="form-input" name="password" id="password" placeholder="Enter new password" required/>
-							<span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-							<?php if (isset($_GET['password'])): ?>
-								<p class="error-message"></p>
-							<?php endif; ?>
-						</div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="password" id="password" placeholder="Enter new password" required/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
 
 						<!-- RePassword -->
 						<div class="form-group">
 							<input type="password" class="form-input" name="re_password" id="re_password" placeholder="Confirm new password" required/>
-							<p class="error-message" id="password-mismatch-error" style="display: none;">Passwords do not match.</p>
-							<?php if (isset($_GET['password_mismatch'])): ?>
-								<p class="error-message">Passwords do not match.</p>
-							<?php endif; ?>
-						</div>
+                            <?php if (isset($errors['password'])): ?>
+                                <p class="error-message">
+                                    <?php echo $errors['password']; ?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
 						
                         <!-- Error Message Box -->
                         <div class="error-box">
+                            <?php if (isset($errors['db-error'])): ?>
+                                <p class="error-message">
+                                    <?php echo $errors['db-error']; ?>
+                                </p>
+                            <?php endif; ?>
                         </div>
-						<!--Submit Button-->
+                        <!--Submit Button-->
                         <div class="form-group">
                             <input type="submit" name="change-password" id="change-password" class="form-submit" value="Change" a href="LogIn.php"/>
                         </div>
@@ -90,7 +83,7 @@ $conn->close();
     </div>
 
     <!-- JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

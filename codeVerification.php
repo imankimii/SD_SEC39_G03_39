@@ -50,6 +50,19 @@ $conn->close();
                         <!-- Code -->
                         <div class="form-group">
                             <input type="number" class="form-input" name="otp" id="otp" placeholder="Enter Code" />
+                            <?php if (isset($errors['otp-error'])): ?>
+                                <p class="error-message">
+                                    <?php echo $errors['otp-error']; ?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
+                        <!-- Error Message Box -->
+                        <div class="error-box">
+                            <?php if (isset($errors['db-error'])): ?>
+                                <p class="error-message">
+                                    <?php echo $errors['db-error']; ?>
+                                </p>
+                            <?php endif; ?>
                         </div>
                         <!-- Submit Button -->
                         <div class="form-group">
@@ -64,13 +77,5 @@ $conn->close();
     <!-- JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
-    <script>
-    // JavaScript code to display errors using alerts
-    <?php if (!empty($errors)) { ?>
-            <?php foreach ($errors as $error) { ?>
-                alert('<?php echo $error; ?>');
-            <?php } ?>
-        <?php } ?>
-    </script>
 </body>
 </html>
