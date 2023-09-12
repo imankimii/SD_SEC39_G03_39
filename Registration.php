@@ -25,6 +25,7 @@
                         <!-- Name -->
                         <div class="form-group">
                             <input type="text" class="form-input" name="CustName" id="CustName" placeholder="Your Name" required/>
+                            <p class="error-message" id="name-error"></p>
                         </div>
                         
                         <!-- Email -->
@@ -72,5 +73,29 @@
     <!-- JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+    // Function to validate the Name field
+    function validateName() {
+        var nameInput = document.getElementById("CustName");
+        var nameError = document.getElementById("name-error");
+        var namePattern = /^[A-Za-z\s]+$/; // Regular expression to allow only letters and spaces
+        var submitButton = document.getElementById("submit"); // Select the submit button
+
+        if (!namePattern.test(nameInput.value)) {
+            nameError.textContent = "Please enter a valid name (only letters and spaces).";
+            nameError.style.color = "red"; // Set the text color to red
+            nameInput.classList.add("input-error");
+            submitButton.disabled = true; // Disable the submit button
+        } else {
+            nameError.textContent = ""; // Clear the error message
+            nameInput.classList.remove("input-error");
+            submitButton.disabled = false; // Enable the submit button
+        }
+    }
+
+    // Add an event listener to the Name input field for validation
+    var nameInput = document.getElementById("CustName");
+    nameInput.addEventListener("blur", validateName);
+</script>
 </body>
 </html>

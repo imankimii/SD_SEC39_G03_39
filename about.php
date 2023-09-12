@@ -84,7 +84,16 @@
               </h2>
             </div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti dolorem eum consequuntur ipsam repellat dolor soluta aliquid laborum, eius odit consectetur vel quasi in quidem, eveniet ab est corporis tempore.
+              Operating a 24-hour front desk, Hotel S Damansara features rooms with contemporary décor and parquet
+              flooring. Free Wi-Fi is provided in its public areas and complimentary private parking is available.
+              The hotel is located only a 10-minute drive to various shopping locations such as One Utama Shopping
+              Complex, The Curve Shopping Mall and Tesco Hypermarket. Genting Highlands and KLIA/KLIA2 Airports are a
+              45-minute drive away.
+              Air-conditioned rooms are equipped with a wardrobe, a flat-screen TV and a seating area. Private bathrooms
+              offer a hairdryer and hot/cold shower facilities. Select rooms include a sofa.
+              Hotel S Damansara provides rooms and facilities for disabled guests. Meeting/banqueting facilities are
+              also available.
+              Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving local cuisine.
             </p>
             <a href="">
               Read More

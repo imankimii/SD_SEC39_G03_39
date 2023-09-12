@@ -57,13 +57,25 @@ $conn->close();
                 <div class="signup-content">
                     <form action="newPassword.php" method="POST" id="forgotpassword-form" autocomplete="off">
                         <h2 class="form-title">New Password</h2>
-						<!--Code-->
-                        <div class="form-group">
-                            <input type="password" class="form-input" name="password" id="password" placeholder="Enter new password"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Confirm new password"/>
-                        </div>
+						
+						<!-- Password -->
+						<div class="form-group">
+							<input type="password" class="form-input" name="password" id="password" placeholder="Enter new password" required/>
+							<span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+							<?php if (isset($_GET['password'])): ?>
+								<p class="error-message"></p>
+							<?php endif; ?>
+						</div>
+
+						<!-- RePassword -->
+						<div class="form-group">
+							<input type="password" class="form-input" name="re_password" id="re_password" placeholder="Confirm new password" required/>
+							<p class="error-message" id="password-mismatch-error" style="display: none;">Passwords do not match.</p>
+							<?php if (isset($_GET['password_mismatch'])): ?>
+								<p class="error-message">Passwords do not match.</p>
+							<?php endif; ?>
+						</div>
+						
                         <!-- Error Message Box -->
                         <div class="error-box">
                         </div>
