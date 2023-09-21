@@ -7,13 +7,6 @@ if(!isset($_SESSION['CustEmail'])){
 }
 
 ?>
-
-<a href="profilePage.php">Profile</a>
-                <a href="about.php">About</a>
-                <a href="gallery.php">Gallery</a>
-                <a href="service.php">Service</a>
-                <a href="blog.php">Blog</a>
-                <a href="LogOut.php">Log Out</a>
 				
 <!DOCTYPE html>
 <html>
