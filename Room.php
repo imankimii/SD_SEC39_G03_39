@@ -74,7 +74,7 @@
     <div class="container-fluid">
       <div class="heading_container">
         <h2>
-          Latest Blog
+          Room availibility
         </h2>
       </div>
       <div class="row">
@@ -91,25 +91,7 @@
                 Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum itaque sint quibusdam aut vel. A esse labore.
               </p>
               <a href="">
-                Read More
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8 ">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/b2.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                Double room
-              </h5>
-              <p>
-                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
-              </p>
-              <a href="">
-                Read More
+                Book Room
               </a>
             </div>
           </div>
@@ -127,7 +109,7 @@
                 Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
               </p>
               <a href="">
-                Read More
+                Book Room
               </a>
             </div>
           </div>
@@ -145,7 +127,7 @@
                 Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
               </p>
               <a href="">
-                Read More
+                Book Room
               </a>
             </div>
           </div>
