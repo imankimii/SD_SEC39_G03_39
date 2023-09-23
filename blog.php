@@ -50,7 +50,8 @@
               <span class="s-3"> </span>
             </button>
             <div id="myNav" class="overlay">
-              <a href="LogIn.php">Log In</a>
+              <div class="overlay-content">
+                <a href="LogIn.php">Log In</a>
                 <a href="index.php">Home</a>
                 <a href="about.php">About</a>
                 <a href="gallery.php">Events</a>
@@ -73,42 +74,60 @@
     <div class="container-fluid">
       <div class="heading_container">
         <h2>
-          Latest Blog
+          Facilities
         </h2>
       </div>
       <div class="row">
-        <div class="col-lg-6 ">
+        <div class="col-lg-11 ">
           <div class="box">
             <div class="img-box">
-              <img src="images/b1.jpg" alt="">
+              <img src="images/F2.jpg" alt="">
             </div>
             <div class="detail-box">
               <h5>
-                Velit tempora molestias quae
+                Multi-purpose hall
               </h5>
               <p>
                 Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum itaque sint quibusdam aut vel. A esse labore.
               </p>
               <a href="">
-                Read More
+                Book 
               </a>
             </div>
           </div>
         </div>
-        <div class="col-lg-6 ">
+        <div class="col-lg-8 ">
           <div class="box">
             <div class="img-box">
-              <img src="images/b2.jpg" alt="">
+              <img src="images/F1.jpg" alt="">
             </div>
             <div class="detail-box">
               <h5>
-                Repudiandae voluptatum quaerat
+                Gymnasium
               </h5>
               <p>
                 Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
               </p>
               <a href="">
-                Read More
+                Book Now
+              </a>
+            </div>
+          </div>
+        </div>
+		<div class="col-lg-8 ">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/F3.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Swimming pool
+              </h5>
+              <p>
+                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
+              </p>
+              <a href="">
+                Book Now
               </a>
             </div>
           </div>
@@ -123,27 +142,13 @@
   <section class="info_section innerpage_info_section">
     <div class="container">
       <div class="row info_main_row">
-        <div class="col-md-6 col-lg-3">
-          <div class="info_insta">
-            <h4>
-              <a href="index.php" class="navbar-brand m-0 p-0">
-                <span>
-                  Shapel
-                </span>
-              </a>
-            </h4>
-            <p class="mb-0">
-              Asperiores at, error, delectus aut voluptatem provident cum quam magni necessitatibus molestias eveniet reprehenderit maiores voluptate.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-5">
           <div class="info_detail">
             <h4>
-              Company
+              Company History
             </h4>
             <p class="mb-0">
-              when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
+              Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This stunning hotel is equipped with modern structures and at night sports so many flickering lights that makes it appear as if out of a 1960’s Hong Kong movie.
             </p>
           </div>
         </div>
@@ -161,13 +166,13 @@
             <a href="">
               <i class="fa fa-phone" aria-hidden="true"></i>
               <span>
-                Call +01 1234567890
+                Call +603-6280-5000
               </span>
             </a>
             <a href="">
               <i class="fa fa-envelope"></i>
               <span>
-                demo@gmail.com
+                HotelSDamansara@gmail.com
               </span>
             </a>
           </div>
@@ -203,7 +208,7 @@
     <div class="container">
       <p>
         &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
+        <a href="https://html.design/">Hotel S Damansara</a>
       </p>
     </div>
   </footer>
@@ -214,7 +219,6 @@
   <script src="js/jquery-3.4.1.min.js"></script>
   <!-- bootstrap js -->
   <script src="js/bootstrap.js"></script>
-
   <!-- custom js -->
   <script src="js/custom.js"></script>
 
