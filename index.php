@@ -69,11 +69,6 @@ if (isset($_SESSION['CustEmail'])) {
                 <a href="about.php">About</a>
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
-<<<<<<< Updated upstream
-=======
-                <a href="blog.php">Facilities</a>
-				<a href="Room.php">Book room</a>
->>>>>>> Stashed changes
               </div>
             </div>
           </div>
@@ -132,13 +127,8 @@ if (isset($_SESSION['CustEmail'])) {
 			modern contemporary, evoking style and flavor with grace, warm hospitality and efficiency, with a good night's stay.
           </p>
           <div>
-<<<<<<< Updated upstream
             <a href="" class="slider-link">
               BOOK ROOM
-=======
-            <a href="Room.php" class="slider-link">
-              BOOK A ROOM
->>>>>>> Stashed changes
             </a>
           </div>
         </div>

@@ -51,13 +51,11 @@
             </button>
             <div id="myNav" class="overlay">
               <div class="overlay-content">
-                <a href="LogIn.php">Log In</a>
                 <a href="index.php">Home</a>
                 <a href="about.php">About</a>
-                <a href="gallery.php">Events</a>
+                <a href="gallery.php">Gallery</a>
                 <a href="service.php">Service</a>
-                <a href="blog.php">Facilities</a>
-				<a href="Room.php">Book room</a>
+                <a href="blog.php"></a>
               </div>
             </div>
           </div>
@@ -78,14 +76,14 @@
         </h2>
       </div>
       <div class="row">
-        <div class="col-lg-11 ">
+        <div class="col-lg-6 ">
           <div class="box">
             <div class="img-box">
               <img src="images/b1.jpg" alt="">
             </div>
             <div class="detail-box">
               <h5>
-                Single room
+                Velit tempora molestias quae
               </h5>
               <p>
                 Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum itaque sint quibusdam aut vel. A esse labore.
@@ -96,50 +94,14 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-8 ">
+        <div class="col-lg-6 ">
           <div class="box">
             <div class="img-box">
               <img src="images/b2.jpg" alt="">
             </div>
             <div class="detail-box">
               <h5>
-                Double room
-              </h5>
-              <p>
-                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
-              </p>
-              <a href="">
-                Read More
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8 ">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/b2.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                Queen bed
-              </h5>
-              <p>
-                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
-              </p>
-              <a href="">
-                Read More
-              </a>
-            </div>
-          </div>
-        </div>
-		<div class="col-lg-8 ">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/b2.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                King room
+                Repudiandae voluptatum quaerat
               </h5>
               <p>
                 Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
