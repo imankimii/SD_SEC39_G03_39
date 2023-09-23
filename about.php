@@ -51,11 +51,13 @@
             </button>
             <div id="myNav" class="overlay">
               <div class="overlay-content">
+                <a href="LogIn.php">Log In</a>
                 <a href="index.php">Home</a>
                 <a href="about.php">About</a>
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
-                <a href="blog.php"></a>
+                <a href="blog.php">Facilities</a>
+				<a href="Room.php">Book room</a>
               </div>
             </div>
           </div>
