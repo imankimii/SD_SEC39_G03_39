@@ -3,63 +3,59 @@ session_start();
 require_once "database_connection.php";
 $errors = array();
 
-// Define an array of room types
-$roomTypes = array("Single Room", "Queen Room", "King Room");
+$facilityTypes = array("Multi-purpose hall", "Gymnasium", "Swimming pool");
 
-// Initialize variables to store room information
-$roomTypeDisplay = "";
-$roomAvailabilityDisplay = "";
-$roomPriceDisplay = "";
+$facilityTypeDisplay = "";
+$facilityAvailabilityDisplay = "";
+$facilityPriceDisplay = "";
 
-// Function to get room availability for a specific room type
-function getRoomAvailability($conn, $roomType)
+function getfacilityAvailability($conn, $facilityType)
 {
-  // Query the database to get the roomAvailable value for the specified room type
-  $sql = "SELECT roomAvailable FROM room WHERE roomType = '$roomType'";
-  $result = $conn->query($sql);
+  $sql = "SELECT * FROM facilities WHERE facilityType = '$facilityType'";
+  $result = mysqli_query($conn, $sql);
 
   if ($result->num_rows > 0) {
-    // Retrieve the roomAvailable value from the first row (assuming there's only one matching row)
+    // Retrieve the facilityAvailable value from the first row (assuming there's only one matching row)
     $row = $result->fetch_assoc();
-    $roomAvailable = $row["roomAvailable"];
+    $facilityAvailable = $row["facilityAvailable"];
 
-    // Set variables for room type and availability
-    $roomTypeDisplay = $roomType;
-    if ($roomAvailable == 1) {
-      $roomAvailabilityDisplay = "Room is available.";
+    // Set variables for facility type and availability
+    $facilityTypeDisplay = $facilityType;
+    if ($facilityAvailable == 1) {
+      $facilityAvailabilityDisplay = "Facility is available.";
     } else {
-      $roomAvailabilityDisplay = "Room is not available.";
+      $facilityAvailabilityDisplay = "Facility is not available.";
     }
   } else {
-    // Handle the case when the room type is not found
-    $roomTypeDisplay = "Unknown Room Type";
-    $roomAvailabilityDisplay = "Room not found in the database for $roomType.";
+    // Handle the case when the facility type is not found
+    $facilityTypeDisplay = "Unknown facility Type";
+    $facilityAvailabilityDisplay = "Facility not found in the database for $facilityType.";
   }
 
-  return array($roomTypeDisplay, $roomAvailabilityDisplay);
+  return array($facilityTypeDisplay, $facilityAvailabilityDisplay);
 }
 
-function getRoomPrice($conn, $roomType)
+function getfacilityPrice($conn, $facilityType)
 {
-  // Query the database to get the roomPrice value for the specified room type
-  $sql = "SELECT roomPrice FROM room WHERE roomType = '$roomType'";
+  // Query the database to get the facilityPrice value for the specified facility type
+  $sql = "SELECT facilityPrice FROM facilities WHERE facilityType = '$facilityType'";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
-    // Retrieve the roomPrice value from the first row (assuming there's only one matching row)
+    // Retrieve the facilityPrice value from the first row (assuming there's only one matching row)
     $row = $result->fetch_assoc();
-    $roomPrice = $row["roomPrice"];
+    $facilityPrice = $row["facilityPrice"];
 
-    // Set variables for room type and price
-    $roomTypeDisplay = $roomType;
-    $roomPriceDisplay = $roomPrice;
+    // Set variables for facility type and price
+    $facilityTypeDisplay = $facilityType;
+    $facilityPriceDisplay = $facilityPrice;
   } else {
-    // Handle the case when the room type is not found
-    $roomTypeDisplay = "Unknown Room Type";
-    $roomPriceDisplay = "Room not found in the database for $roomType.";
+    // Handle the case when the facility type is not found
+    $facilityTypeDisplay = "Unknown facility Type";
+    $facilityPriceDisplay = "facility not found in the database for $facilityType.";
   }
 
-  return array($roomTypeDisplay, $roomPriceDisplay);
+  return array($facilityTypeDisplay, $facilityPriceDisplay);
 }
 ?>
 <!DOCTYPE html>
@@ -120,8 +116,8 @@ function getRoomPrice($conn, $roomType)
                 <a href="about.php">About</a>
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
-                <a href="Facilities.php">Facilities</a>
-                <a href="Room.php">Book room</a>
+                <a href="blog.php">Facilities</a>
+                <a href="facilities.php">Book facility</a>
               </div>
             </div>
           </div>
@@ -132,50 +128,48 @@ function getRoomPrice($conn, $roomType)
   <!-- end header section -->
 
 
-  <!-- room section -->
+  <!-- facilites section -->
   <section class="blog_section layout_padding">
     <div class="container-fluid">
       <div class="heading_container">
         <h2>
-          Room availability
+          Facilities
         </h2>
       </div>
       <div class="row">
         <div class="col-lg-11 ">
           <div class="box">
             <div class="img-box">
-              <img src="images/R1.jpg" alt="">
+              <img src="images/F2.jpg" alt="">
             </div>
             <div class="detail-box">
               <h5>
-                Single room
+                Multi-purpose hall
               </h5>
               <p>
                 Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum
                 itaque sint quibusdam aut vel. A esse labore.
               </p>
               <?php
-              // Get room price for Single Room
-              $priceInfo = getRoomPrice($conn, "Single Room");
-              $roomTypeDisplay = $priceInfo[0];
-              $roomPriceDisplay = $priceInfo[1];
+              // Get facility price for Multi-purpose hall
+              $priceInfo = getfacilityPrice($conn, "Multi-purpose hall");
+              $facilityTypeDisplay = $priceInfo[0];
+              $facilityPriceDisplay = $priceInfo[1];
               ?>
               <p>
-                Room price: RM
-                <?php echo $roomPriceDisplay; ?> per night
+                Facility price: RM <?php echo $facilityPriceDisplay; ?> per hour
               </p>
               <?php
-              // Get room availability for Single Room
-              $availabilityInfo = getRoomAvailability($conn, "Single Room");
-              $roomTypeDisplay = $availabilityInfo[0];
-              $roomAvailabilityDisplay = $availabilityInfo[1];
+              // Get facility availability for Multi-purpose hall
+              $availabilityInfo = getfacilityAvailability($conn, "Multi-purpose hall");
+              $facilityTypeDisplay = $availabilityInfo[0];
+              $facilityAvailabilityDisplay = $availabilityInfo[1];
               ?>
               <p>
-                Room availability:
-                <?php echo $roomAvailabilityDisplay; ?>
+                Facility availability: <?php echo $facilityAvailabilityDisplay; ?>
               </p>
-              <?php if ($roomAvailabilityDisplay === "Room is available.") { ?>
-                <a href="">Book Room</a>
+              <?php if ($facilityAvailabilityDisplay === "Facility is available.") { ?>
+                <a href="">Book facility</a>
               <?php } ?>
             </div>
           </div>
@@ -183,75 +177,78 @@ function getRoomPrice($conn, $roomType)
         <div class="col-lg-8 ">
           <div class="box">
             <div class="img-box">
-              <img src="images/R2.jpg" alt="">
+              <img src="images/F1.jpg" alt="">
             </div>
             <div class="detail-box">
               <h5>
-                Queen Room
-              </h5>
-              <p>
-                Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum
-                itaque sint quibusdam aut vel. A esse labore.
-              </p>
-              <?php
-              // Get room price for Queen Room
-              $priceInfo = getRoomPrice($conn, "Queen Room");
-              $roomTypeDisplay = $priceInfo[0];
-              $roomPriceDisplay = $priceInfo[1];
-              ?>
-              <p>
-                Room price: RM <?php echo $roomPriceDisplay; ?> per night
-              </p>
-              <?php
-              // Get room availability for Queen Room
-              $availabilityInfo = getRoomAvailability($conn, "Queen Room");
-              $roomTypeDisplay = $availabilityInfo[0];
-              $roomAvailabilityDisplay = $availabilityInfo[1];
-              ?>
-              <p>
-                Room availability:
-                <?php echo $roomAvailabilityDisplay; ?>
-              </p>
-              <?php if ($roomAvailabilityDisplay === "Room is available.") { ?>
-                <a href="">Book Room</a>
-              <?php } ?>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8 ">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/R3.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                King room
+                Gymnasium
               </h5>
               <p>
                 Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit,
                 perspiciatis excepturi eius hic vero harum deleniti.
               </p>
               <?php
-              // Get room price for King Room
-              $priceInfo = getRoomPrice($conn, "King Room");
-              $roomTypeDisplay = $priceInfo[0];
-              $roomPriceDisplay = $priceInfo[1];
+              // Get facility price for Gymnasium
+              $priceInfo = getfacilityPrice($conn, "Gymnasium");
+              $facilityTypeDisplay = $priceInfo[0];
+              $facilityPriceDisplay = $priceInfo[1];
               ?>
               <p>
-                Room price: RM
-                <?php echo $roomPriceDisplay; ?> per night
+                Facility price: RM
+                <?php echo $facilityPriceDisplay; ?> per hour
               </p>
               <?php
-              // Get room availability for King Room
-              $availabilityInfo = getRoomAvailability($conn, "King Room");
-              $roomTypeDisplay = $availabilityInfo[0];
-              $roomAvailabilityDisplay = $availabilityInfo[1];
+              // Get facility availability for Gymnasium
+              $availabilityInfo = getfacilityAvailability($conn, "Gymnasium");
+              $facilityTypeDisplay = $availabilityInfo[0];
+              $facilityAvailabilityDisplay = $availabilityInfo[1];
               ?>
               <p>
-                Room availability: <?php echo $roomAvailabilityDisplay; ?>
+
+                Facility availability:
+                <?php echo $facilityAvailabilityDisplay; ?>
+                </ p>
+                <?php if ($facilityAvailabilityDisplay === "Facility is available.") { ?>
+                  <a href="">Book facility</a>
+                <?php } ?>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 ">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/F3.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Swimming pool
+              </h5>
+              <p>
+                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit,
+                perspiciatis excepturi eius hic vero harum deleniti.
               </p>
-              <?php if ($roomAvailabilityDisplay === "Room is available.") { ?>
-                <a href="">Book Room</a>
+              <?php
+              // Get facility price for Swimming pool
+              $priceInfo = getfacilityPrice($conn, "Swimming pool");
+              $facilityTypeDisplay = $priceInfo[0];
+              $facilityPriceDisplay = $priceInfo[1];
+              ?>
+              <p>
+                Facility price: RM
+                <?php echo $facilityPriceDisplay; ?> per hour
+              </p>
+              <?php
+              // Get facility availability for Swimming pool
+              $availabilityInfo = getfacilityAvailability($conn, "Swimming pool");
+              $facilityTypeDisplay = $availabilityInfo[0];
+              $facilityAvailabilityDisplay = $availabilityInfo[1];
+              ?>
+              <p>
+                Facility availability:
+                <?php echo $facilityAvailabilityDisplay; ?>
+              </p>
+              <?php if ($facilityAvailabilityDisplay === "Facility is available.") { ?>
+                <a href="">Book facility</a>
               <?php } ?>
             </div>
           </div>
@@ -259,8 +256,7 @@ function getRoomPrice($conn, $roomType)
       </div>
     </div>
   </section>
-
-  <!-- end room section -->
+  <!-- end facilities section -->
 
   <!-- info section -->
   <section class="info_section innerpage_info_section">

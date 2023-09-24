@@ -69,8 +69,8 @@ if (isset($_SESSION['CustEmail'])) {
                 <a href="about.php">About</a>
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
-                <a href="blog.php">Facilities</a>
-				<a href="Room.php">Book room</a>
+                <a href="Facilities.php">Facilities</a>
+				        <a href="Room.php">Book room</a>
               </div>
             </div>
           </div>
