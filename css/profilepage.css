@@ -1,8 +1,10 @@
-/*profilePage CSS*/
+/* profilePage CSS */
 #profilepage {
-    background: #6774b2;  /* fallback for old browsers */
+    background: #6774b2;
+    /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #edd3d1, #1b2c75);
-    background: linear-gradient(to right, #edd3d1, #3f1575); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #edd3d1, #3f1575);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     padding: 0;
     margin: 0;
     font-family: 'Lato', sans-serif;
@@ -38,65 +40,86 @@
     padding: 5px 10px;
     color: #000;
   }
-
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900');
-
-
-
-html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-article, header, section, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+  
+  @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900');
+  
+  html {
+    box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  
+  article,
+  header,
+  section,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  main,
+  nav,
+  section,
+  summary {
     display: block;
-}
-body {
+  }
+  
+  body {
     color: #222;
     font-size: 100%;
     line-height: 24px;
     margin: 0;
-	padding:0;
-	font-family: "Raleway",sans-serif;
-}
-a{
-	font-family: "Raleway",sans-serif;
-	text-decoration: none;
-	outline: none;
-}
-a:hover, a:focus {
-	color: #373e18;
-}
-section {
+    padding: 0;
+    font-family: "Raleway", sans-serif;
+  }
+  
+  a {
+    font-family: "Raleway", sans-serif;
+    text-decoration: none;
+    outline: none;
+  }
+  
+  a:hover,
+  a:focus {
+    color: #373e18;
+  }
+  
+  section {
     float: left;
     width: 100%;
-	padding-bottom:3em;
-}
-h2 {
+    padding-bottom: 3em;
+  }
+  
+  h2 {
     color: #1a0e0e;
     font-size: 26px;
     font-weight: 700;
     margin: 0;
     line-height: normal;
-	text-transform:uppercase;
-}
-h2 span {
+    text-transform: uppercase;
+  }
+  
+  h2 span {
     display: block;
     padding: 0;
     font-size: 18px;
     opacity: 0.7;
     margin-top: 5px;
-	text-transform:uppercase;
-}
-
-#float-right{
-	float:right;	
-}
-
-/* Script Top */
-.ScriptTop {
+    text-transform: uppercase;
+  }
+  
+  #float-right {
+    float: right;
+  }
+  
+  /* Script Top */
+  .ScriptTop {
     background: #fff none repeat scroll 0 0;
     float: left;
     font-size: 0.69em;
@@ -105,19 +128,21 @@ h2 span {
     padding: 12px 0;
     text-transform: uppercase;
     width: 100%;
-}
-
-/* To Navigation Style 1*/
-.ScriptTop ul {
+  }
+  
+  /* To Navigation Style 1 */
+  .ScriptTop ul {
     margin: 24px 0;
     padding: 0;
     text-align: left;
-}
-.ScriptTop li{
-	list-style:none;	
-	display:inline-block;
-}
-.ScriptTop li a {
+  }
+  
+  .ScriptTop li {
+    list-style: none;
+    display: inline-block;
+  }
+  
+  .ScriptTop li a {
     background: #6a4aed none repeat scroll 0 0;
     color: #fff;
     display: inline-block;
@@ -126,31 +151,34 @@ h2 span {
     padding: 5px 18px;
     text-decoration: none;
     text-transform: capitalize;
-}
-.ScriptTop li a:hover{
-	background:#000;
-	color:#fff;
-}
-
-
-/* Script Header */
-* {
+  }
+  
+  .ScriptTop li a:hover {
+    background: #000;
+    color: #fff;
+  }
+  
+  /* Script Header */
+  * {
     box-sizing: border-box;
-}
-
-.ScriptHeader {
+  }
+  
+  .ScriptHeader {
     display: flex;
     padding: 1em 0;
-}
-.rt-heading {
+  }
+  
+  .rt-heading {
     padding: 0.5em;
     margin-left: 74em;
-}
-.Scriptcontent{
-	line-height:28px;	
-}
-.ScriptHeader h1{
-	font-family: "brandon-grotesque", "Brandon Grotesque", "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  .Scriptcontent {
+    line-height: 28px;
+  }
+  
+  .ScriptHeader h1 {
+    font-family: "brandon-grotesque", "Brandon Grotesque", "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     color: #ffffff;
@@ -158,66 +186,59 @@ h2 span {
     font-weight: 1000;
     margin: 0;
     margin-left: 1em;
-}
-.ScriptHeader h1 span {
+  }
+  
+  .ScriptHeader h1 span {
     display: block;
     padding: 0;
     font-size: 22px;
     opacity: 0.7;
     margin-top: 1em 0;
-}
-.ScriptHeader span {
+  }
+  
+  .ScriptHeader span {
     display: block;
     padding: 0;
     font-size: 22px;
     opacity: 0.7;
     margin-top: 1em 0;
-}
-.ScriptHeader button{
-    background:#6a4aed;
-    color:#fff;
-    border:none;
-    padding:10px 20px;
-    font-size:15px;
-    font-weight:600;
-    text-transform:uppercase;
-    border-radius:5px;
-    cursor:pointer;
+  }
+  
+  .ScriptHeader button {
+    background: #6a4aed;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
     opacity: 80%;
-}
-
-/* profile image upload */
-*{
+  }
+  
+  /* profile image upload */
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-}
-
-.profile-image-section{
+  }
+  
+  .profile-image-section {
     /*width: 400px;*/
     background: #fff;
     padding: 40px;
     border-radius: 15px;
     text-align: center;
     color: #333;
-}
-/* circle image */
-.profile-image-section img{
+  }
+  
+  /* circle image */
+  .profile-image-section img {
     width: 180px;
     height: 180px;
     border-radius: 50%;
     margin-top: 40px;
     margin-bottom: 30px;
-}
-
-/* New Customer's Name Input Text Box*/
-#customerName{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
-}
+  }

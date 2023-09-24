@@ -106,6 +106,10 @@ if (isset($_POST['update_profile'])) {
                             value="<?php echo $CustEmail; ?>">
                         </div>
                         <div class="form-group">
+                          <!-- <a href="newPassword.php" class="btn btn-primary">Change Password</a> -->
+                          <a href="newPassword.php" class="btn btn-primary">Change Password</a>
+                        </div>
+                        <div class="form-group">
                           <button type="submit" name="update_profile" class="btn btn-primary">Save Changes</button>
                         </div>
                       </form>
