@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Check if the customer is logged in
+// Check if the staff is logged in
 if (!isset($_SESSION['StaffEmail'])) {
   header('Location: LogIn.php');
   exit();
@@ -74,6 +74,9 @@ if (empty($ProfilePicture)) {
                       <p class="mb-0"><strong class="pr-1">Email:</strong>
                         <?php echo $StaffEmail; ?>
                       </p>
+                    </div>
+                    <div class="form-group">
+                      <a href="newPasswordStaff.php" class="btn btn-primary">Change Password</a>
                     </div>
                   </div>
                 </div>

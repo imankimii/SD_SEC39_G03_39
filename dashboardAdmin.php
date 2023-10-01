@@ -33,7 +33,7 @@ if (empty($ProfilePicture)) {
     <meta name="description"
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Hotel S Damansara Dashboard</title>
+    <title>Admin Hotel S Damansara Dashboard</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
@@ -88,7 +88,7 @@ if (empty($ProfilePicture)) {
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-								<img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
+                                <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
                                 <!--<img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">-->
                                 <span class="text-white font-medium"><?php echo $AdminName; ?></span>
                             </a>

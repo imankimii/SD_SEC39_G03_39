@@ -137,7 +137,7 @@ function getRoomPrice($conn, $roomType)
     <div class="container-fluid">
       <div class="heading_container">
         <h2>
-          Room availability
+          Room
         </h2>
       </div>
       <div class="row">
@@ -176,6 +176,8 @@ function getRoomPrice($conn, $roomType)
               </p>
               <?php if ($roomAvailabilityDisplay === "Room is available.") { ?>
                 <a href="">Book Room</a>
+              <?php } else { ?>
+                <button disabled>Not Available</button>
               <?php } ?>
             </div>
           </div>
@@ -214,6 +216,8 @@ function getRoomPrice($conn, $roomType)
               </p>
               <?php if ($roomAvailabilityDisplay === "Room is available.") { ?>
                 <a href="">Book Room</a>
+              <?php } else { ?>
+                <button disabled>Not Available</button>
               <?php } ?>
             </div>
           </div>
@@ -252,6 +256,8 @@ function getRoomPrice($conn, $roomType)
               </p>
               <?php if ($roomAvailabilityDisplay === "Room is available.") { ?>
                 <a href="">Book Room</a>
+              <?php } else { ?>
+                <button disabled>Not Available</button>
               <?php } ?>
             </div>
           </div>

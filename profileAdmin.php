@@ -75,6 +75,9 @@ if (empty($ProfilePicture)) {
                         <?php echo $AdminEmail; ?>
                       </p>
                     </div>
+                    <div class="form-group">
+                      <a href="newPasswordAdmin.php" class="btn btn-primary">Change Password</a>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-8">
@@ -99,7 +102,7 @@ if (empty($ProfilePicture)) {
                           <td width="2%">:</td>
                           <td><?php echo $Race; ?></td>
                         </tr>
-						<tr>
+						            <tr>
                           <th width="30%">No Phone</th>
                           <td width="2%">:</td>
                           <td><?php echo $NoPhone; ?></td>

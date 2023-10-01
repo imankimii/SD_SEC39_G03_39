@@ -12,22 +12,63 @@ $CustEmail = $_SESSION['CustEmail'];
 $sql = "SELECT * FROM customer WHERE CustEmail = '$CustEmail'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-$CustName = $row['CustName'];
-$CustEmail = $row['CustEmail'];
+$CustName = isset($row['CustName']) ? $row['CustName'] : '';
+$CustEmail = isset($row['CustEmail']) ? $row['CustEmail'] : '';
+$Gender = isset($row['Gender']) ? $row['Gender'] : '';
+$Race = isset($row['Race']) ? $row['Race'] : '';
+$NoPhone = isset($row['NoPhone']) ? $row['NoPhone'] : '';
+$State = isset($row['State']) ? $row['State'] : '';
+$ProfilePicture = isset($row['ProfilePicture']) ? $row['ProfilePicture'] : '';
 
 /* Update Profile */
 if (isset($_POST['update_profile'])) {
+   // Get the new values from the form
   $newCustName = $_POST['name'];
   $newCustEmail = $_POST['email'];
-  $sql = "UPDATE customer SET CustName = '$newCustName', CustEmail = '$newCustEmail' WHERE CustEmail = '$CustEmail'";
-  $result = mysqli_query($conn, $sql);
-  if ($result) {
-    // Update the session variable with the new email
-    $_SESSION['CustEmail'] = $newCustEmail;
-    echo "<script>alert('Profile Updated Successfully!')</script>";
-    echo "<script>window.location.href='profilePage.php'</script>";
+  $newGender = $_POST['gender'];
+  $newRace = $_POST['race'];
+  $newState = $_POST['state'];
+  $newNoPhone = $_POST['noPhone'];
+
+  // Initialize an array to store the SQL update statements
+  $updateStatements = array();
+
+  // Check and add SQL statements for each field that has a new value
+  if (!empty($newCustName)) {
+    $updateStatements[] = "CustName = '$newCustName'";
+  }
+  if (!empty($newCustEmail)) {
+    $updateStatements[] = "CustEmail = '$newCustEmail'";
+  }
+  if (!empty($newGender)) {
+    $updateStatements[] = "Gender = '$newGender'";
+  }
+  if (!empty($newRace)) {
+    $updateStatements[] = "Race = '$newRace'";
+  }
+  if (!empty($newNoPhone)) {
+    $updateStatements[] = "NoPhone = '$newNoPhone'";
+  }
+  if (!empty($newState)) {
+    $updateStatements[] = "State = '$newState'";
+  }
+
+  // Check if any updates are needed
+  if (!empty($updateStatements)) {
+    // Construct the SQL query by joining the update statements
+    $sql = "UPDATE customer SET " . implode(", ", $updateStatements) . " WHERE CustEmail = '$CustEmail'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+      echo "<script>alert('Profile Updated Successfully!')</script>";
+      echo "<script>window.location.href='profilePage.php'</script>";
+    } else {
+      echo "<script>alert('Profile Update Failed!')</script>";
+      echo "<script>window.location.href='profilePage.php'</script>";
+    }
   } else {
-    echo "<script>alert('Profile Update Failed!')</script>";
+    // Handle the case where no fields were provided for update
+    echo "<script>alert('No changes were made.')</script>";
     echo "<script>window.location.href='profilePage.php'</script>";
   }
 }
@@ -96,21 +137,7 @@ if (isset($_POST['update_profile'])) {
                     <div class="card-body">
                       <form method="post" action="editProfilePage.php">
                         <div class="form-group">
-                          <label for="name">Name</label>
-                          <input type="text" id="name" name="name" class="form-control"
-                            value="<?php echo $CustName; ?>">
-                        </div>
-                        <div class="form-group">
-                          <label for="email">Email</label>
-                          <input type="email" id="email" name="email" class="form-control"
-                            value="<?php echo $CustEmail; ?>">
-                        </div>
-                        <div class="form-group">
-                          <!-- <a href="newPassword.php" class="btn btn-primary">Change Password</a> -->
-                          <a href="newPassword.php" class="btn btn-primary">Change Password</a>
-                        </div>
-                        <div class="form-group">
-                          <button type="submit" name="update_profile" class="btn btn-primary">Save Changes</button>
+                          <a href="newPasswordCustomer.php" class="btn btn-primary">Change Password</a>
                         </div>
                       </form>
                     </div>
@@ -119,36 +146,41 @@ if (isset($_POST['update_profile'])) {
                 <div class="col-lg-8">
                   <div class="card shadow-sm">
                     <div class="card-header bg-transparent border-0">
-                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Booking Information</h3>
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Customer Information</h3>
                     </div>
                     <div class="card-body pt-0">
+                      <form method="post" action="editProfilePage.php">
                       <table class="table table-bordered">
-                        <tr>
-                          <th width="30%">Room Type</th>
-                          <td width="2%">:</td>
-                          <td>Deluxe King</td>
-                        </tr>
-                        <tr>
-                          <th width="30%">Room Number</th>
-                          <td width="2%">:</td>
-                          <td>202</td>
-                        </tr>
-                        <tr>
-                          <th width="30%">Duration</th>
-                          <td width="2%">:</td>
-                          <td>3 Days 2 Night</td>
-                        </tr>
-                        <tr>
-                          <th width="30%">Add On</th>
-                          <td width="2%">:</td>
-                          <td>Breakfast x 2</td>
-                        </tr>
-                        <tr>
-                          <th width="30%">Services</th>
-                          <td width="2%">:</td>
-                          <td>Room Cleaning and Spa</td>
-                        </tr>
+                        <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" id="name" name="name" class="form-control"
+                            value="<?php echo $CustName; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="email" id="email" name="email" class="form-control" value="<?php echo $CustEmail; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="gender">Gender</label>
+                          <input type="text" id="gender" name="gender" class="form-control" value="<?php echo $Gender; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="race">Race</label>
+                          <input type="text" id="race" name="race" class="form-control" value="<?php echo $Race; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="noPhone">No. Phone</label>
+                          <input type="text" id="noPhone" name="noPhone" class="form-control" value="<?php echo $NoPhone; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="state">State</label>
+                          <input type="text" id="state" name="state" class="form-control" value="<?php echo $State; ?>">
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" name="update_profile" class="btn btn-primary">Save Changes</button>
+                        </div>
                       </table>
+                      </form>
                     </div>
                   </div>
                   <div style="height: 26px"></div>

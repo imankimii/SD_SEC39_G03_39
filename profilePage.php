@@ -12,9 +12,13 @@ $CustEmail = $_SESSION['CustEmail'];
 $sql = "SELECT * FROM customer WHERE CustEmail = '$CustEmail'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-$CustName = $row['CustName'];
-$CustEmail = $row['CustEmail'];
-$ProfilePicture = $row['ProfilePicture'];
+$CustName = isset($row['CustName']) ? $row['CustName'] : '';
+$CustEmail = isset($row['CustEmail']) ? $row['CustEmail'] : '';
+$Gender = isset($row['Gender']) ? $row['Gender'] : '';
+$Race = isset($row['Race']) ? $row['Race'] : '';
+$NoPhone = isset($row['NoPhone']) ? $row['NoPhone'] : '';
+$State = isset($row['State']) ? $row['State'] : '';
+$ProfilePicture = isset($row['ProfilePicture']) ? $row['ProfilePicture'] : '';
 
 // Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {
@@ -83,29 +87,24 @@ if (empty($ProfilePicture)) {
                     <div class="card-body pt-0">
                       <table class="table table-bordered">
                         <tr>
-                          <th width="30%">Room Type</th>
+                          <th width="30%">Gender</th>
                           <td width="2%">:</td>
-                          <td>Deluxe King</td>
+                          <td><?php echo $Gender; ?></td>
                         </tr>
                         <tr>
-                          <th width="30%">Room Number</th>
+                          <th width="30%">Race</th>
                           <td width="2%">:</td>
-                          <td>202</td>
+                          <td><?php echo $Race; ?></td>
+                        </tr>
+						            <tr>
+                          <th width="30%">No Phone</th>
+                          <td width="2%">:</td>
+                          <td><?php echo $NoPhone; ?></td>
                         </tr>
                         <tr>
-                          <th width="30%">Duration</th>
+                          <th width="30%">State</th>
                           <td width="2%">:</td>
-                          <td>3 Days 2 Night</td>
-                        </tr>
-                        <tr>
-                          <th width="30%">Add On</th>
-                          <td width="2%">:</td>
-                          <td>Breakfast x 2</td>
-                        </tr>
-                        <tr>
-                          <th width="30%">Services</th>
-                          <td width="2%">:</td>
-                          <td>Room Cleaning and Spa</td>
+                          <td><?php echo $State; ?></td>
                         </tr>
                       </table>
                     </div>

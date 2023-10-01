@@ -170,6 +170,8 @@ function getfacilityPrice($conn, $facilityType)
               </p>
               <?php if ($facilityAvailabilityDisplay === "Facility is available.") { ?>
                 <a href="">Book facility</a>
+              <?php } else { ?>
+                <button disabled>Facility Not Available</button>
               <?php } ?>
             </div>
           </div>
@@ -207,9 +209,11 @@ function getfacilityPrice($conn, $facilityType)
 
                 Facility availability:
                 <?php echo $facilityAvailabilityDisplay; ?>
-                </ p>
+              </p>
                 <?php if ($facilityAvailabilityDisplay === "Facility is available.") { ?>
                   <a href="">Book facility</a>
+                <?php } else { ?>
+                  <button disabled>Facility Not Available</button>
                 <?php } ?>
             </div>
           </div>
@@ -249,6 +253,8 @@ function getfacilityPrice($conn, $facilityType)
               </p>
               <?php if ($facilityAvailabilityDisplay === "Facility is available.") { ?>
                 <a href="">Book facility</a>
+              <?php } else { ?>
+                <button disabled>Facility Not Available</button>
               <?php } ?>
             </div>
           </div>
