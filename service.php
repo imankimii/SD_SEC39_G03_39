@@ -152,7 +152,7 @@
             </p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-4">
           <h4>
             Contact Us
           </h4>
@@ -160,7 +160,7 @@
             <a href="">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               <span>
-                Location
+                No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan, Wilayah Persekutuan Kuala Lumpur
               </span>
             </a>
             <a href="">
@@ -173,6 +173,12 @@
               <i class="fa fa-envelope"></i>
               <span>
                 HotelSDamansara@gmail.com
+              </span>
+            </a>
+			<a href="">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <span>
+                Operation time (24 Hours)
               </span>
             </a>
           </div>

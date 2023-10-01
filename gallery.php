@@ -83,7 +83,7 @@
         <div class=" col-sm-6 col-md-4 px-0">
           <div class="img-box">
             <img src="images/g1.jpg" alt="">
-            <a href="images/g1.jpg" data-toggle="lightbox" data-gallery="gallery">
+            <a href="images/g1.jpg" data-toggle="lightbox" data-title="Birthday Party" data-gallery="gallery">
               <i class="fa fa-picture-o" aria-hidden="true"></i>
             </a>
           </div>
@@ -91,7 +91,7 @@
         <div class="col-sm-6 col-md-4 px-0">
           <div class="img-box">
             <img src="images/g2.jpg" alt="">
-            <a href="images/g2.jpg" data-toggle="lightbox" data-gallery="gallery">
+            <a href="images/g2.jpg" data-toggle="lightbox" data-title="Reunion" data-gallery="gallery">
               <i class="fa fa-picture-o" aria-hidden="true"></i>
             </a>
           </div>
@@ -99,7 +99,7 @@
         <div class="col-sm-6 col-md-4 px-0">
           <div class="img-box">
             <img src="images/g3.jpg" alt="">
-            <a href="images/g3.jpg" data-toggle="lightbox" data-gallery="gallery">
+            <a href="images/g3.jpg" data-toggle="lightbox" data-title="Wedding" data-gallery="gallery">
               <i class="fa fa-picture-o" aria-hidden="true"></i>
             </a>
           </div>
@@ -107,7 +107,7 @@
         <div class="col-sm-6 col-md-4 px-0">
           <div class="img-box">
             <img src="images/g4.jpg" alt="">
-            <a href="images/g4.jpg" data-toggle="lightbox" data-gallery="gallery">
+            <a href="images/g4.jpg" data-toggle="lightbox" data-title="Wedding" data-gallery="gallery">
               <i class="fa fa-picture-o" aria-hidden="true"></i>
             </a>
           </div>
@@ -115,7 +115,7 @@
         <div class="col-sm-6 col-md-4 px-0">
           <div class="img-box">
             <img src="images/g5.jpg" alt="">
-            <a href="images/g5.jpg" data-toggle="lightbox" data-gallery="gallery">
+            <a href="images/g5.jpg" data-toggle="lightbox" data-title="Conference" data-gallery="gallery">
               <i class="fa fa-picture-o" aria-hidden="true"></i>
             </a>
           </div>
@@ -123,7 +123,7 @@
         <div class="col-sm-6 col-md-4 px-0">
           <div class="img-box">
             <img src="images/g6.jpg" alt="">
-            <a href="images/g6.jpg" data-toggle="lightbox" data-gallery="gallery">
+            <a href="images/g6.jpg" data-toggle="lightbox" data-title="Seminar" data-gallery="gallery">
               <i class="fa fa-picture-o" aria-hidden="true"></i>
             </a>
           </div>
@@ -154,7 +154,7 @@
             </p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-4">
           <h4>
             Contact Us
           </h4>
@@ -162,7 +162,7 @@
             <a href="">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               <span>
-                Location
+                No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan, Wilayah Persekutuan Kuala Lumpur
               </span>
             </a>
             <a href="">
@@ -175,6 +175,12 @@
               <i class="fa fa-envelope"></i>
               <span>
                 HotelSDamansara@gmail.com
+              </span>
+            </a>
+			<a href="">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <span>
+                Operation time (24 Hours)
               </span>
             </a>
           </div>
