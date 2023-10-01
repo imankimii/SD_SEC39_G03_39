@@ -7,7 +7,7 @@ if (!isset($_SESSION['AdminEmail'])) {
 require_once "database_connection.php";
 
 // SQL query to retrieve customer information (assuming the table name is 'customer')
-$sql = "SELECT CustName, CustEmail FROM customer";
+$sql = "SELECT * FROM customer";
 $result = mysqli_query($conn, $sql);
 
 // Check for query errors
@@ -157,6 +157,20 @@ $AdminEmail = $rowAdmin['AdminEmail'];
                                 <span class="hide-menu">Staff Table</span>
                             </a>
                         </li>
+						<!-- Staff Room Link -->
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Room</span>
+							</a>
+						</li>
+						<!-- Staff Facilities Link -->
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Facilities</span>
+							</a>
+						</li>
 						<!-- Log Out Link -->
 						<li class="sidebar-item">
 							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">
@@ -217,16 +231,27 @@ $AdminEmail = $rowAdmin['AdminEmail'];
 											<th class="border-top-0">#</th>
 											<th class="border-top-0">Customer Name</th>
 											<th class="border-top-0">Customer Email</th>
+											<th class="border-top-0">Gender</th>
+											<th class="border-top-0">Race</th>
+											<th class="border-top-0">No Phone</th>
+											<th class="border-top-0">State</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
 										$rowNumber = 1;
 										while ($row = mysqli_fetch_assoc($result)) {
+											$id = $row['CustEmail'];
 											echo "<tr>";
 											echo "<td>" . $rowNumber++ . "</td>";
 											echo "<td>" . $row['CustName'] . "</td>";
 											echo "<td>" . $row['CustEmail'] . "</td>";
+											echo "<td>" . $row['Gender'] . "</td>";
+											echo "<td>" . $row['Race'] . "</td>";
+											echo "<td>" . $row['NoPhone'] . "</td>";
+											echo "<td>" . $row['State'] . "</td>";
+											echo "<td colspan='8'><button class='EditModalBtn' data-id='$id' data-name='{$row['CustName']}' data-email='{$row['CustEmail']}' data-gender='{$row['Gender']}' data-race='{$row['Race']}' data-noPhone='{$row['NoPhone']}' data-state='{$row['State']}'>EDIT</button></td>";
+											echo "<td colspan='8'><button class='deleteButton' data-id='$id'>DELETE</button></td>";
 											echo "</tr>";
 										}
 										?>
@@ -255,6 +280,53 @@ $AdminEmail = $rowAdmin['AdminEmail'];
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
     </div>
+	<!-- ============================================================== -->
+        <!-- EDIT CUSTOMER MODAL -->
+        <!-- ============================================================== -->
+	<div id="myModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtn" class="close">&times;</span>
+            <div class="col-lg-8">
+                  <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD STAFF</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                      <form method="post" action="EditfunctionCustomer.php">
+                        <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" id="name" name="name" class="form-control" value="<?php echo $CustName; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="email" id="email" name="email" class="form-control" value="<?php echo $CustEmail; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="gender">Gender</label>
+                          <input type="text" id="gender" name="gender" class="form-control" value="<?php echo $Gender; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="race">Race</label>
+                          <input type="text" id="race" name="race" class="form-control" value="<?php echo $Race; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="noPhone">No. Phone</label>
+                          <input type="text" id="noPhone" name="noPhone" class="form-control" value="<?php echo $NoPhone; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="state">State</label>
+                          <input type="text" id="state" name="state" class="form-control" value="<?php echo $State; ?>">
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" name="edit_customer" class="btn btn-primary">EDIT CUSTOMER</button>
+                        </div>
+                      </table>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+        </div>
+    </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -272,6 +344,76 @@ $AdminEmail = $rowAdmin['AdminEmail'];
     <!--Custom JavaScript -->
     <script src="js2/custom.js"></script>
 	
+	<script>
+	// Select all elements with the class "EditModalBtn"
+	const editButtons = document.querySelectorAll(".EditModalBtn");
+	const modal = document.getElementById("myModal");
+	const closeModalBtn = document.getElementById("closeModalBtn");
+	const nameInput = document.getElementById("name");
+	const emailInput = document.getElementById("email");
+	const genderInput = document.getElementById("gender");
+	const raceInput = document.getElementById("race");
+	const noPhoneInput = document.getElementById("noPhone");
+	const stateInput = document.getElementById("state");
+
+	// Function to open the modal and populate it with data
+	function openModal(id, name, email, gender, race, noPhone, state) {
+		// Populate the modal inputs with the retrieved data
+		nameInput.value = name;
+		emailInput.value = email;
+		genderInput.value = gender;
+		raceInput.value = race;
+		noPhoneInput.value = noPhone;
+		stateInput.value = state;
+
+		// Show the modal
+		modal.style.display = "block";
+	}
+
+	// Add a click event listener to each edit button
+	editButtons.forEach(function (button) {
+		button.addEventListener("click", function () {
+			const id = button.getAttribute("data-id");
+			const name = button.getAttribute("data-name");
+			const email = button.getAttribute("data-email");
+			const gender = button.getAttribute("data-gender");
+			const race = button.getAttribute("data-race");
+			const noPhone = button.getAttribute("data-noPhone");
+			const state = button.getAttribute("data-state");
+			openModal(id, name, email, gender, race, noPhone, state);
+		});
+	});
+
+	// Close the modal when the close button is clicked
+	closeModalBtn.addEventListener("click", function () {
+		modal.style.display = "none";
+	});
+
+	// Close the modal if the user clicks anywhere outside of it
+	window.addEventListener("click", function (event) {
+		if (event.target === modal) {
+			modal.style.display = "none";
+		}
+	});
+	</script>
+	<script>
+    // Select all elements with the class "deleteButton"
+	const deleteButtons = document.querySelectorAll(".deleteButton");
+
+	// Function to handle DELETE button click event
+	function handleDeleteButtonClick(event) {
+		// Retrieve the data-id attribute value (which is the customer ID)
+		const id = event.target.getAttribute("data-id");
+
+		// Redirect to the deletion script (DeletefunctionStaff.php)
+		window.location.href = 'DeletefunctionCustomer.php?id=' + id;
+	}
+
+	// Add a click event listener to each DELETE button
+	deleteButtons.forEach(function (button) {
+		button.addEventListener("click", handleDeleteButtonClick);
+	});
+	</script>
 	<?php
     // Close the database connection
     mysqli_close($conn);

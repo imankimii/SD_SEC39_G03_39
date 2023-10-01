@@ -48,7 +48,7 @@ if (empty($ProfilePicture)) {
       <h1>Admin Profile Page</h1>
       <nav>
         <a href="dashboardAdmin.php" class="menu_item">Dashboard</a>
-        <a href="editprofilePage.php" class="menu_item">Edit Profile</a>
+        <a href="editprofilePageAdmin.php" class="menu_item">Edit Profile</a>
       </nav>
     </div>
   </div>
