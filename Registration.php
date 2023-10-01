@@ -38,11 +38,9 @@
                         
                         <!-- Password -->
                         <div class="form-group">
-                            <input type="text" class="form-input" name="password" id="password" placeholder="Password" required/>
+                            <input type="password" class="form-input" name="password" id="password" placeholder="Password" required/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-                            <?php if (isset($_GET['password'])): ?>
-                                <p class="error-message"></p>
-                            <?php endif; ?>
+                            <p class="error-message" id="password-error"></p>
                         </div>
 
                         <!-- RePassword -->
@@ -93,9 +91,32 @@
         }
     }
 
-    // Add an event listener to the Name input field for validation
+    // Function to validate the Password field
+    function validatePassword() {
+        var passwordInput = document.getElementById("password");
+        var passwordError = document.getElementById("password-error");
+        var minLength = 6; // Minimum password length
+        var maxLength = 20; // Maximum password length
+        var submitButton = document.getElementById("submit"); // Select the submit button
+
+        if (passwordInput.value.length < minLength || passwordInput.value.length > maxLength) {
+            passwordError.textContent = "Password must be between " + minLength + " and " + maxLength + " characters.";
+            passwordError.style.color = "red"; // Set the text color to red
+            passwordInput.classList.add("input-error");
+            submitButton.disabled = true; // Disable the submit button
+        } else {
+            passwordError.textContent = ""; // Clear the error message
+            passwordInput.classList.remove("input-error");
+            submitButton.disabled = false; // Enable the submit button
+        }
+    }
+
+    // Add event listeners for validation
     var nameInput = document.getElementById("CustName");
+    var passwordInput = document.getElementById("password");
+
     nameInput.addEventListener("blur", validateName);
+    passwordInput.addEventListener("input", validatePassword);
 </script>
 </body>
 </html>
