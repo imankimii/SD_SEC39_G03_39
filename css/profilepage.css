@@ -1,9 +1,9 @@
 /* profilePage CSS */
 #profilepage {
-    background: #6774b2;
+    background: #8b67b2;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #edd3d1, #1b2c75);
-    background: linear-gradient(to right, #edd3d1, #3f1575);
+    background: -webkit-linear-gradient(to right,#3f1575, #edd3d1);
+    background: linear-gradient(to right,#3f1575, #edd3d1);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     padding: 0;
     margin: 0;

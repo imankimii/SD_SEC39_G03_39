@@ -89,6 +89,41 @@ if (isset($_POST['update_profile'])) {
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
   <!-- Main CSS -->
   <link rel="stylesheet" href="css/profilepage.css"><!--css/profilepage.css-->
+  <style>
+    /* CSS for the navigation bar */
+    nav {
+      background-color: tran; /* Background color */
+      padding: 10px 0; /* Add some padding to top and bottom */
+      text-align: center;
+      width: 100%; /* Set width to 100% to span the entire width of the parent container */
+    }
+
+    nav a {
+      color: white; /* Text color for the links */
+      text-decoration: none; /* Remove underlines from the links */
+      padding: 10px 20px; /* Add padding to the links (adjust as needed) */
+      margin-right: 5px; /* Reduce the margin between the links (adjust as needed) */
+      border-radius: 5px; /* Add rounded corners to the links */
+      transition: background-color 0.3s ease; /* Smooth background color transition on hover */
+      background-color: rgba(128, 0, 128, 0.5); /* Transparent purple color */
+    }
+
+    /* Style the navigation links on hover */
+    nav a:hover {
+      background-color: #B65FCF; /* Background color on hover */
+    }
+    .menu_item {
+      text-decoration: none;
+      color: #fff; /* Text color */
+      font-size: 18px;
+      margin: 0 10px; /* Add some spacing between menu items (adjust as needed) */
+      transition: color 0.3s; /* Smooth color transition on hover */
+    }
+
+    .menu_item:hover {
+      color: #290916; /* Change color on hover */
+    }
+  </style>
 </head>
 
 <body id="profilepage">
@@ -97,7 +132,6 @@ if (isset($_POST['update_profile'])) {
             <div class=" rt-heading">
       <h1>Profile Page</h1>
       <nav>
-        <a href="" class="menu_item">Booking History</a>
         <a href="profilePage.php" class="menu_item">View Profile</a>
       </nav>
     </div>
