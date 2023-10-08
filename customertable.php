@@ -123,45 +123,50 @@ $AdminEmail = $rowAdmin['AdminEmail'];
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php"
-                                aria-expanded="false">
-                                <i class="far fa-clock" aria-hidden="true"></i>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php" aria-expanded="false">
+                            <i class="far fa-clock" aria-hidden="true"></i>
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
+						</li>
+						<!-- View Homepage Link -->
 						<li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
-                                aria-expanded="false">
-                                <i class="fa fa-home" aria-hidden="true"></i>
-                                <span class="hide-menu">View Homepage</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileAdmin.php"
-                                aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="hide-menu">Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertable.php"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Customer Table</span>
-                            </a>
-                        </li>
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
+								<i class="fa fa-home" aria-hidden="true"></i>
+								<span class="hide-menu">View Homepage</span>
+							</a>
+						</li>
+						<!-- Profile Link -->
 						<li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftable.php"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Staff Table</span>
-                            </a>
-                        </li>
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileAdmin.php" aria-expanded="false">
+								<i class="fa fa-user" aria-hidden="true"></i>
+								<span class="hide-menu">Profile</span>
+							</a>
+						</li>
+						<!-- Customer Table Link -->
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertable.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Customer Table</span>
+							</a>
+						</li>
+						<!-- Staff Table Link -->
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftable.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Staff Table</span>
+							</a>
+						</li>
 						<!-- Staff Room Link -->
 						<li class="sidebar-item">
 							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php" aria-expanded="false">
 								<i class="fa fa-table" aria-hidden="true"></i>
 								<span class="hide-menu">Room</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Edit Room</span>
 							</a>
 						</li>
 						<!-- Staff Facilities Link -->
@@ -172,11 +177,11 @@ $AdminEmail = $rowAdmin['AdminEmail'];
 							</a>
 						</li>
 						<li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Edit Room</span>
-                        </a>
-                    </li>
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilityEdit.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Edit Facilities</span>
+							</a>
+						</li>
 						<!-- Log Out Link -->
 						<li class="sidebar-item">
 							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">

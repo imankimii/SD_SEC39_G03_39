@@ -6,7 +6,7 @@ if (!isset($_SESSION['StaffEmail'])) {
 }
 require_once "database_connection.php";
 
-$sql = "SELECT * FROM room"; // Assuming "room" is the table name
+$sql = "SELECT * FROM facilities"; // Assuming "facilities" is the table name
 $result = mysqli_query($conn, $sql);
 
 // Check for query errors
@@ -31,22 +31,22 @@ $StaffEmail = $rowStaff['StaffEmail'];
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard template, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
     <meta name="description"
-        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inspired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Hotel S Damansara Dashboard</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <!-- Custom CSS -->
-   <link href="dashcss/style.min.css" rel="stylesheet">
+    <link href="dashcss/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <![endif]-->
 </head>
 
 <body>
@@ -70,7 +70,6 @@ $StaffEmail = $rowStaff['StaffEmail'];
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
@@ -91,7 +90,6 @@ $StaffEmail = $rowStaff['StaffEmail'];
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
@@ -99,7 +97,7 @@ $StaffEmail = $rowStaff['StaffEmail'];
                             <a class="profile-pic" href="#">
                                 <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
                                     class="img-circle">
-									<span class="text-white font-medium"><?php echo $StaffName; ?></span></a>
+                                <span class="text-white font-medium"><?php echo $StaffName; ?></span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -190,7 +188,6 @@ $StaffEmail = $rowStaff['StaffEmail'];
                         </a>
                     </li>
                     </ul>
-
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -209,7 +206,7 @@ $StaffEmail = $rowStaff['StaffEmail'];
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Staff Table</h4>
+                        <h4 class="page-title">Facilities Table</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
@@ -232,54 +229,48 @@ $StaffEmail = $rowStaff['StaffEmail'];
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-					<div class="col-sm-12">
-						<div class="white-box">
-							<h3 class="box-title">Room Table</h3>
-							<div class="table-responsive">
-								<table class="table table-striped table-bordered">
-									<thead>
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Facilities Table</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
 										<tr>
-											<tr>
-												<th>Room Type</th>
-												<th>Room Number</th>
-												<th>Room Price</th>
-												<th>Room Quantity</th>
-												<th>Room Available</th>
-												<th>Room Description</th>
-												<th>Action</th>
-											</tr>
+											<th>Facility Type</th>
+											<th>Facility Price</th>
+											<th>Facility Available</th>
+											<th>Facility Description</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
 										$rowNumber = 1;
 										while ($row = mysqli_fetch_assoc($result)) {
-											$roomType = $row['roomType'];
+											$facilityType = $row['facilityType'];
 											echo "<tr>";
-											echo "<td>" . $roomType . "</td>";
-											echo "<td>" . $row['roomNum'] . "</td>";
-											echo "<td>" . $row['roomPrice'] . "</td>";
-											echo "<td>" . $row['roomQuantity'] . "</td>";
-											echo "<td>" . $row['roomAvailable'] . "</td>";
-											echo "<td>" . $row['roomDescription'] . "</td>";
-											echo "<td><button class='btn btn-primary EditModalBtn' data-roomType='$roomType' data-roomNum='{$row['roomNum']}' data-roomPrice='{$row['roomPrice']}' data-roomQuantity='{$row['roomQuantity']}' data-roomAvailable='{$row['roomAvailable']}' data-roomImage='{$row['roomImage']}' data-roomDescription='{$row['roomDescription']}'>EDIT</button></td>";
-											echo "<td><button class='btn btn-danger deleteButton' data-roomType='$roomType'>DELETE</button></td>";
+											echo "<td>" . $facilityType . "</td>";
+											echo "<td>" . $row['facilityPrice'] . "</td>";
+											echo "<td>" . $row['facilityAvailable'] . "</td>";
+											echo "<td>" . $row['facilityDescription'] . "</td>";
+											echo "<td><button class='btn btn-primary EditModalBtn' data-facilityType='$facilityType' data-facilityPrice='{$row['facilityPrice']}' data-facilityAvailable='{$row['facilityAvailable']}' data-facilityDescription='{$row['facilityDescription']}'>EDIT</button></td>";
+											echo "<td><button class='btn btn-danger deleteButton' data-facilityType='$facilityType'>DELETE</button></td>";
 											echo "</tr>";
 										}
 										?>
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="8"><button id="AddModalBtn" class='btn btn-success'>ADD</button></td>
+											<td colspan="6"><button id="AddModalBtn" class='btn btn-success'>ADD</button></td>
 										</tr>
 									</tfoot>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- Right sidebar -->
@@ -297,95 +288,84 @@ $StaffEmail = $rowStaff['StaffEmail'];
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
     </div>
-	<!-- EDIT ROOM MODAL -->
-	<div id="myModalRoom" class="modal">
-		<div class="modal-content">
-			<span id="closeModalBtnRoom" class="close">&times;</span>
-			<div class="col-lg-8">
-				<div class="card shadow-sm">
-					<div class="card-header bg-transparent border-0">
-						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT ROOM</h3>
-					</div>
-					<div class="card-body pt-0">
-						<form method="post" action="EditfunctionRoomS.php">
+    <!-- ============================================================== -->
+    <!-- EDIT FACILITY MODAL -->
+    <div id="myModalFacility" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtnFacility" class="close">&times;</span>
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT FACILITY</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                        <form method="post" action="EditfunctionFacilityS.php">
+                            <div class="form-group">
+                                <label for="facilityType">Facility Type</label>
+                                <input type="text" id="facilityType" name="facilityType" class="form-control"
+                                    readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="facilityPrice">Facility Price</label>
+                                <input type="text" id="facilityPrice" name="facilityPrice" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="facilityAvailable">Facility Available</label>
+                                <input type="text" id="facilityAvailable" name="facilityAvailable"
+                                    class="form-control">
+                            </div>
 							<div class="form-group">
-								<label for="roomType">Room Type</label>
-								<input type="text" id="roomType" name="roomType" class="form-control" readonly>
+								<label for="facilityDescription">Facility Description</label>
+								<textarea id="facilityDescription" name="facilityDescription" class="form-control"><?php echo $facilityDescription; ?></textarea>
 							</div>
-							<div class="form-group">
-								<label for="roomNum">Room Number</label>
-								<input type="text" id="roomNum" name="roomNum" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomPrice">Room Price</label>
-								<input type="text" id="roomPrice" name="roomPrice" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomQuantity">Room Quantity</label>
-								<input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomAvailable">Room Available</label>
-								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomDescription">Room Description</label>
-								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
-							</div>
-							<div class="form-group">
-								<button type="submit" name="edit_room" class="btn btn-primary">EDIT ROOM</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <div class="form-group">
+                                <button type="submit" name="edit_facility" class="btn btn-primary">EDIT FACILITY</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- ADD ROOM MODAL -->
-	<div id="myModalAddRoom" class="modal">
-		<div class="modal-content">
-			<span id="closeModalBtnAddRoom" class="close">&times;</span>
-			<div class="col-lg-8">
-				<div class="card shadow-sm">
-					<div class="card-header bg-transparent border-0">
-						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD ROOM</h3>
-					</div>
-					<div class="card-body pt-0">
-						<form method="post" action="AddfunctionRoomS.php">
-							<div class="form-group">
-								<label for="roomTypeAdd">Room Type</label>
-								<input type="text" id="roomType" name="roomType" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomNumAdd">Room Number</label>
-								<input type="text" id="roomNum" name="roomNum" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomPriceAdd">Room Price</label>
-								<input type="text" id="roomPrice" name="roomPrice" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomQuantityAdd">Room Quantity</label>
-								<input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomAvailableAdd">Room Available</label>
-								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomDescriptionAdd">Room Description</label>
-								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
-							</div>
-							<div class="form-group">
-								<button type="submit" name="add_room" class="btn btn-primary">ADD ROOM</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- ADD FACILITY MODAL -->
+    <div id="myModalAddFacility" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtnAddFacility" class="close">&times;</span>
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD FACILITY</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                        <form method="post" action="AddfunctionFacilityS.php">
+                            <div class="form-group">
+                                <label for="facilityTypeAdd">Facility Type</label>
+                                <input type="text" id="facilityType" name="facilityType" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="facilityPriceAdd">Facility Price</label>
+                                <input type="text" id="facilityPrice" name="facilityPrice" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="facilityAvailableAdd">Facility Available</label>
+                                <input type="text" id="facilityAvailable" name="facilityAvailable"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="facilityDescriptionAdd">Facility Description</label>
+                                <textarea id="facilityDescription" name="facilityDescription"
+                                    class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="add_facility" class="btn btn-primary">ADD FACILITY</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -402,89 +382,85 @@ $StaffEmail = $rowStaff['StaffEmail'];
     <script src="js2/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js2/custom.js"></script>
-	
-	<script>
-    // Select all elements with the class "EditModalBtn"
-    const editRoomButtons = document.querySelectorAll(".EditModalBtn");
-    const modalRoom = document.getElementById("myModalRoom");
-    const closeModalBtnRoom = document.getElementById("closeModalBtnRoom");
-    const roomTypeInput = document.getElementById("roomType");
-    const roomNumInput = document.getElementById("roomNum");
-    const roomPriceInput = document.getElementById("roomPrice");
-    const roomQuantityInput = document.getElementById("roomQuantity");
-    const roomAvailableInput = document.getElementById("roomAvailable");
-    const roomDescriptionInput = document.getElementById("roomDescription");
 
-    // Function to open the modal and populate it with data
-    function openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomDescription) {
-        // Populate the modal inputs with the retrieved data
-        roomTypeInput.value = roomType;
-        roomNumInput.value = roomNum;
-        roomPriceInput.value = roomPrice;
-        roomQuantityInput.value = roomQuantity;
-        roomAvailableInput.value = roomAvailable;
-        roomDescriptionInput.value = roomDescription;
+    <script>
+        // Select all elements with the class "EditModalBtn"
+        const editFacilityButtons = document.querySelectorAll(".EditModalBtn");
+        const modalFacility = document.getElementById("myModalFacility");
+        const closeModalBtnFacility = document.getElementById("closeModalBtnFacility");
+        const facilityTypeInput = document.getElementById("facilityType");
+        const facilityPriceInput = document.getElementById("facilityPrice");
+        const facilityAvailableInput = document.getElementById("facilityAvailable");
+        const facilityDescriptionInput = document.getElementById("facilityDescription");
 
-        // Show the modal
-        modalRoom.style.display = "block";
-    }
+        // Function to open the modal and populate it with data
+		function openFacilityModal(facilityType, facilityPrice, facilityAvailable, facilityImage, facilityDescription) {
+			// Populate the modal inputs with the retrieved data
+			facilityTypeInput.value = facilityType;
+			facilityPriceInput.value = facilityPrice;
+			facilityAvailableInput.value = facilityAvailable;
+			facilityDescriptionInput.value = facilityDescription; // Use .value here
 
-    // Add a click event listener to each edit button
-    editRoomButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            const roomType = button.getAttribute("data-roomType");
-            const roomNum = button.getAttribute("data-roomNum");
-            const roomPrice = button.getAttribute("data-roomPrice");
-            const roomQuantity = button.getAttribute("data-roomQuantity");
-            const roomAvailable = button.getAttribute("data-roomAvailable");
-            const roomDescription = button.getAttribute("data-roomDescription");
-            openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomDescription);
+			// Show the modal
+			modalFacility.style.display = "block";
+		}
+
+
+        // Add a click event listener to each edit button
+        editFacilityButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const facilityType = button.getAttribute("data-facilityType");
+                const facilityPrice = button.getAttribute("data-facilityPrice");
+                const facilityAvailable = button.getAttribute("data-facilityAvailable");
+                const facilityImage = button.getAttribute("data-facilityImage");
+                const facilityDescription = button.getAttribute("data-facilityDescription");
+                openFacilityModal(facilityType, facilityPrice, facilityAvailable, facilityImage, facilityDescription);
+            });
         });
-    });
 
-    // Close the room modal when the close button is clicked
-    closeModalBtnRoom.addEventListener("click", function () {
-        modalRoom.style.display = "none";
-    });
+        // Close the facility modal when the close button is clicked
+        closeModalBtnFacility.addEventListener("click", function () {
+            modalFacility.style.display = "none";
+        });
 
-    // Close the room modal if the user clicks anywhere outside of it
-    window.addEventListener("click", function (event) {
-        if (event.target === modalRoom) {
-            modalRoom.style.display = "none";
+        // Close the facility modal if the user clicks anywhere outside of it
+        window.addEventListener("click", function (event) {
+            if (event.target === modalFacility) {
+                modalFacility.style.display = "none";
+            }
+        });
+
+        // Handling ADD FACILITY modal
+        document.getElementById("AddModalBtn").addEventListener("click", function () {
+            document.getElementById("myModalAddFacility").style.display = "block";
+        });
+
+        document.getElementById("closeModalBtnAddFacility").addEventListener("click", function () {
+            document.getElementById("myModalAddFacility").style.display = "none";
+        });
+
+        // Close the ADD FACILITY modal if the user clicks anywhere outside of it
+        window.addEventListener("click", function (event) {
+            const modal = document.getElementById("myModalAddFacility");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Handling DELETE FACILITY button
+        const deleteFacilityButtons = document.querySelectorAll(".deleteButton");
+
+        function handleDeleteFacilityButtonClick(event) {
+            const facilityType = event.target.getAttribute("data-facilityType");
+            // Redirect to the deletion script (DeletefunctionFacility.php)
+            window.location.href = 'DeletefunctionFacilityS.php?facilityType=' + facilityType;
         }
-    });
 
-    // Handling ADD ROOM modal
-    document.getElementById("AddModalBtn").addEventListener("click", function () {
-        document.getElementById("myModalAddRoom").style.display = "block";
-    });
-
-    document.getElementById("closeModalBtnAddRoom").addEventListener("click", function () {
-        document.getElementById("myModalAddRoom").style.display = "none";
-    });
-
-    // Close the ADD ROOM modal if the user clicks anywhere outside of it
-    window.addEventListener("click", function (event) {
-        const modal = document.getElementById("myModalAddRoom");
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // Handling DELETE ROOM button
-    const deleteRoomButtons = document.querySelectorAll(".deleteButton");
-
-    function handleDeleteRoomButtonClick(event) {
-        const roomType = event.target.getAttribute("data-roomType");
-        // Redirect to the deletion script (DeletefunctionRoom.php)
-        window.location.href = 'DeletefunctionRoomS.php?roomType=' + roomType;
-    }
-
-    deleteRoomButtons.forEach(function (button) {
-        button.addEventListener("click", handleDeleteRoomButtonClick);
-    });
-	</script>
-	<?php
+        deleteFacilityButtons.forEach(function (button) {
+            button.addEventListener("click", handleDeleteFacilityButtonClick);
+        });
+    </script>
+    <?php
     // Close the database connection
     mysqli_close($conn);
     ?>
