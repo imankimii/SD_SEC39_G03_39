@@ -1,12 +1,12 @@
 <?php
 session_start();
 if (!isset($_SESSION['StaffEmail'])) {
-  header('Location: LogIn.php');
-  exit();
+    header('Location: LogIn.php');
+    exit();
 }
 require_once "database_connection.php";
 
-$sql = "SELECT * FROM staff";
+$sql = "SELECT * FROM room"; // Assuming "room" is the table name
 $result = mysqli_query($conn, $sql);
 
 // Check for query errors
@@ -122,40 +122,39 @@ $StaffEmail = $rowStaff['StaffEmail'];
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardStaff.php"
-                                aria-expanded="false">
-                                <i class="far fa-clock" aria-hidden="true"></i>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardStaff.php" aria-expanded="false">
+                            <i class="far fa-clock" aria-hidden="true"></i>
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
+						</li>
+						<!-- View Homepage Link -->
 						<li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
-                                aria-expanded="false">
-                                <i class="fa fa-home" aria-hidden="true"></i>
-                                <span class="hide-menu">View Homepage</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileStaff.php"
-                                aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="hide-menu">Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertableS.php"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Customer Table</span>
-                            </a>
-                        </li>
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
+								<i class="fa fa-home" aria-hidden="true"></i>
+								<span class="hide-menu">View Homepage</span>
+							</a>
+						</li>
+						<!-- Profile Link -->
 						<li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftableS.php"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Staff Table</span>
-                            </a>
-                        </li>
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileStaff.php" aria-expanded="false">
+								<i class="fa fa-user" aria-hidden="true"></i>
+								<span class="hide-menu">Profile</span>
+							</a>
+						</li>
+						<!-- Customer Table Link -->
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertableS.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Customer Table</span>
+							</a>
+						</li>
+						<!-- Staff Table Link -->
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftableS.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Staff Table</span>
+							</a>
+						</li>
 						<!-- Staff Room Link -->
 						<li class="sidebar-item">
 							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php" aria-expanded="false">
@@ -171,10 +170,10 @@ $StaffEmail = $rowStaff['StaffEmail'];
 							</a>
 						</li>
 						<li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEditS.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Edit Room</span>
-                        </a>
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEditS.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Edit Room</span>
+							</a>
 						</li>
 						<!-- Log Out Link -->
 						<li class="sidebar-item">
@@ -203,7 +202,7 @@ $StaffEmail = $rowStaff['StaffEmail'];
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Customer Table</h4>
+                        <h4 class="page-title">Staff Table</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
@@ -226,43 +225,52 @@ $StaffEmail = $rowStaff['StaffEmail'];
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Customer Table</h3>
-                            <div class="table-responsive">
-								<table class="table text-nowrap">
+					<div class="col-sm-12">
+						<div class="white-box">
+							<h3 class="box-title">Room Table</h3>
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered">
 									<thead>
 										<tr>
-											<th class="border-top-0">Staff ID</th>
-											<th class="border-top-0">Staff Name</th>
-											<th class="border-top-0">Staff Email</th>
-											<th class="border-top-0">Gender</th>
-											<th class="border-top-0">Race</th>
-											<th class="border-top-0">No Phone</th>
-											<th class="border-top-0">State</th>
+											<tr>
+												<th>Room Type</th>
+												<th>Room Number</th>
+												<th>Room Price</th>
+												<th>Room Quantity</th>
+												<th>Room Available</th>
+												<th>Room Description</th>
+												<th>Action</th>
+											</tr>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
 										$rowNumber = 1;
 										while ($row = mysqli_fetch_assoc($result)) {
+											$roomType = $row['roomType'];
 											echo "<tr>";
-											echo "<td>" . $row['StaffID'] . "</td>";
-											echo "<td>" . $row['StaffName'] . "</td>";
-											echo "<td>" . $row['StaffEmail'] . "</td>";
-											echo "<td>" . $row['Gender'] . "</td>";
-											echo "<td>" . $row['Race'] . "</td>";
-											echo "<td>" . $row['NoPhone'] . "</td>";
-											echo "<td>" . $row['State'] . "</td>";
+											echo "<td>" . $roomType . "</td>";
+											echo "<td>" . $row['roomNum'] . "</td>";
+											echo "<td>" . $row['roomPrice'] . "</td>";
+											echo "<td>" . $row['roomQuantity'] . "</td>";
+											echo "<td>" . $row['roomAvailable'] . "</td>";
+											echo "<td>" . $row['roomDescription'] . "</td>";
+											echo "<td><button class='btn btn-primary EditModalBtn' data-roomType='$roomType' data-roomNum='{$row['roomNum']}' data-roomPrice='{$row['roomPrice']}' data-roomQuantity='{$row['roomQuantity']}' data-roomAvailable='{$row['roomAvailable']}' data-roomImage='{$row['roomImage']}' data-roomDescription='{$row['roomDescription']}'>EDIT</button></td>";
+											echo "<td><button class='btn btn-danger deleteButton' data-roomType='$roomType'>DELETE</button></td>";
 											echo "</tr>";
 										}
 										?>
 									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="8"><button id="AddModalBtn" class='btn btn-success'>ADD</button></td>
+										</tr>
+									</tfoot>
 								</table>
 							</div>
-                        </div>
-                    </div>
-                </div>
+						</div>
+					</div>
+				</div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -282,6 +290,95 @@ $StaffEmail = $rowStaff['StaffEmail'];
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
     </div>
+	<!-- EDIT ROOM MODAL -->
+	<div id="myModalRoom" class="modal">
+		<div class="modal-content">
+			<span id="closeModalBtnRoom" class="close">&times;</span>
+			<div class="col-lg-8">
+				<div class="card shadow-sm">
+					<div class="card-header bg-transparent border-0">
+						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT ROOM</h3>
+					</div>
+					<div class="card-body pt-0">
+						<form method="post" action="EditfunctionRoomS.php">
+							<div class="form-group">
+								<label for="roomType">Room Type</label>
+								<input type="text" id="roomType" name="roomType" class="form-control" readonly>
+							</div>
+							<div class="form-group">
+								<label for="roomNum">Room Number</label>
+								<input type="text" id="roomNum" name="roomNum" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomPrice">Room Price</label>
+								<input type="text" id="roomPrice" name="roomPrice" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomQuantity">Room Quantity</label>
+								<input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomAvailable">Room Available</label>
+								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomDescription">Room Description</label>
+								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<button type="submit" name="edit_room" class="btn btn-primary">EDIT ROOM</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ADD ROOM MODAL -->
+	<div id="myModalAddRoom" class="modal">
+		<div class="modal-content">
+			<span id="closeModalBtnAddRoom" class="close">&times;</span>
+			<div class="col-lg-8">
+				<div class="card shadow-sm">
+					<div class="card-header bg-transparent border-0">
+						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD ROOM</h3>
+					</div>
+					<div class="card-body pt-0">
+						<form method="post" action="AddfunctionRoomS.php">
+							<div class="form-group">
+								<label for="roomTypeAdd">Room Type</label>
+								<input type="text" id="roomType" name="roomType" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomNumAdd">Room Number</label>
+								<input type="text" id="roomNum" name="roomNum" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomPriceAdd">Room Price</label>
+								<input type="text" id="roomPrice" name="roomPrice" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomQuantityAdd">Room Quantity</label>
+								<input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomAvailableAdd">Room Available</label>
+								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomDescriptionAdd">Room Description</label>
+								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<button type="submit" name="add_room" class="btn btn-primary">ADD ROOM</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -299,6 +396,87 @@ $StaffEmail = $rowStaff['StaffEmail'];
     <!--Custom JavaScript -->
     <script src="js2/custom.js"></script>
 	
+	<script>
+    // Select all elements with the class "EditModalBtn"
+    const editRoomButtons = document.querySelectorAll(".EditModalBtn");
+    const modalRoom = document.getElementById("myModalRoom");
+    const closeModalBtnRoom = document.getElementById("closeModalBtnRoom");
+    const roomTypeInput = document.getElementById("roomType");
+    const roomNumInput = document.getElementById("roomNum");
+    const roomPriceInput = document.getElementById("roomPrice");
+    const roomQuantityInput = document.getElementById("roomQuantity");
+    const roomAvailableInput = document.getElementById("roomAvailable");
+    const roomDescriptionInput = document.getElementById("roomDescription");
+
+    // Function to open the modal and populate it with data
+    function openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomDescription) {
+        // Populate the modal inputs with the retrieved data
+        roomTypeInput.value = roomType;
+        roomNumInput.value = roomNum;
+        roomPriceInput.value = roomPrice;
+        roomQuantityInput.value = roomQuantity;
+        roomAvailableInput.value = roomAvailable;
+        roomDescriptionInput.value = roomDescription;
+
+        // Show the modal
+        modalRoom.style.display = "block";
+    }
+
+    // Add a click event listener to each edit button
+    editRoomButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            const roomType = button.getAttribute("data-roomType");
+            const roomNum = button.getAttribute("data-roomNum");
+            const roomPrice = button.getAttribute("data-roomPrice");
+            const roomQuantity = button.getAttribute("data-roomQuantity");
+            const roomAvailable = button.getAttribute("data-roomAvailable");
+            const roomDescription = button.getAttribute("data-roomDescription");
+            openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomDescription);
+        });
+    });
+
+    // Close the room modal when the close button is clicked
+    closeModalBtnRoom.addEventListener("click", function () {
+        modalRoom.style.display = "none";
+    });
+
+    // Close the room modal if the user clicks anywhere outside of it
+    window.addEventListener("click", function (event) {
+        if (event.target === modalRoom) {
+            modalRoom.style.display = "none";
+        }
+    });
+
+    // Handling ADD ROOM modal
+    document.getElementById("AddModalBtn").addEventListener("click", function () {
+        document.getElementById("myModalAddRoom").style.display = "block";
+    });
+
+    document.getElementById("closeModalBtnAddRoom").addEventListener("click", function () {
+        document.getElementById("myModalAddRoom").style.display = "none";
+    });
+
+    // Close the ADD ROOM modal if the user clicks anywhere outside of it
+    window.addEventListener("click", function (event) {
+        const modal = document.getElementById("myModalAddRoom");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Handling DELETE ROOM button
+    const deleteRoomButtons = document.querySelectorAll(".deleteButton");
+
+    function handleDeleteRoomButtonClick(event) {
+        const roomType = event.target.getAttribute("data-roomType");
+        // Redirect to the deletion script (DeletefunctionRoom.php)
+        window.location.href = 'DeletefunctionRoomS.php?roomType=' + roomType;
+    }
+
+    deleteRoomButtons.forEach(function (button) {
+        button.addEventListener("click", handleDeleteRoomButtonClick);
+    });
+	</script>
 	<?php
     // Close the database connection
     mysqli_close($conn);

@@ -3,65 +3,53 @@ session_start();
 require_once "database_connection.php";
 $errors = array();
 
-// Define an array of room types
-$roomTypes = array("Single Room", "Queen Room", "King Room");
-
-// Initialize variables to store room information
-$roomTypeDisplay = "";
-$roomAvailabilityDisplay = "";
-$roomPriceDisplay = "";
-
-// Function to get room availability for a specific room type
-function getRoomAvailability($conn, $roomType)
+// Function to get all available room types from the database
+function getAllRoomTypes($conn)
 {
-  // Query the database to get the roomAvailable value for the specified room type
-  $sql = "SELECT roomAvailable FROM room WHERE roomType = '$roomType'";
-  $result = $conn->query($sql);
+    $roomTypes = array();
+    $sql = "SELECT DISTINCT roomType FROM room";
+    $result = $conn->query($sql);
 
-  if ($result->num_rows > 0) {
-    // Retrieve the roomAvailable value from the first row (assuming there's only one matching row)
-    $row = $result->fetch_assoc();
-    $roomAvailable = $row["roomAvailable"];
-
-    // Set variables for room type and availability
-    $roomTypeDisplay = $roomType;
-    if ($roomAvailable == 1) {
-      $roomAvailabilityDisplay = "Room is available.";
-    } else {
-      $roomAvailabilityDisplay = "Room is not available.";
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $roomTypes[] = $row["roomType"];
+        }
     }
-  } else {
-    // Handle the case when the room type is not found
-    $roomTypeDisplay = "Unknown Room Type";
-    $roomAvailabilityDisplay = "Room not found in the database for $roomType.";
-  }
 
-  return array($roomTypeDisplay, $roomAvailabilityDisplay);
+    return $roomTypes;
 }
 
-function getRoomPrice($conn, $roomType)
+// Function to get room information from the database for a specific room type
+function getRoomInfo($conn, $roomType)
 {
-  // Query the database to get the roomPrice value for the specified room type
-  $sql = "SELECT roomPrice FROM room WHERE roomType = '$roomType'";
-  $result = $conn->query($sql);
+    $roomInfo = array();
 
-  if ($result->num_rows > 0) {
-    // Retrieve the roomPrice value from the first row (assuming there's only one matching row)
-    $row = $result->fetch_assoc();
-    $roomPrice = $row["roomPrice"];
+    // Query the database to get room information for the specified room type
+    $sql = "SELECT roomAvailable, roomPrice, roomImage, roomDescription FROM room WHERE roomType = '$roomType'";
+    $result = $conn->query($sql);
 
-    // Set variables for room type and price
-    $roomTypeDisplay = $roomType;
-    $roomPriceDisplay = $roomPrice;
-  } else {
-    // Handle the case when the room type is not found
-    $roomTypeDisplay = "Unknown Room Type";
-    $roomPriceDisplay = "Room not found in the database for $roomType.";
-  }
+    if ($result->num_rows > 0) {
+        // Retrieve room information
+        $row = $result->fetch_assoc();
+        $roomInfo['roomAvailability'] = $row["roomAvailable"];
+        $roomInfo['roomPrice'] = $row["roomPrice"];
+        $roomInfo['roomImage'] = $row["roomImage"];
+		$roomInfo['roomDescription'] = $row["roomDescription"];
+    } else {
+        // Handle the case when the room type is not found
+        $roomInfo['roomAvailability'] = 0; // Room not available
+        $roomInfo['roomPrice'] = "N/A";
+        $roomInfo['roomImage'] = "images/placeholder.jpg";
+		$roomInfo['roomDescription'] = "N/A";
+    }
 
-  return array($roomTypeDisplay, $roomPriceDisplay);
+    return $roomInfo;
 }
+
+// Get all available room types
+$roomTypes = getAllRoomTypes($conn);
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -85,13 +73,15 @@ function getRoomPrice($conn, $roomType)
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
 
+  <!-- lightbox Gallery-->
+  <link rel="stylesheet" href="css/ekko-lightbox.css" />
+
   <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -141,136 +131,52 @@ function getRoomPrice($conn, $roomType)
         </h2>
       </div>
       <div class="row">
-        <div class="col-lg-8">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/R1.jpg" alt="">
+        <?php
+        // Loop through each room type
+        foreach ($roomTypes as $roomType) {
+            // Get room information from the database for each room type
+            $roomInfo = getRoomInfo($conn, $roomType);
+            $roomAvailability = $roomInfo['roomAvailability'];
+            $roomPriceDisplay = $roomInfo['roomPrice'];
+            $roomImage = $roomInfo['roomImage'];
+			$roomDescription = $roomInfo['roomDescription'];
+            ?>
+            <div class="col-lg-12">
+              <div class="box">
+                <div class="img-box">
+                  <img src="<?php echo $roomImage; ?>" alt="<?php echo $roomType; ?>">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <?php echo $roomType; ?>
+                  </h5>
+				  <p>
+                    <?php echo $roomDescription; ?>
+                  </p>
+                  <p>
+                    Room price: RM <?php echo $roomPriceDisplay; ?> per night
+                  </p>
+                  <?php if ($roomAvailability > 0) { ?>
+				    <p>
+                      Quantity: <?php echo $roomAvailability; ?> Room
+                    </p>
+                    <p>
+                      Room availability: Room is available
+                    </p>
+                    <a href="">Book Room</a>
+                  <?php } else { ?>
+				    <p>
+                      Quantity: <?php echo $roomAvailability; ?> Room
+                    </p>
+                    <p>
+                      Room availability: Room not available
+                    </p>
+                    <button disabled>Not Available</button>
+                  <?php } ?>
+                </div>
+              </div>
             </div>
-            <div class="detail-box">
-              <h5>
-                Single room
-              </h5>
-              <p>
-                  Our Single Bed Room offers a cozy haven for solo travelers.
-                    The room features a comfortable single bed with premium bedding, ensuring a restful night's sleep. 
-                    The en-suite bathroom is well-appointed with modern amenities, providing convenience and comfort. 
-                    Whether you're in town for business or leisure, our Single Bed Room provides a welcoming retreat, 
-                    ensuring a pleasant stay during your visit.
-              </p>
-              <?php
-              // Get room price for Single Room
-              $priceInfo = getRoomPrice($conn, "Single Room");
-              $roomTypeDisplay = $priceInfo[0];
-              $roomPriceDisplay = $priceInfo[1];
-              ?>
-              <p>
-                Room price: RM
-                <?php echo $roomPriceDisplay; ?> per night
-              </p>
-              <?php
-              // Get room availability for Single Room
-              $availabilityInfo = getRoomAvailability($conn, "Single Room");
-              $roomTypeDisplay = $availabilityInfo[0];
-              $roomAvailabilityDisplay = $availabilityInfo[1];
-              ?>
-              <p>
-                Room availability:
-                <?php echo $roomAvailabilityDisplay; ?>
-              </p>
-              <?php if ($roomAvailabilityDisplay === "Room is available.") { ?>
-                <a href="">Book Room</a>
-              <?php } else { ?>
-                <button disabled>Not Available</button>
-              <?php } ?>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8 ">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/R2.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                Queen Room
-              </h5>
-              <p>
-                  Our Queen Bed Room is designed for those seeking a touch of elegance and extra space during their stay. 
-                  The room boasts a luxurious queen-sized bed adorned with high-quality linens, promising a peaceful night's rest. 
-                  The en-suite bathroom is a sanctuary of relaxation, featuring modern fixtures and complimentary toiletries. 
-                  This room offers a perfect blend of comfort and style, making it an excellent choice for couples or solo travelers 
-                  who desire a bit more room to unwind and rejuvenate during their stay at our hotel.
-              </p>
-              <?php
-              // Get room price for Queen Room
-              $priceInfo = getRoomPrice($conn, "Queen Room");
-              $roomTypeDisplay = $priceInfo[0];
-              $roomPriceDisplay = $priceInfo[1];
-              ?>
-              <p>
-                Room price: RM <?php echo $roomPriceDisplay; ?> per night
-              </p>
-              <?php
-              // Get room availability for Queen Room
-              $availabilityInfo = getRoomAvailability($conn, "Queen Room");
-              $roomTypeDisplay = $availabilityInfo[0];
-              $roomAvailabilityDisplay = $availabilityInfo[1];
-              ?>
-              <p>
-                Room availability:
-                <?php echo $roomAvailabilityDisplay; ?>
-              </p>
-              <?php if ($roomAvailabilityDisplay === "Room is available.") { ?>
-                <a href="">Book Room</a>
-              <?php } else { ?>
-                <button disabled>Not Available</button>
-              <?php } ?>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8 ">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/R3.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                King room
-              </h5>
-              <p>
-                  Indulge in the ultimate comfort and luxury with our King Bed Room. This spacious haven features a plush king-sized bed with premium bedding, 
-                  ensuring a restful and opulent night's sleep. 
-                  The en-suite bathroom is a serene retreat, complete with modern amenities and complimentary toiletries, creating a spa-like atmosphere for relaxation. 
-                  Whether you're celebrating a special occasion or simply desire extra space and extravagance, our King Bed Room is the perfect choice. 
-                  Experience the epitome of comfort and style during your stay at our hotel.
-              </p>
-              <?php
-              // Get room price for King Room
-              $priceInfo = getRoomPrice($conn, "King Room");
-              $roomTypeDisplay = $priceInfo[0];
-              $roomPriceDisplay = $priceInfo[1];
-              ?>
-              <p>
-                Room price: RM
-                <?php echo $roomPriceDisplay; ?> per night
-              </p>
-              <?php
-              // Get room availability for King Room
-              $availabilityInfo = getRoomAvailability($conn, "King Room");
-              $roomTypeDisplay = $availabilityInfo[0];
-              $roomAvailabilityDisplay = $availabilityInfo[1];
-              ?>
-              <p>
-                Room availability: <?php echo $roomAvailabilityDisplay; ?>
-              </p>
-              <?php if ($roomAvailabilityDisplay === "Room is available.") { ?>
-                <a href="">Book Room</a>
-              <?php } else { ?>
-                <button disabled>Not Available</button>
-              <?php } ?>
-            </div>
-          </div>
-        </div>
+        <?php } ?>
       </div>
     </div>
   </section>
@@ -316,7 +222,7 @@ function getRoomPrice($conn, $roomType)
                 HotelSDamansara@gmail.com
               </span>
             </a>
-			<a href="">
+            <a href="">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
               <span>
                 Operation time (24 Hours)

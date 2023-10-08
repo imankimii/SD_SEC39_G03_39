@@ -171,6 +171,12 @@ $AdminEmail = $rowAdmin['AdminEmail'];
 								<span class="hide-menu">Facilities</span>
 							</a>
 						</li>
+						<li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php" aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Edit Room</span>
+                        </a>
+                    </li>
 						<!-- Log Out Link -->
 						<li class="sidebar-item">
 							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">
@@ -250,8 +256,8 @@ $AdminEmail = $rowAdmin['AdminEmail'];
 											echo "<td>" . $row['Race'] . "</td>";
 											echo "<td>" . $row['NoPhone'] . "</td>";
 											echo "<td>" . $row['State'] . "</td>";
-											echo "<td colspan='8'><button class='EditModalBtn' data-id='$id' data-name='{$row['CustName']}' data-email='{$row['CustEmail']}' data-gender='{$row['Gender']}' data-race='{$row['Race']}' data-noPhone='{$row['NoPhone']}' data-state='{$row['State']}'>EDIT</button></td>";
-											echo "<td colspan='8'><button class='deleteButton' data-id='$id'>DELETE</button></td>";
+											echo "<td colspan='8'><button class='btn btn-primary EditModalBtn' data-id='$id' data-name='{$row['CustName']}' data-email='{$row['CustEmail']}' data-gender='{$row['Gender']}' data-race='{$row['Race']}' data-noPhone='{$row['NoPhone']}' data-state='{$row['State']}'>EDIT</button></td>";
+											echo "<td colspan='8'><button class='btn btn-danger deleteButton' data-id='$id'>DELETE</button></td>";
 											echo "</tr>";
 										}
 										?>
@@ -289,7 +295,7 @@ $AdminEmail = $rowAdmin['AdminEmail'];
             <div class="col-lg-8">
                   <div class="card shadow-sm">
                     <div class="card-header bg-transparent border-0">
-                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD STAFF</h3>
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD CUSTOMER</h3>
                     </div>
                     <div class="card-body pt-0">
                       <form method="post" action="EditfunctionCustomer.php">

@@ -1,423 +1,487 @@
 <?php
 session_start();
-require_once "database_connection.php";
-$errors = array();
-
-if (isset($_POST['update_room'])) {
-    // Get the new values from the form
-    $newRoomType = $_POST['roomType'];
-    $newRoomPrice = $_POST['roomPrice'];
-    $newRoomQuantity = $_POST['roomQuantity'];
-    $newRoomAvailable = $_POST['roomAvailable'];
-
-    $updateStatements = array();
-
-    if (!empty($newRoomType)) {
-        $updateStatements[] = "roomType = '$newRoomType'";
-    }
-    if (!empty($newRoomPrice)) {
-        $updateStatements[] = "roomPrice = '$newRoomPrice'";
-    }
-    if (!empty($newRoomQuantity)) {
-        $updateStatements[] = "roomQuantity = '$newRoomQuantity'";
-    }
-    if (!empty($newRoomAvailable)) {
-        $updateStatements[] = "roomAvailable = '$newRoomAvailable'";
-    }
-
-    if (!empty($updateStatements)) {
-        // Define the roomType you want to update
-        $roomType = "Single Room"; // Update this value as needed
-
-        // Construct and execute the SQL query
-        $sql = "UPDATE room SET " . implode(', ', $updateStatements) . " WHERE roomType = '$roomType'";
-        $result = mysqli_query($conn, $sql);
-
-        if ($result) {
-            echo "<script>alert('Room updated successfully!')</script>";
-            header("Location: Room.php");
-        } else {
-            echo "<script>alert('Room update failed!')</script>";
-        }
-    } else {
-        echo "<script>alert('Please fill in at least one field!')</script>";
-    }
-    header('Location: RoomEdit.php');
+if (!isset($_SESSION['AdminEmail'])) {
+    header('Location: LogIn.php');
+    exit();
 }
+require_once "database_connection.php";
+
+$sql = "SELECT * FROM room"; // Assuming "room" is the table name
+$result = mysqli_query($conn, $sql);
+
+// Check for query errors
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+$AdminEmail = $_SESSION['AdminEmail'];
+$sqlAdmin = "SELECT * FROM admin WHERE AdminEmail = '$AdminEmail'";
+$resultAdmin = mysqli_query($conn, $sqlAdmin);
+$rowAdmin = mysqli_fetch_assoc($resultAdmin);
+$AdminName = $rowAdmin['AdminName'];
+$AdminEmail = $rowAdmin['AdminEmail'];
 ?>
+
 <!DOCTYPE html>
-<html>
+<html dir="ltr" lang="en">
 
 <head>
-    <!-- Basic -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Site Metas -->
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link rel="icon" href="images/favicon.png" type="image/gif" />
-
-    <title>Hotel S Damansara</title>
-
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-    <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
-
-    <!-- font awesome style -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Hotel S Damansara Dashboard</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <!-- Custom CSS -->
+   <link href="dashcss/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin6">
 
-    <!-- header section strats -->
-    <header class="header_section innerpage_header">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg custom_nav-container">
-                <a class="navbar-brand" href="index.php">
-                    <span>
-                        Hotel S Damansara
-                    </span>
-                </a>
-                <div class="" id="">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav d-none d-md-block d-lg-none">
+                        <li class="nav-item">
+                            <a class="nav-toggler nav-link waves-effect waves-light text-white"
+                                href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
 
-                    <div class="custom_menu-btn">
-                        <button onclick="openNav()">
-                            <span class="s-1"> </span>
-                            <span class="s-2"> </span>
-                            <span class="s-3"> </span>
-                        </button>
-                        <div id="myNav" class="overlay">
-                            <div class="overlay-content">
-                                <a href="index.php">Home</a>
-                                <a href="dashboardStaff.php">Dashboard</a>
-                                <a href="about.php">About</a>
-                                <a href="gallery.php">Events</a>
-                                <a href="service.php">Service</a>
-                                <a href="Facilities.php">Facilities</a>
-                                <a href="Room.php">Book room</a>
-                            </div>
-                        </div>
-                    </div>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li>
+                            <a class="profile-pic" href="#">
+                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
+                                    class="img-circle">
+									<span class="text-white font-medium"><?php echo $AdminName; ?></span></a>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
                 </div>
             </nav>
-        </div>
-    </header>
-    <!-- end header section -->
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php"
+                                aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+						<li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
+                                aria-expanded="false">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                                <span class="hide-menu">View Homepage</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileAdmin.php"
+                                aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertable.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Customer Table</span>
+                            </a>
+                        </li>
+						<li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftable.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Staff Table</span>
+                            </a>
+                        </li>
+						<!-- Staff Room Link -->
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Room</span>
+							</a>
+						</li>
+						<!-- Staff Facilities Link -->
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Facilities</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php" aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Edit Room</span>
+                        </a>
+						</li>
+						<!-- Log Out Link -->
+						<li class="sidebar-item">
+							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">
+								<i class="fa fa-table" aria-hidden="true"></i>
+								<span class="hide-menu">Log Out</span>
+							</a>
+						</li>
+                    </ul>
 
-    <!-- room section -->
-    <section class="blog_section layout_padding">
-        <class="container-fluid">
-            <div class="heading_container">
-                <h2>
-                    Room
-                </h2>
+                </nav>
+                <!-- End Sidebar navigation -->
             </div>
-                <div class="col-lg-8">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/R1.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Single room
-                            </h5>
-                            <p>
-                                Our Single Bed Room offers a cozy haven for solo travelers.
-                                 The room features a comfortable single bed with premium bedding, ensuring a restful night's sleep. 
-                                 The en-suite bathroom is well-appointed with modern amenities, providing convenience and comfort. 
-                                 Whether you're in town for business or leisure, our Single Bed Room provides a welcoming retreat, 
-                                 ensuring a pleasant stay during your visit.
-                            </p>
-                            <form method="post" action="RoomEdit.php">
-                            <div class=form-group>
-                                <label for="type">Room Type</label>
-                                <?php $roomType = "Single Room"; ?>
-                                <input type="text" class="form-control" id="type" name="roomType" value="<?php echo $roomType; ?>" disabled>
-                            </div>
-                            <div class=form-group>
-                                <label for="price">Room Price</label>
-                                <input type="number" class="form-control" id="price" name="roomPrice" value="<?php echo $roomPrice; ?>">
-                            </div>
-                            <div class=form-group>
-                                <label for="quantity">Room Quantity</label>
-                                <input type="number" class="form-control" id="quantity" name="roomQuantity" value="<?php echo $roomQuantity; ?>">
-                            </div>
-                            <div class=form-group>
-                                <label for="available">Room Availability</label>
-                                <input type="number" class="form-control" id="available" name="roomAvailable" value="<?php echo $roomAvailable; ?>">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" name="update_room" class="btn btn-primary">Save Changes</button>
-                            </div>
-                            </form>
-                            <form method="POST" action="DeleteRoom.php">
-                                <input type="hidden" name="roomType" value="<?php echo $roomType; ?>">
-                                <button type="submit" name="delete_room">Delete</button>
-                            </form>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Staff Table</h4>
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="d-md-flex">
+                            <ol class="breadcrumb ms-auto">
+                                <li><a href="#" class="fw-normal">Dashboard</a></li>
+                            </ol>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 ">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/R2.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Queen Room
-                            </h5>
-                            <p>
-                                Our Queen Bed Room is designed for those seeking a touch of elegance and extra space during their stay. 
-                                The room boasts a luxurious queen-sized bed adorned with high-quality linens, promising a peaceful night's rest. 
-                                The en-suite bathroom is a sanctuary of relaxation, featuring modern fixtures and complimentary toiletries. 
-                                This room offers a perfect blend of comfort and style, making it an excellent choice for couples or solo travelers 
-                                who desire a bit more room to unwind and rejuvenate during their stay at our hotel.
-                            </p>
-                            <form method="post" action="RoomEdit.php">
-                                <div class=form-group>
-                                <label for="type">Room Type</label>
-                                    <?php $roomType = "Queen Room"; ?>
-                                    <input type="text" class="form-control" id="type" name="roomType" value="<?php echo $roomType; ?>" disabled>
-                                </div>
-                                <div class=form-group>
-                                <label for="price">Room Price</label>
-                                <input type="number" class="form-control" id="roomPrice" name="roomPrice" value="<?php echo $roomPrice; ?>">
-                                </div>
-                                <div class=form-group>
-                                    <label for="quantity">Room Quantity</label>
-                                    <input type="number" class="form-control" id="roomQuantity" name="roomQuantity"
-                                        value="<?php echo $roomQuantity; ?>">
-                                </div>
-                                <div class=form-group>
-                                    <label for="available">Room Availability</label>
-                                    <input type="number" class="form-control" id="roomAvailable" name="roomAvailable"
-                                        value="<?php echo $roomAvailable; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="update_room" class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </form>
-                            <form method="POST" action="DeleteRoom.php">
-                                <input type="hidden" name="roomType" value="<?php echo $roomType; ?>">
-                                <button type="submit" name="delete_room">Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 ">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/R3.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                King Room
-                            </h5>
-                            <p>
-                                Indulge in the ultimate comfort and luxury with our King Bed Room. This spacious haven features a plush king-sized bed with premium bedding, 
-                                ensuring a restful and opulent night's sleep. 
-                                The en-suite bathroom is a serene retreat, complete with modern amenities and complimentary toiletries, creating a spa-like atmosphere for relaxation. 
-                                Whether you're celebrating a special occasion or simply desire extra space and extravagance, our King Bed Room is the perfect choice. 
-                                Experience the epitome of comfort and style during your stay at our hotel.
-                            </p>
-                            <form method="post" action="RoomEdit.php">
-                                <div class=form-group>
-                                <label for="type">Room Type</label>
-                                    <?php $roomType = "King Room"; ?>
-                                    <input type="text" class="form-control" id="type" name="roomType" value="<?php echo $roomType; ?>"
-                                        disabled>
-                                </div>
-                                <div class=form-group>
-                                    <label for="price">Room Price</label>
-                                    <input type="number" class="form-control" id="roomPrice" name="roomPrice"
-                                        value="<?php echo $roomPrice; ?>">
-                                </div>
-                                <div class=form-group>
-                                    <label for="quantity">Room Quantity</label>
-                                    <input type="number" class="form-control" id="roomQuantity" name="roomQuantity"
-                                        value="<?php echo $roomQuantity; ?>">
-                                </div>
-                                <div class=form-group>
-                                    <label for="available">Room Availability</label>
-                                    <input type="number" class="form-control" id="roomAvailable" name="roomAvailable"
-                                        value="<?php echo $roomAvailable; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="update_room" class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </form>
-                            <form method="POST" action="DeleteRoom.php">
-                                <input type="hidden" name="roomType" value="<?php echo $roomType; ?>">
-                                <button type="submit" name="delete_room">Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 ">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/R3.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Budget Room
-                            </h5>
-                            <p>
-                                Indulge in the ultimate comfort and luxury with our King Bed Room. This spacious haven features a plush king-sized bed with premium bedding, 
-                                ensuring a restful and opulent night's sleep. 
-                                The en-suite bathroom is a serene retreat, complete with modern amenities and complimentary toiletries, creating a spa-like atmosphere for relaxation. 
-                                Whether you're celebrating a special occasion or simply desire extra space and extravagance, our King Bed Room is the perfect choice. 
-                                Experience the epitome of comfort and style during your stay at our hotel.
-                            </p>
-                            <form method="post" action="RoomEdit.php">
-                                <div class=form-group>
-                                <label for="type">Room Type</label>
-                                    <?php $roomType = "Budget Room"; ?>
-                                    <input type="text" class="form-control" id="type" name="roomType" value="<?php echo $roomType; ?>"
-                                        disabled>
-                                </div>
-                                <div class=form-group>
-                                    <label for="price">Room Price</label>
-                                    <input type="number" class="form-control" id="roomPrice" name="roomPrice"
-                                        value="<?php echo $roomPrice; ?>">
-                                </div>
-                                <div class=form-group>
-                                    <label for="quantity">Room Quantity</label>
-                                    <input type="number" class="form-control" id="roomQuantity" name="roomQuantity"
-                                        value="<?php echo $roomQuantity; ?>">
-                                </div>
-                                <div class=form-group>
-                                    <label for="available">Room Availability</label>
-                                    <input type="number" class="form-control" id="roomAvailable" name="roomAvailable"
-                                        value="<?php echo $roomAvailable; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" name="update_room" class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </form>
-                            <form method="POST" action="DeleteRoom.php">
-                                <input type="hidden" name="roomType" value="<?php echo $roomType; ?>">
-                                <button type="submit" name="delete_room">Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <a href="AddRoom.php" class="btn btn-success">Add New Room</a>
-                    </div>
-                    <form method="POST" action="DeleteRoom.php">
-                        <input type="hidden" name="roomType" value="<?php echo $row['roomType']; ?>">
-                        <button type="submit" name="delete_room">Delete</button>
-                    </form>
-                </div>
-        </div>
-    </section>
-    <!-- end room section -->
-
-    <!-- info section -->
-    <section class="info_section innerpage_info_section">
-        <div class="container">
-            <div class="row info_main_row">
-                <div class="col-md-6 col-lg-5">
-                    <div class="info_detail">
-                        <h4>
-                            Company History
-                        </h4>
-                        <p class="mb-0">
-                            Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This
-                            stunning hotel
-                            is equipped with modern structures and at night sports so many flickering lights that makes
-                            it appear as
-                            if out of a 1960’s Hong Kong movie.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <h4>
-                        Contact Us
-                    </h4>
-                    <div class="info_contact">
-                        <a href="">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            <span>
-                                No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan,
-                                Wilayah Persekutuan Kuala Lumpur
-                            </span>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-phone" aria-hidden="true"></i>
-                            <span>
-                                Call +603-6280-5000
-                            </span>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-envelope"></i>
-                            <span>
-                                HotelSDamansara@gmail.com
-                            </span>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i>
-                            <span>
-                                Operation time (24 Hours)
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <h4>
-                        Follow Us
-                    </h4>
-                    <div class="social_box">
-                        <a href="">
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- /.col-lg-12 -->
             </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+					<div class="col-sm-12">
+						<div class="white-box">
+							<h3 class="box-title">Room Table</h3>
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered">
+									<thead>
+										<tr>
+											<tr>
+												<th>Room Type</th>
+												<th>Room Number</th>
+												<th>Room Price</th>
+												<th>Room Quantity</th>
+												<th>Room Available</th>
+												<th>Room Description</th>
+												<th>Action</th>
+											</tr>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+										$rowNumber = 1;
+										while ($row = mysqli_fetch_assoc($result)) {
+											$roomType = $row['roomType'];
+											echo "<tr>";
+											echo "<td>" . $roomType . "</td>";
+											echo "<td>" . $row['roomNum'] . "</td>";
+											echo "<td>" . $row['roomPrice'] . "</td>";
+											echo "<td>" . $row['roomQuantity'] . "</td>";
+											echo "<td>" . $row['roomAvailable'] . "</td>";
+											echo "<td>" . $row['roomDescription'] . "</td>";
+											echo "<td><button class='btn btn-primary EditModalBtn' data-roomType='$roomType' data-roomNum='{$row['roomNum']}' data-roomPrice='{$row['roomPrice']}' data-roomQuantity='{$row['roomQuantity']}' data-roomAvailable='{$row['roomAvailable']}' data-roomImage='{$row['roomImage']}' data-roomDescription='{$row['roomDescription']}'>EDIT</button></td>";
+											echo "<td><button class='btn btn-danger deleteButton' data-roomType='$roomType'>DELETE</button></td>";
+											echo "</tr>";
+										}
+										?>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="8"><button id="AddModalBtn" class='btn btn-success'>ADD</button></td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
         </div>
-    </section>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+	<!-- EDIT ROOM MODAL -->
+	<div id="myModalRoom" class="modal">
+		<div class="modal-content">
+			<span id="closeModalBtnRoom" class="close">&times;</span>
+			<div class="col-lg-8">
+				<div class="card shadow-sm">
+					<div class="card-header bg-transparent border-0">
+						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT ROOM</h3>
+					</div>
+					<div class="card-body pt-0">
+						<form method="post" action="EditfunctionRoom.php">
+							<div class="form-group">
+								<label for="roomType">Room Type</label>
+								<input type="text" id="roomType" name="roomType" class="form-control" readonly>
+							</div>
+							<div class="form-group">
+								<label for="roomNum">Room Number</label>
+								<input type="text" id="roomNum" name="roomNum" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomPrice">Room Price</label>
+								<input type="text" id="roomPrice" name="roomPrice" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomQuantity">Room Quantity</label>
+								<input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomAvailable">Room Available</label>
+								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomDescription">Room Description</label>
+								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<button type="submit" name="edit_room" class="btn btn-primary">EDIT ROOM</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <!-- end info_section -->
+	<!-- ADD ROOM MODAL -->
+	<div id="myModalAddRoom" class="modal">
+		<div class="modal-content">
+			<span id="closeModalBtnAddRoom" class="close">&times;</span>
+			<div class="col-lg-8">
+				<div class="card shadow-sm">
+					<div class="card-header bg-transparent border-0">
+						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD ROOM</h3>
+					</div>
+					<div class="card-body pt-0">
+						<form method="post" action="AddfunctionRoom.php">
+							<div class="form-group">
+								<label for="roomTypeAdd">Room Type</label>
+								<input type="text" id="roomType" name="roomType" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomNumAdd">Room Number</label>
+								<input type="text" id="roomNum" name="roomNum" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomPriceAdd">Room Price</label>
+								<input type="text" id="roomPrice" name="roomPrice" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomQuantityAdd">Room Quantity</label>
+								<input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomAvailableAdd">Room Available</label>
+								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="roomDescriptionAdd">Room Description</label>
+								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<button type="submit" name="add_room" class="btn btn-primary">ADD ROOM</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js2/app-style-switcher.js"></script>
+    <!--Wave Effects -->
+    <script src="js2/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js2/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js2/custom.js"></script>
+	
+	<script>
+    // Select all elements with the class "EditModalBtn"
+    const editRoomButtons = document.querySelectorAll(".EditModalBtn");
+    const modalRoom = document.getElementById("myModalRoom");
+    const closeModalBtnRoom = document.getElementById("closeModalBtnRoom");
+    const roomTypeInput = document.getElementById("roomType");
+    const roomNumInput = document.getElementById("roomNum");
+    const roomPriceInput = document.getElementById("roomPrice");
+    const roomQuantityInput = document.getElementById("roomQuantity");
+    const roomAvailableInput = document.getElementById("roomAvailable");
+    const roomDescriptionInput = document.getElementById("roomDescription");
 
+    // Function to open the modal and populate it with data
+    function openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomDescription) {
+        // Populate the modal inputs with the retrieved data
+        roomTypeInput.value = roomType;
+        roomNumInput.value = roomNum;
+        roomPriceInput.value = roomPrice;
+        roomQuantityInput.value = roomQuantity;
+        roomAvailableInput.value = roomAvailable;
+        roomDescriptionInput.value = roomDescription;
 
-    <!-- footer section -->
-    <footer class="footer_section">
-        <div class="container">
-            <p>
-                &copy; <span id="displayYear"></span> All Rights Reserved By
-                <a href="https://html.design/">Hotel S Damansara</a>
-            </p>
-        </div>
-    </footer>
-    <!-- footer section -->
+        // Show the modal
+        modalRoom.style.display = "block";
+    }
 
+    // Add a click event listener to each edit button
+    editRoomButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            const roomType = button.getAttribute("data-roomType");
+            const roomNum = button.getAttribute("data-roomNum");
+            const roomPrice = button.getAttribute("data-roomPrice");
+            const roomQuantity = button.getAttribute("data-roomQuantity");
+            const roomAvailable = button.getAttribute("data-roomAvailable");
+            const roomDescription = button.getAttribute("data-roomDescription");
+            openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomDescription);
+        });
+    });
 
-    <!-- jQery -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <!-- bootstrap js -->
-    <script src="js/bootstrap.js"></script>
-    <!-- custom js -->
-    <script src="js/custom.js"></script>
+    // Close the room modal when the close button is clicked
+    closeModalBtnRoom.addEventListener("click", function () {
+        modalRoom.style.display = "none";
+    });
 
+    // Close the room modal if the user clicks anywhere outside of it
+    window.addEventListener("click", function (event) {
+        if (event.target === modalRoom) {
+            modalRoom.style.display = "none";
+        }
+    });
+
+    // Handling ADD ROOM modal
+    document.getElementById("AddModalBtn").addEventListener("click", function () {
+        document.getElementById("myModalAddRoom").style.display = "block";
+    });
+
+    document.getElementById("closeModalBtnAddRoom").addEventListener("click", function () {
+        document.getElementById("myModalAddRoom").style.display = "none";
+    });
+
+    // Close the ADD ROOM modal if the user clicks anywhere outside of it
+    window.addEventListener("click", function (event) {
+        const modal = document.getElementById("myModalAddRoom");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Handling DELETE ROOM button
+    const deleteRoomButtons = document.querySelectorAll(".deleteButton");
+
+    function handleDeleteRoomButtonClick(event) {
+        const roomType = event.target.getAttribute("data-roomType");
+        // Redirect to the deletion script (DeletefunctionRoom.php)
+        window.location.href = 'DeletefunctionRoom.php?roomType=' + roomType;
+    }
+
+    deleteRoomButtons.forEach(function (button) {
+        button.addEventListener("click", handleDeleteRoomButtonClick);
+    });
+	</script>
+	<?php
+    // Close the database connection
+    mysqli_close($conn);
+    ?>
 </body>
 
 </html>

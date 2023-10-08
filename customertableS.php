@@ -171,6 +171,12 @@ $StaffEmail = $rowStaff['StaffEmail'];
 								<span class="hide-menu">Facilities</span>
 							</a>
 						</li>
+						<li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEditS.php" aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Edit Room</span>
+                        </a>
+						</li>
 						<!-- Log Out Link -->
 						<li class="sidebar-item">
 							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">
@@ -246,8 +252,8 @@ $StaffEmail = $rowStaff['StaffEmail'];
 											echo "<td>" . $row['Race'] . "</td>";
 											echo "<td>" . $row['NoPhone'] . "</td>";
 											echo "<td>" . $row['State'] . "</td>";
-											echo "<td colspan='8'><button class='EditModalBtn' data-id='$id' data-name='{$row['CustName']}' data-email='{$row['CustEmail']}' data-gender='{$row['Gender']}' data-race='{$row['Race']}' data-noPhone='{$row['NoPhone']}' data-state='{$row['State']}'>EDIT</button></td>";
-											echo "<td colspan='8'><button class='deleteButton' data-id='$id'>DELETE</button></td>";
+											echo "<td colspan='8'><button class='btn btn-primary EditModalBtn' data-id='$id' data-name='{$row['CustName']}' data-email='{$row['CustEmail']}' data-gender='{$row['Gender']}' data-race='{$row['Race']}' data-noPhone='{$row['NoPhone']}' data-state='{$row['State']}'>EDIT</button></td>";
+											echo "<td colspan='8'><button class='btn btn-danger deleteButton' data-id='$id'>DELETE</button></td>";
 											echo "</tr>";
 										}
 										?>
