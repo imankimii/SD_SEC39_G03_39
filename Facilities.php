@@ -137,7 +137,7 @@ function getfacilityPrice($conn, $facilityType)
         </h2>
       </div>
       <div class="row">
-        <div class="col-lg-11 ">
+        <div class="col-lg-8 ">
           <div class="box">
             <div class="img-box">
               <img src="images/F2.jpg" alt="">
@@ -147,8 +147,10 @@ function getfacilityPrice($conn, $facilityType)
                 Multi-purpose hall
               </h5>
               <p>
-                Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum
-                itaque sint quibusdam aut vel. A esse labore.
+                Our Multi-Purpose Hall is a versatile and adaptable space designed to cater to a wide range of events. 
+                Whether you're hosting a corporate conference, a grand wedding, a social gathering, or any other special occasion, 
+                our spacious hall can be tailored to suit your needs. Equipped with state-of-the-art amenities and a team of dedicated professionals, 
+                it offers the perfect backdrop for your event, ensuring a seamless and memorable experience for you and your guests.
               </p>
               <?php
               // Get facility price for Multi-purpose hall
@@ -186,8 +188,12 @@ function getfacilityPrice($conn, $facilityType)
                 Gymnasium
               </h5>
               <p>
-                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit,
-                perspiciatis excepturi eius hic vero harum deleniti.
+                Our gymnasium is a fitness haven, furnished with top-quality exercise equipment, 
+                free weights, and cardio machines to help you achieve your fitness objectives. 
+                Whether you're a seasoned fitness enthusiast or a newcomer looking to get started, 
+                our well-maintained gym provides an inviting atmosphere. Our knowledgeable trainers 
+                are available to offer guidance and support, ensuring you get the most out of every workout. 
+                Stay fit and invigorated during your stay at our gymnasium.
               </p>
               <?php
               // Get facility price for Gymnasium
@@ -228,8 +234,13 @@ function getfacilityPrice($conn, $facilityType)
                 Swimming pool
               </h5>
               <p>
-                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit,
-                perspiciatis excepturi eius hic vero harum deleniti.
+                Dive into relaxation and leisure at our refreshing swimming pool. 
+                Surrounded by lush greenery and featuring crystal-clear waters, 
+                our pool is the perfect oasis for guests to unwind and enjoy a 
+                rejuvenating swim. Whether you want to swim laps for a great workout 
+                or simply bask in the sun on our comfortable loungers, our swimming pool 
+                offers a serene escape from the hustle and bustle of daily life. Soak in 
+                the tranquility and take a refreshing dip during your stay at our inviting swimming pool.
               </p>
               <?php
               // Get facility price for Swimming pool

@@ -141,7 +141,7 @@ function getRoomPrice($conn, $roomType)
         </h2>
       </div>
       <div class="row">
-        <div class="col-lg-11 ">
+        <div class="col-lg-8">
           <div class="box">
             <div class="img-box">
               <img src="images/R1.jpg" alt="">
@@ -151,8 +151,11 @@ function getRoomPrice($conn, $roomType)
                 Single room
               </h5>
               <p>
-                Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum
-                itaque sint quibusdam aut vel. A esse labore.
+                  Our Single Bed Room offers a cozy haven for solo travelers.
+                    The room features a comfortable single bed with premium bedding, ensuring a restful night's sleep. 
+                    The en-suite bathroom is well-appointed with modern amenities, providing convenience and comfort. 
+                    Whether you're in town for business or leisure, our Single Bed Room provides a welcoming retreat, 
+                    ensuring a pleasant stay during your visit.
               </p>
               <?php
               // Get room price for Single Room
@@ -192,8 +195,11 @@ function getRoomPrice($conn, $roomType)
                 Queen Room
               </h5>
               <p>
-                Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum
-                itaque sint quibusdam aut vel. A esse labore.
+                  Our Queen Bed Room is designed for those seeking a touch of elegance and extra space during their stay. 
+                  The room boasts a luxurious queen-sized bed adorned with high-quality linens, promising a peaceful night's rest. 
+                  The en-suite bathroom is a sanctuary of relaxation, featuring modern fixtures and complimentary toiletries. 
+                  This room offers a perfect blend of comfort and style, making it an excellent choice for couples or solo travelers 
+                  who desire a bit more room to unwind and rejuvenate during their stay at our hotel.
               </p>
               <?php
               // Get room price for Queen Room
@@ -232,8 +238,11 @@ function getRoomPrice($conn, $roomType)
                 King room
               </h5>
               <p>
-                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit,
-                perspiciatis excepturi eius hic vero harum deleniti.
+                  Indulge in the ultimate comfort and luxury with our King Bed Room. This spacious haven features a plush king-sized bed with premium bedding, 
+                  ensuring a restful and opulent night's sleep. 
+                  The en-suite bathroom is a serene retreat, complete with modern amenities and complimentary toiletries, creating a spa-like atmosphere for relaxation. 
+                  Whether you're celebrating a special occasion or simply desire extra space and extravagance, our King Bed Room is the perfect choice. 
+                  Experience the epitome of comfort and style during your stay at our hotel.
               </p>
               <?php
               // Get room price for King Room
