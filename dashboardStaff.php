@@ -154,17 +154,24 @@ if (empty($ProfilePicture)) {
                             <span class="hide-menu">Room</span>
                         </a>
                     </li>
+                    <!-- Staff Room Link -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEditS.php" aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Edit Room</span>
+                        </a>
+                    </li>
                     <!-- Staff Facilities Link -->
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php" aria-expanded="false">
                             <i class="fa fa-table" aria-hidden="true"></i>
                             <span class="hide-menu">Facilities</span>
                         </a>
-                    </li>
-					<li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEditS.php" aria-expanded="false">
+                    </li><!-- Staff Room Link -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilitiesEdit.php" aria-expanded="false">
                             <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Edit Room</span>
+                            <span class="hide-menu">Edit Facilities</span>
                         </a>
                     </li>
 					<!-- Log Out Link -->
