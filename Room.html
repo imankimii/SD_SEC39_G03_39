@@ -1,3 +1,55 @@
+<?php
+session_start();
+require_once "database_connection.php";
+$errors = array();
+
+// Function to get all available room types from the database
+function getAllRoomTypes($conn)
+{
+    $roomTypes = array();
+    $sql = "SELECT DISTINCT roomType FROM room";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $roomTypes[] = $row["roomType"];
+        }
+    }
+
+    return $roomTypes;
+}
+
+// Function to get room information from the database for a specific room type
+function getRoomInfo($conn, $roomType)
+{
+    $roomInfo = array();
+
+    // Query the database to get room information for the specified room type
+    $sql = "SELECT roomAvailable, roomPrice, roomImage, roomDescription FROM room WHERE roomType = '$roomType'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Retrieve room information
+        $row = $result->fetch_assoc();
+        $roomInfo['roomAvailability'] = $row["roomAvailable"];
+        $roomInfo['roomPrice'] = $row["roomPrice"];
+        $roomInfo['roomImage'] = $row["roomImage"];
+		$roomInfo['roomDescription'] = $row["roomDescription"];
+    } else {
+        // Handle the case when the room type is not found
+        $roomInfo['roomAvailability'] = 0; // Room not available
+        $roomInfo['roomPrice'] = "N/A";
+        $roomInfo['roomImage'] = "images/placeholder.jpg";
+		$roomInfo['roomDescription'] = "N/A";
+    }
+
+    return $roomInfo;
+}
+
+// Get all available room types
+$roomTypes = getAllRoomTypes($conn);
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -21,13 +73,15 @@
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
 
+  <!-- lightbox Gallery-->
+  <link rel="stylesheet" href="css/ekko-lightbox.css" />
+
   <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -56,8 +110,8 @@
                 <a href="about.php">About</a>
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
-                <a href="blog.php">Facilities</a>
-				<a href="Room.php">Book room</a>
+                <a href="Facilities.php">Facilities</a>
+                <a href="Room.php">Book room</a>
               </div>
             </div>
           </div>
@@ -68,75 +122,66 @@
   <!-- end header section -->
 
 
-  <!-- blog section -->
-
+  <!-- room section -->
   <section class="blog_section layout_padding">
     <div class="container-fluid">
       <div class="heading_container">
         <h2>
-          Room availibility
+          Room
         </h2>
       </div>
       <div class="row">
-        <div class="col-lg-11 ">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/R1.jpg" alt="">
+        <?php
+        // Loop through each room type
+        foreach ($roomTypes as $roomType) {
+            // Get room information from the database for each room type
+            $roomInfo = getRoomInfo($conn, $roomType);
+            $roomAvailability = $roomInfo['roomAvailability'];
+            $roomPriceDisplay = $roomInfo['roomPrice'];
+            $roomImage = $roomInfo['roomImage'];
+			$roomDescription = $roomInfo['roomDescription'];
+            ?>
+            <div class="col-lg-12">
+              <div class="box">
+                <div class="img-box">
+                  <img src="<?php echo $roomImage; ?>" alt="<?php echo $roomType; ?>">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <?php echo $roomType; ?>
+                  </h5>
+				  <p>
+                    <?php echo $roomDescription; ?>
+                  </p>
+                  <p>
+                    Room price: RM <?php echo $roomPriceDisplay; ?> per night
+                  </p>
+                  <?php if ($roomAvailability > 0) { ?>
+				    <p>
+                      Quantity: <?php echo $roomAvailability; ?> Room
+                    </p>
+                    <p>
+                      Room availability: Room is available
+                    </p>
+                    <a href="">Book Room</a>
+                  <?php } else { ?>
+				    <p>
+                      Quantity: <?php echo $roomAvailability; ?> Room
+                    </p>
+                    <p>
+                      Room availability: Room not available
+                    </p>
+                    <button disabled>Not Available</button>
+                  <?php } ?>
+                </div>
+              </div>
             </div>
-            <div class="detail-box">
-              <h5>
-                Single room
-              </h5>
-              <p>
-                Omnis itaque ducimus excepturi dignissimos voluptatibus sequi nisi ut ullam, perspiciatis doloribus! Cum itaque sint quibusdam aut vel. A esse labore.
-              </p>
-              <a href="">
-                Book Room
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8 ">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/R2.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                Queen bed
-              </h5>
-              <p>
-                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
-              </p>
-              <a href="">
-                Book Room
-              </a>
-            </div>
-          </div>
-        </div>
-		<div class="col-lg-8 ">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/R3.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                King room
-              </h5>
-              <p>
-                Totam non minus suscipit, exercitationem deserunt doloribus provident dolor quos nulla impedit, perspiciatis excepturi eius hic vero harum deleniti.
-              </p>
-              <a href="">
-                Book Room
-              </a>
-            </div>
-          </div>
-        </div>
+        <?php } ?>
       </div>
     </div>
   </section>
 
-  <!-- end blog section -->
+  <!-- end room section -->
 
   <!-- info section -->
   <section class="info_section innerpage_info_section">
@@ -148,11 +193,13 @@
               Company History
             </h4>
             <p class="mb-0">
-              Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This stunning hotel is equipped with modern structures and at night sports so many flickering lights that makes it appear as if out of a 1960’s Hong Kong movie.
+              Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This stunning hotel
+              is equipped with modern structures and at night sports so many flickering lights that makes it appear as
+              if out of a 1960’s Hong Kong movie.
             </p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-4">
           <h4>
             Contact Us
           </h4>
@@ -160,7 +207,7 @@
             <a href="">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               <span>
-                Location
+                No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan, Wilayah Persekutuan Kuala Lumpur
               </span>
             </a>
             <a href="">
@@ -173,6 +220,12 @@
               <i class="fa fa-envelope"></i>
               <span>
                 HotelSDamansara@gmail.com
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <span>
+                Operation time (24 Hours)
               </span>
             </a>
           </div>

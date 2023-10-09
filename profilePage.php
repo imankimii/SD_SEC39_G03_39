@@ -56,12 +56,12 @@ if (empty($ProfilePicture)) {
       margin-right: 5px; /* Reduce the margin between the links (adjust as needed) */
       border-radius: 5px; /* Add rounded corners to the links */
       transition: background-color 0.3s ease; /* Smooth background color transition on hover */
-      background-color: rgba(128, 0, 128, 0.5); /* Transparent purple color */
+      background-color: rgba(182, 95, 207, 1); /* Transparent purple color */
     }
 
     /* Style the navigation links on hover */
     nav a:hover {
-      background-color: #B65FCF; /* Background color on hover */
+      background-color: #FFFFFF; /* Background color on hover */
     }
     .menu_item {
       text-decoration: none;

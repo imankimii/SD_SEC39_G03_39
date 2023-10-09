@@ -40,7 +40,13 @@ if (isset($_SESSION['CustEmail'])) {
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
-
+<style>
+.ice-blue-bg{
+    background-color: #a5d8e1; 
+    color: white; 
+    
+}
+</style>
 </head>
 
 <body>
@@ -69,7 +75,8 @@ if (isset($_SESSION['CustEmail'])) {
                 <a href="about.php">About</a>
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
-                <a href="blog.php"></a>
+                <a href="Facilities.php">Facilities</a>
+				        <a href="Room.php">Book room</a>
               </div>
             </div>
           </div>
@@ -128,8 +135,8 @@ if (isset($_SESSION['CustEmail'])) {
 			modern contemporary, evoking style and flavor with grace, warm hospitality and efficiency, with a good night's stay.
           </p>
           <div>
-            <a href="" class="slider-link">
-              CONTACT US
+            <a href="Room.php" class="slider-link">
+              BOOK A ROOM
             </a>
           </div>
         </div>
@@ -156,17 +163,10 @@ if (isset($_SESSION['CustEmail'])) {
             </div>
             <p>
               Operating a 24-hour front desk, Hotel S Damansara features rooms with contemporary décor and parquet
-              flooring. Free Wi-Fi is provided in its public areas and complimentary private parking is available.
-              The hotel is located only a 10-minute drive to various shopping locations such as One Utama Shopping
-              Complex, The Curve Shopping Mall and Tesco Hypermarket. Genting Highlands and KLIA/KLIA2 Airports are a
-              45-minute drive away.
-              Air-conditioned rooms are equipped with a wardrobe, a flat-screen TV and a seating area. Private bathrooms
-              offer a hairdryer and hot/cold shower facilities. Select rooms include a sofa.
-              Hotel S Damansara provides rooms and facilities for disabled guests. Meeting/banqueting facilities are
-              also available.
-              Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving local cuisine.
+              flooring. Free Wi-Fi is provided in its public areas and complimentary private parking is available...
+              
             </p>
-            <a href="">
+            <a href="about.php">
               Read More
             </a>
           </div>
@@ -237,8 +237,8 @@ if (isset($_SESSION['CustEmail'])) {
         </div>
       </div>
       <div class="btn-box">
-        <a href="">
-          View All
+        <a href="gallery.php">
+          BOOK EVENT
         </a>
       </div>
     </div>
@@ -267,7 +267,7 @@ if (isset($_SESSION['CustEmail'])) {
                 Hall rental
               </h5>
               <p>
-                The hall can accomodate various events and the hall is expandable
+                The hall can accomodate various events and the hall it is expandable
               </p>
               <a href="">
                 Read More
@@ -434,27 +434,26 @@ if (isset($_SESSION['CustEmail'])) {
           <div class="form_container">
             <div class="heading_container ">
               <h2>
-                Contact Us
+                Enquiry
               </h2>
             </div>
-            <form action="">
+            <!--Enquiry form-->
+            <form method="post" action="Enquiry.php">
               <div>
-                <input type="text" placeholder="Your Name" />
-              </div>
-              <div>
-                <input type="text" placeholder="Phone Number" />
+                <input type="text" name="enquiryName"placeholder="Your Name" />
               </div>
               <div>
-                <input type="email" placeholder="Email" />
+                <input type="text" name="enquiryPhone" placeholder="Phone Number" />
               </div>
               <div>
-                <input type="text" class="message-box" placeholder="Message" />
+                <input type="email" name="enquiryEmail" placeholder="Email" />
               </div>
-              <div class="btn_box">
-                <button>
-                  SEND
-                </button>
+              <div>
+                <input type="text" name="enquiryMessage" class="message-box" placeholder="Message" />
               </div>
+              <div class="btn_box ice-blue-bg"> 
+				<input type="submit" name="new_enquiry">
+			</div>
             </form>
           </div>
         </div>
