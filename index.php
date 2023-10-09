@@ -435,27 +435,25 @@ if (isset($_SESSION['CustEmail'])) {
           <div class="form_container">
             <div class="heading_container ">
               <h2>
-                Contact Us
+                Enquiry
               </h2>
             </div>
             <!--Enquiry form-->
-            <form action="">
+            <form method="post" action="Enquiry.php">
               <div>
-                <input type="text" placeholder="Your Name" />
+                <input type="text" name="enquiryName"placeholder="Your Name" />
               </div>
               <div>
-                <input type="text" placeholder="Phone Number" />
+                <input type="text" name="enquiryPhone" placeholder="Phone Number" />
               </div>
               <div>
-                <input type="email" placeholder="Email" />
+                <input type="email" name="enquiryEmail" placeholder="Email" />
               </div>
               <div>
-                <input type="text" class="message-box" placeholder="Message" />
+                <input type="text" name="enquiryMessage" class="message-box" placeholder="Message" />
               </div>
               <div class="btn_box">
-                <button>
-                  SEND
-                </button>
+                <input type="submit" name="new_enquiry">
               </div>
             </form>
           </div>
