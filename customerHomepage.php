@@ -428,26 +428,25 @@ if(!isset($_SESSION['CustEmail'])){
           <div class="form_container">
             <div class="heading_container ">
               <h2>
-                Contact Us
+                Enquiry
               </h2>
             </div>
-            <form action="">
+            <!--Enquiry form-->
+            <form method="post" action="Enquiry.php">
               <div>
-                <input type="text" placeholder="Your Name" />
+                <input type="text" name="enquiryName"placeholder="Your Name" />
               </div>
               <div>
-                <input type="text" placeholder="Phone Number" />
+                <input type="text" name="enquiryPhone" placeholder="Phone Number" />
               </div>
               <div>
-                <input type="email" placeholder="Email" />
+                <input type="email" name="enquiryEmail" placeholder="Email" />
               </div>
               <div>
-                <input type="text" class="message-box" placeholder="Message" />
+                <input type="text" name="enquiryMessage" class="message-box" placeholder="Message" />
               </div>
               <div class="btn_box">
-                <button>
-                  SEND
-                </button>
+                <input type="submit" name="new_enquiry">
               </div>
             </form>
           </div>
@@ -495,25 +494,19 @@ if(!isset($_SESSION['CustEmail'])){
             <a href="">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               <span>
-               No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan, Wilayah Persekutuan Kuala Lumpur
+                No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan, Wilayah Persekutuan Kuala Lumpur
               </span>
             </a>
             <a href="">
               <i class="fa fa-phone" aria-hidden="true"></i>
               <span>
-                Call +603-6280-5000
+                +603-6280-5000
               </span>
             </a>
             <a href="">
               <i class="fa fa-envelope"></i>
               <span>
                 HotelSDamansara@gmail.com
-              </span>
-            </a>
-			<a href="">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              <span>
-                Operation time (24 Hours)
               </span>
             </a>
           </div>

@@ -494,13 +494,13 @@ if (isset($_SESSION['CustEmail'])) {
             <a href="">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               <span>
-                Location
+                No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan, Wilayah Persekutuan Kuala Lumpur
               </span>
             </a>
             <a href="">
               <i class="fa fa-phone" aria-hidden="true"></i>
               <span>
-                Call +603-6280-5000
+                +603-6280-5000
               </span>
             </a>
             <a href="">

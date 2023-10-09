@@ -173,6 +173,12 @@ if (empty($ProfilePicture)) {
                             <span class="hide-menu">Edit Facilities</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ContactUsEdit.php" aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Edit Contact Us</span>
+                        </a>
+                    </li>
                     <!-- Log Out Link -->
 					<li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">

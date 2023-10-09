@@ -1,19 +1,27 @@
 <?php
 session_start();
-if (!isset($_SESSION['StaffEmail'])) {
+if (!isset($_SESSION['AdminEmail'])) {
     header('Location: LogIn.php');
     exit();
 }
 require_once "database_connection.php";
 
-$sql = "SELECT * FROM enquiry";
+$sql = "SELECT * FROM contactus";
 $result = mysqli_query($conn, $sql);
 
 // Check for query errors
 if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
+
+$AdminEmail = $_SESSION['AdminEmail'];
+$sqlAdmin = "SELECT * FROM admin WHERE AdminEmail = '$AdminEmail'";
+$resultAdmin = mysqli_query($conn, $sqlAdmin);
+$rowAdmin = mysqli_fetch_assoc($resultAdmin);
+$AdminName = $rowAdmin['AdminName'];
+$AdminEmail = $rowAdmin['AdminEmail'];
 ?>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -23,9 +31,9 @@ if (!$result) {
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard template, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
     <meta name="description"
-        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inspired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Hotel S Damansara Dashboard</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
@@ -38,7 +46,7 @@ if (!$result) {
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <![endif]-->
 </head>
 
 <body>
@@ -62,7 +70,6 @@ if (!$result) {
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
@@ -83,7 +90,6 @@ if (!$result) {
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
@@ -91,7 +97,7 @@ if (!$result) {
                             <a class="profile-pic" href="#">
                                 <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
                                 <span class="text-white font-medium">
-                                   
+                                    <?php echo $AdminName; ?>
                                 </span></a>
                         </li>
                         <!-- ============================================================== -->
@@ -115,7 +121,7 @@ if (!$result) {
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardenquiry.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -131,7 +137,7 @@ if (!$result) {
                         </li>
                         <!-- Profile Link -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileenquiry.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileAdmin.php"
                                 aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">Profile</span>
@@ -139,21 +145,21 @@ if (!$result) {
                         </li>
                         <!-- Customer Table Link -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertableS.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertable.php"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
                                 <span class="hide-menu">Customer Table</span>
                             </a>
                         </li>
-                        <!-- enquiry Table Link -->
+                        <!-- Staff Table Link -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftableS.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftable.php"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
                                 <span class="hide-menu">Staff Table</span>
                             </a>
                         </li>
-                        <!-- enquiry Room Link -->
+                        <!-- Staff Room Link -->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php"
                                 aria-expanded="false">
@@ -161,36 +167,28 @@ if (!$result) {
                                 <span class="hide-menu">Room</span>
                             </a>
                         </li>
-                        <!-- enquiry Room Link -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEditS.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
                                 <span class="hide-menu">Edit Room</span>
                             </a>
                         </li>
-                        <!-- enquiry Facilities Link -->
+                        <!-- Staff Facilities Link -->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
                                 <span class="hide-menu">Facilities</span>
                             </a>
-                        </li><!-- enquiry Room Link -->
+                        </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilityEditS.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilityEdit.php"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
                                 <span class="hide-menu">Edit Facilities</span>
                             </a>
                         </li>
-                        <!-- Staff Enquiry Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ViewEnquiryS.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">View Enquiry</span>
-                        </a>
-                    </li>
                         <!-- Log Out Link -->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php"
@@ -200,7 +198,6 @@ if (!$result) {
                             </a>
                         </li>
                     </ul>
-
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -213,7 +210,8 @@ if (!$result) {
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-          <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
@@ -222,25 +220,26 @@ if (!$result) {
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">Enquiry</h3>
+                            <h3 class="box-title">Contact Us</h3>
                             <div class="table-responsive">
-                                <table class="table text-nowrap">
+                                <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">Name</th>
-                                            <th class="border-top-0">No Phone</th>
-                                            <th class="border-top-0">Email</th>
-                                            <th class="border-top-0">Message</th>
+                                            <th>Address</th>
+                                            <th>No. Phone</th>
+                                            <th>Email</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $rowNumber = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
+                                            $email = $row['email'];
                                             echo "<tr>";
-                                            echo "<td>" . $row['enquiryName'] . "</td>";
-                                            echo "<td> +60" . $row['enquiryPhone'] . "</td>";
-                                            echo "<td>" . $row['enquiryEmail'] . "</td>";
-                                            echo "<td>" . $row['enquiryMessage'] . "</td>";
+                                            echo "<td>" . $row['address'] . "</td>";
+                                            echo "<td>" . $row['phone'] . "</td>";
+                                            echo "<td>" . $row['email'] . "</td>";
+                                            echo "<td><button class='btn btn-primary EditModalBtn' data-address='{$row['address']}' data-phone='{$row['phone']}' data-email='{$row['email']}' >EDIT</button></td>";
                                             echo "</tr>";
                                         }
                                         ?>
@@ -251,7 +250,7 @@ if (!$result) {
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- Right sidebar -->
@@ -270,6 +269,40 @@ if (!$result) {
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
+    <!-- EDIT FACILITY MODAL -->
+    <div id="myModalContactUs" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtnContactUs" class="close">&times;</span>
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i> EDIT CONTACT US</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                        <form method="post" action="EditfunctionFacility.php">
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" name="address" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" id="phone" name="phone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" id="email" name="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="edit_facility" class="btn btn-primary">EDIT
+                                    CONTACT US</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
@@ -286,6 +319,52 @@ if (!$result) {
     <!--Custom JavaScript -->
     <script src="js2/custom.js"></script>
 
+    <script>
+        // Select all elements with the class "EditModalBtn"
+        const editContactUsButtons = document.querySelectorAll(".EditModalBtn");
+        const modalContactUs = document.getElementById("myModalContactUs");
+        const closeModalBtnContactUs = document.getElementById("closeModalBtnContactUs");
+        const addressInput = document.getElementById("address");
+        const phoneInput = document.getElementById("phone");
+        const emailInput = document.getElementById("email");
+        const facilityDescriptionInput = document.getElementById("facilityDescription");
+
+        // Function to open the modal and populate it with data
+        function openContactUsModal(address, phone, email) {
+            // Populate the modal inputs with the retrieved data
+            addressInput.value = address;
+            phoneInput.value = phone;
+            emailInput.value = email;
+            facilityDescriptionInput.value = facilityDescription; // Use .value here
+
+            // Show the modal
+            modalContactUs.style.display = "block";
+        }
+
+
+        // Add a click event listener to each edit button
+        editContactUsButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const address = button.getAttribute("data-address");
+                const phone = button.getAttribute("data-phone");
+                const email = button.getAttribute("data-email");
+                openContactUsModal(address, phone, email);
+            });
+        });
+
+        // Close the facility modal when the close button is clicked
+        closeModalBtnContactUs.addEventListener("click", function () {
+            modalContactUs.style.display = "none";
+        });
+
+        // Close the facility modal if the user clicks anywhere outside of it
+        window.addEventListener("click", function (event) {
+            if (event.target === modalContactUs) {
+                modalContactUs.style.display = "none";
+            }
+        });
+
+    </script>
     <?php
     // Close the database connection
     mysqli_close($conn);
