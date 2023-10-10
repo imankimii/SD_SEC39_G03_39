@@ -14,6 +14,7 @@ $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 $StaffName = $row['StaffName'];
 $StaffEmail = $row['StaffEmail'];
+$ProfilePicture = $row['ProfilePicture'];
 
 // Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {

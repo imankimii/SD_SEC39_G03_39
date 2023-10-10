@@ -18,6 +18,7 @@ $Gender = $row['Gender'];
 $Race = $row['Race'];
 $NoPhone = $row['NoPhone'];
 $State = $row['State'];
+$ProfilePicture = $row['ProfilePicture'];
 
 // Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {

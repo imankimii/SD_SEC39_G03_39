@@ -13,6 +13,19 @@ $result = mysqli_query($conn, $sql);
 if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
+
+$StaffEmail = $_SESSION['StaffEmail'];
+$sqlStaff = "SELECT * FROM staff WHERE StaffEmail = '$StaffEmail'";
+$resultStaff = mysqli_query($conn, $sqlStaff);
+$rowStaff = mysqli_fetch_assoc($resultStaff);
+$StaffName = $rowStaff['StaffName'];
+$StaffEmail = $rowStaff['StaffEmail'];
+$ProfilePicture = $rowStaff['ProfilePicture'];
+
+// Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
+if (empty($ProfilePicture)) {
+  $ProfilePicture = "images\profile.png";
+}
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -89,10 +102,10 @@ if (!$result) {
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
-                                <span class="text-white font-medium">
-                                   
-                                </span></a>
+                                <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
+                                <!--<img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">-->
+                                <span class="text-white font-medium"><?php echo $StaffName; ?></span>
+							</a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -115,7 +128,7 @@ if (!$result) {
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardenquiry.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardStaff.php"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -131,7 +144,7 @@ if (!$result) {
                         </li>
                         <!-- Profile Link -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileenquiry.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileStaff.php"
                                 aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">Profile</span>

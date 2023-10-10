@@ -20,6 +20,12 @@ $resultAdmin = mysqli_query($conn, $sqlAdmin);
 $rowAdmin = mysqli_fetch_assoc($resultAdmin);
 $AdminName = $rowAdmin['AdminName'];
 $AdminEmail = $rowAdmin['AdminEmail'];
+$ProfilePicture = $rowAdmin['ProfilePicture'];
+
+// Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
+if (empty($ProfilePicture)) {
+  $ProfilePicture = "images\profile.png";
+}
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +101,7 @@ $AdminEmail = $rowAdmin['AdminEmail'];
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
+                                <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
                                 <span class="text-white font-medium">
                                     <?php echo $AdminName; ?>
                                 </span></a>

@@ -151,7 +151,7 @@ if (isset($_POST['update_profile'])) {
                     <div class="profile-image-section">
                       <h3>Edit Profile</h3>
                       <img src="<?php echo $row['ProfilePicture']; ?>" id="profile-pic" alt="Profile Picture">
-                      <form method="post" action="upload_profile_picture.php" enctype="multipart/form-data">
+                      <form method="post" action="upload_profile_pictureAdmin.php" enctype="multipart/form-data">
                         <input type="file" name="profile_picture" accept="image/jpeg, image/png, image/jpg"
                           id="input-file">
                         <input type="submit" name="upload" value="Upload Profile Picture">

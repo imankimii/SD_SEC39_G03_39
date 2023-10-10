@@ -20,6 +20,12 @@ $resultStaff = mysqli_query($conn, $sqlStaff);
 $rowStaff = mysqli_fetch_assoc($resultStaff);
 $StaffName = $rowStaff['StaffName'];
 $StaffEmail = $rowStaff['StaffEmail'];
+$ProfilePicture = $rowStaff['ProfilePicture'];
+
+// Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
+if (empty($ProfilePicture)) {
+  $ProfilePicture = "images\profile.png";
+}
 ?>
 
 <!DOCTYPE html>
@@ -95,9 +101,10 @@ $StaffEmail = $rowStaff['StaffEmail'];
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle">
-                                <span class="text-white font-medium"><?php echo $StaffName; ?></span></a>
+                                <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
+                                <!--<img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">-->
+                                <span class="text-white font-medium"><?php echo $StaffName; ?></span>
+							</a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
