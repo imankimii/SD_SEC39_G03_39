@@ -199,37 +199,50 @@ $roomTypes = getAllRoomTypes($conn);
             </p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4">
-          <h4>
-            Contact Us
-          </h4>
-          <div class="info_contact">
-            <a href="">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              <span>
-                No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan, Wilayah Persekutuan Kuala Lumpur
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              <span>
-                Call +603-6280-5000
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-envelope"></i>
-              <span>
-                HotelSDamansara@gmail.com
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              <span>
-                Operation time (24 Hours)
-              </span>
-            </a>
-          </div>
-        </div>
+        <div class="col-md-6 col-lg-3">
+			<h4>Contact Us</h4>
+			<div class="info_contact">
+				<?php
+				// Include the database connection script
+				require_once "database_connection.php";
+
+				// Fetch contact information from the 'contactus' table
+				$sql = "SELECT address, phone, email FROM contactus";
+				$result = mysqli_query($conn, $sql);
+
+				if ($result && mysqli_num_rows($result) > 0) {
+					$row = mysqli_fetch_assoc($result);
+					$address = $row['address'];
+					$phone = $row['phone'];
+					$email = $row['email'];
+
+					// Display the contact information
+					echo '<a href="#">
+							<i class="fa fa-map-marker" aria-hidden="true"></i>
+							<span>' . $address . '</span>
+						  </a>';
+					echo '<a href="#">
+							<i class="fa fa-phone" aria-hidden="true"></i>
+							<span>Call ' . $phone . '</span>
+						  </a>';
+					echo '<a href="mailto:' . $email . '">
+							<i class="fa fa-envelope"></i>
+							<span>' . $email . '</span>
+						  </a>';
+				} else {
+					// Handle the case where no data is found in the 'contactus' table
+					echo "Contact information not available.";
+				}
+
+				// Close the database connection
+				mysqli_close($conn);
+				?>
+				<a href="">
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<span>Operation time (24 Hours)</span>
+				</a>
+			</div>
+		</div>
         <div class="col-md-6 col-lg-3">
           <h4>
             Follow Us

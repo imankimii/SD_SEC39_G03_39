@@ -304,7 +304,7 @@ $StaffEmail = $rowStaff['StaffEmail'];
             <div class="col-lg-8">
                   <div class="card shadow-sm">
                     <div class="card-header bg-transparent border-0">
-                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD STAFF</h3>
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT CUSTOMER</h3>
                     </div>
                     <div class="card-body pt-0">
                       <form method="post" action="EditfunctionCustomerS.php">

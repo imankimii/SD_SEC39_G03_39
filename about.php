@@ -56,7 +56,7 @@
                 <a href="about.php">About</a>
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
-                <a href="blog.php">Facilities</a>
+                <a href="Facilities.php">Facilities</a>
 				<a href="Room.php">Book room</a>
               </div>
             </div>
@@ -68,45 +68,50 @@
   <!-- end header section -->
 
 
-  <!-- about section -->
+	<!-- about section -->
+	<section class="about_section layout_padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="img-box">
+						<img src="images/about-img.jpg" alt="">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="detail-box">
+						<div class="heading_container">
+							<h2>
+								About Us
+							</h2>
+						</div>
+						<p>
+							<?php
+							// Include the database connection script
+							require_once "database_connection.php";
 
-  <section class="about_section layout_padding ">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="img-box">
-            <img src="images/about-img.jpg" alt="">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                About Us
-              </h2>
-            </div>
-            <p>
-              Operating a 24-hour front desk, Hotel S Damansara features rooms with contemporary décor and parquet
-              flooring. Free Wi-Fi is provided in its public areas and complimentary private parking is available.
-              The hotel is located only a 10-minute drive to various shopping locations such as One Utama Shopping
-              Complex, The Curve Shopping Mall and Tesco Hypermarket. Genting Highlands and KLIA/KLIA2 Airports are a
-              45-minute drive away.
-              Air-conditioned rooms are equipped with a wardrobe, a flat-screen TV and a seating area. Private bathrooms
-              offer a hairdryer and hot/cold shower facilities. Select rooms include a sofa.
-              Hotel S Damansara provides rooms and facilities for disabled guests. Meeting/banqueting facilities are
-              also available.
-              Within a 5 to 10-minute drive, guests can enjoy dining at a restaurant serving local cuisine.
-            </p>
-            <a href="">
-              Read More
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+							// Fetch the About Us description from the 'aboutus' table without specifying 'id'
+							$sql = "SELECT AboutDescription FROM aboutus LIMIT 1"; // Use LIMIT 1 to fetch a single row
+							$result = mysqli_query($conn, $sql);
 
-  <!-- end about section -->
+							if ($result && mysqli_num_rows($result) > 0) {
+								$row = mysqli_fetch_assoc($result);
+								$aboutDescription = $row['AboutDescription'];
+
+								// Display the About Us description from the database
+								echo $aboutDescription;
+							} else {
+								// Handle the case where no data is found in the database
+								echo "About Us description not available.";
+							}
+
+							?>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end about section -->
 
 
   <!-- info section -->
@@ -124,36 +129,49 @@
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
-          <h4>
-            Contact Us
-          </h4>
-          <div class="info_contact">
-            <a href="">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              <span>
-                 No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan, Wilayah Persekutuan Kuala Lumpur
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              <span>
-                Call +603-6280-5000
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-envelope"></i>
-              <span>
-                HotelSDamansara@gmail.com
-              </span>
-            </a>
-			<a href="">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              <span>
-                Operation time (24 Hours)
-              </span>
-            </a>
-          </div>
-        </div>
+			<h4>Contact Us</h4>
+			<div class="info_contact">
+				<?php
+				// Include the database connection script
+				require_once "database_connection.php";
+
+				// Fetch contact information from the 'contactus' table
+				$sql = "SELECT address, phone, email FROM contactus";
+				$result = mysqli_query($conn, $sql);
+
+				if ($result && mysqli_num_rows($result) > 0) {
+					$row = mysqli_fetch_assoc($result);
+					$address = $row['address'];
+					$phone = $row['phone'];
+					$email = $row['email'];
+
+					// Display the contact information
+					echo '<a href="#">
+							<i class="fa fa-map-marker" aria-hidden="true"></i>
+							<span>' . $address . '</span>
+						  </a>';
+					echo '<a href="#">
+							<i class="fa fa-phone" aria-hidden="true"></i>
+							<span>Call ' . $phone . '</span>
+						  </a>';
+					echo '<a href="mailto:' . $email . '">
+							<i class="fa fa-envelope"></i>
+							<span>' . $email . '</span>
+						  </a>';
+				} else {
+					// Handle the case where no data is found in the 'contactus' table
+					echo "Contact information not available.";
+				}
+
+				// Close the database connection
+				mysqli_close($conn);
+				?>
+				<a href="">
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<span>Operation time (24 Hours)</span>
+				</a>
+			</div>
+		</div>
         <div class="col-md-6 col-lg-3">
           <h4>
             Follow Us

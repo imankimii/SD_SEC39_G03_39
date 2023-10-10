@@ -182,12 +182,12 @@ $AdminEmail = $rowAdmin['AdminEmail'];
 								<span class="hide-menu">Edit Facilities</span>
 							</a>
 						</li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ContactUsEdit.php" aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Edit Contact Us</span>
-                            </a>
-                        </li>
+                       <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ContactUsEdit.php" aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Edit Contact Us / About Us</span>
+                        </a>
+                    </li>
 						<!-- Log Out Link -->
 						<li class="sidebar-item">
 							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">
@@ -306,7 +306,7 @@ $AdminEmail = $rowAdmin['AdminEmail'];
             <div class="col-lg-8">
                   <div class="card shadow-sm">
                     <div class="card-header bg-transparent border-0">
-                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD CUSTOMER</h3>
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT CUSTOMER</h3>
                     </div>
                     <div class="card-body pt-0">
                       <form method="post" action="EditfunctionCustomer.php">

@@ -6,6 +6,49 @@ if(!isset($_SESSION['CustEmail'])){
     exit();
 }
 
+// Include the database connection script
+require_once "database_connection.php";
+
+// Fetch contact information from the 'contactus' table
+$sql = "SELECT address, phone, email FROM contactus";
+$result = mysqli_query($conn, $sql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+} else {
+    // Handle the case where no contact information is found in the database
+    $address = "No address available.";
+    $phone = "No phone number available.";
+    $email = "No email available.";
+}
+
+// Fetch the About Us description from the database without specifying 'id'
+$sql = "SELECT AboutDescription FROM aboutus LIMIT 1"; // Use LIMIT 1 to fetch a single row
+$result = mysqli_query($conn, $sql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $aboutDescription = $row['AboutDescription'];
+
+    // Define the maximum length for the shortened description
+    $maxDescriptionLength = 250;
+
+    // Truncate the description if it's longer than the maximum length
+    if (strlen($aboutDescription) > $maxDescriptionLength) {
+        $shortDescription = substr($aboutDescription, 0, $maxDescriptionLength) . "...";
+    } else {
+        $shortDescription = $aboutDescription;
+    }
+} else {
+    // Handle the case where no data is found in the database
+    $shortDescription = "About Us description not available.";
+}
+
+// Close the database connection
+mysqli_close($conn);
 ?>
 				
 <!DOCTYPE html>
@@ -148,27 +191,26 @@ if(!isset($_SESSION['CustEmail'])){
             <img src="images/about-img.jpg" alt="">
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                About Us
-              </h2>
-            </div>
-            <p>
-              Operating a 24-hour front desk, Hotel S Damansara features rooms with contemporary décor and parquet
-              flooring. Free Wi-Fi is provided in its public areas and complimentary private parking is available...
-              
-            </p>
-            <a href="about.php">
-              Read More
-            </a>
-          </div>
-        </div>
+		<div class="col-md-6">
+		  <div class="detail-box">
+			<div class="heading_container">
+			  <h2>
+				About Us
+			  </h2>
+			</div>
+			<p>
+			  <span id="aboutShortDescription">
+				<?php echo $shortDescription; ?>
+			  </span>
+			</p>
+			<?php if (strlen($aboutDescription) > $maxDescriptionLength) : ?>
+			  <a href="about.php">Read More</a>
+			<?php endif; ?>
+		  </div>
+		</div>
       </div>
     </div>
   </section>
-
   <!-- end about section -->
 
   <!-- gallery section -->
@@ -487,30 +529,26 @@ if(!isset($_SESSION['CustEmail'])){
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
-          <h4>
-            Contact Us
-          </h4>
-          <div class="info_contact">
-            <a href="">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              <span>
-                No.1, Jalan Cempaka SD 12/5 Bandar Sri Damansara PJU9, 52200 Wilayah Persekutuan, Wilayah Persekutuan Kuala Lumpur
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              <span>
-                +603-6280-5000
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-envelope"></i>
-              <span>
-                HotelSDamansara@gmail.com
-              </span>
-            </a>
-          </div>
-        </div>
+			<h4>Contact Us</h4>
+			<div class="info_contact">
+					<a href="#">
+						<i class="fa fa-map-marker" aria-hidden="true"></i>
+						<span><?php echo $address; ?></span>
+					</a>
+					<a href="#">
+						<i class="fa fa-phone" aria-hidden="true"></i>
+						<span><?php echo $phone; ?></span>
+					</a>
+					<a href="mailto:<?php echo $email; ?>">
+						<i class="fa fa-envelope"></i>
+						<span><?php echo $email; ?></span>
+					</a>
+					<a href="">
+						<i class="fa fa-clock-o" aria-hidden="true"></i>
+						<span>Operation time (24 Hours)</span>
+					</a>
+			</div>
+		</div>
         <div class="col-md-6 col-lg-3">
           <h4>
             Follow Us
