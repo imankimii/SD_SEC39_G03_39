@@ -24,23 +24,26 @@ function getRoomInfo($conn, $roomType)
 {
     $roomInfo = array();
 
-    // Query the database to get room information for the specified room type
-    $sql = "SELECT roomAvailable, roomPrice, roomImage, roomDescription FROM room WHERE roomType = '$roomType'";
-    $result = $conn->query($sql);
+    // Use a prepared statement to fetch binary image data
+    $sql = "SELECT roomAvailable, roomPrice, roomImage, roomDescription FROM room WHERE roomType = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $roomType);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($roomAvailable, $roomPrice, $roomImage, $roomDescription);
 
-    if ($result->num_rows > 0) {
-        // Retrieve room information
-        $row = $result->fetch_assoc();
-        $roomInfo['roomAvailability'] = $row["roomAvailable"];
-        $roomInfo['roomPrice'] = $row["roomPrice"];
-        $roomInfo['roomImage'] = $row["roomImage"];
-		$roomInfo['roomDescription'] = $row["roomDescription"];
+    if ($stmt->num_rows > 0) {
+        $stmt->fetch();
+        $roomInfo['roomAvailability'] = $roomAvailable;
+        $roomInfo['roomPrice'] = $roomPrice;
+        $roomInfo['roomImage'] = $roomImage;
+        $roomInfo['roomDescription'] = $roomDescription;
     } else {
         // Handle the case when the room type is not found
         $roomInfo['roomAvailability'] = 0; // Room not available
         $roomInfo['roomPrice'] = "N/A";
-        $roomInfo['roomImage'] = "images/placeholder.jpg";
-		$roomInfo['roomDescription'] = "N/A";
+        $roomInfo['roomImage'] = "images/HotelDefault.png";
+        $roomInfo['roomDescription'] = "N/A";
     }
 
     return $roomInfo;
@@ -126,56 +129,45 @@ $roomTypes = getAllRoomTypes($conn);
   <section class="blog_section layout_padding">
     <div class="container-fluid">
       <div class="heading_container">
-        <h2>
-          Room
-        </h2>
+        <h2>Room</h2>
       </div>
       <div class="row">
         <?php
         // Loop through each room type
         foreach ($roomTypes as $roomType) {
-            // Get room information from the database for each room type
-            $roomInfo = getRoomInfo($conn, $roomType);
-            $roomAvailability = $roomInfo['roomAvailability'];
-            $roomPriceDisplay = $roomInfo['roomPrice'];
-            $roomImage = $roomInfo['roomImage'];
-			$roomDescription = $roomInfo['roomDescription'];
-            ?>
-            <div class="col-lg-12">
-              <div class="box">
-                <div class="img-box">
-                  <img src="<?php echo $roomImage; ?>" alt="<?php echo $roomType; ?>">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    <?php echo $roomType; ?>
-                  </h5>
-				  <p>
-                    <?php echo $roomDescription; ?>
-                  </p>
-                  <p>
-                    Room price: RM <?php echo $roomPriceDisplay; ?> per night
-                  </p>
-                  <?php if ($roomAvailability > 0) { ?>
-				    <p>
-                      Quantity: <?php echo $roomAvailability; ?> Room
-                    </p>
-                    <p>
-                      Room availability: Room is available
-                    </p>
-                    <a href="">Book Room</a>
-                  <?php } else { ?>
-				    <p>
-                      Quantity: <?php echo $roomAvailability; ?> Room
-                    </p>
-                    <p>
-                      Room availability: Room not available
-                    </p>
-                    <button disabled>Not Available</button>
-                  <?php } ?>
-                </div>
+          // Get room information from the database for each room type
+          $roomInfo = getRoomInfo($conn, $roomType);
+          $roomAvailability = $roomInfo['roomAvailability'];
+          $roomPriceDisplay = $roomInfo['roomPrice'];
+          $roomImage = $roomInfo['roomImage'];
+          $roomDescription = $roomInfo['roomDescription'];
+
+          // Check if roomImage is empty and set a default image URL
+          if (empty($roomImage)) {
+            $roomImage = "images/HotelDefault.png"; // Use forward slashes for the path
+          }
+          ?>
+          <div class="col-lg-12">
+            <div class="box">
+              <div class="img-box">
+                <img src="images/<?php echo $roomImage; ?>" alt="<?php echo $roomType; ?>">
+              </div>
+              <div class="detail-box">
+                <h5><?php echo $roomType; ?></h5>
+                <p><?php echo $roomDescription; ?></p>
+                <p>Room price: RM <?php echo $roomPriceDisplay; ?> per night</p>
+                <?php if ($roomAvailability > 0) { ?>
+                  <p>Quantity: <?php echo $roomAvailability; ?> Room</p>
+                  <p>Room availability: Room is available</p>
+                  <a href="">Book Room</a>
+                <?php } else { ?>
+                  <p>Quantity: <?php echo $roomAvailability; ?> Room</p>
+                  <p>Room availability: Room not available</p>
+                  <button disabled>Not Available</button>
+                <?php } ?>
               </div>
             </div>
+          </div>
         <?php } ?>
       </div>
     </div>

@@ -39,7 +39,7 @@ function getFacilityInfo($conn, $facilityType)
         // Handle the case when the facility type is not found
         $facilityInfo['facilityAvailability'] = 0; // Facility not available
         $facilityInfo['facilityPrice'] = "N/A";
-        $facilityInfo['facilityImage'] = "images/placeholder.jpg";
+        $facilityInfo['facilityImage'] = "images/HotelDefault.jpg";
         $facilityInfo['facilityDescription'] = "N/A";
     }
 
@@ -140,6 +140,11 @@ $facilityTypes = getAllFacilityTypes($conn);
                     $facilityPriceDisplay = $facilityInfo['facilityPrice'];
                     $facilityImage = $facilityInfo['facilityImage'];
                     $facilityDescription = $facilityInfo['facilityDescription'];
+					
+					// Check if roomImage is empty and set a default image URL
+					if (empty($facilityImage)) {
+						$facilityImage = "images/HotelDefault.png"; // Use forward slashes for the path
+					}
                     ?>
                     <div class="col-lg-12">
                         <div class="box">

@@ -6,7 +6,7 @@ if (!isset($_SESSION['StaffEmail'])) {
 }
 require_once "database_connection.php";
 
-$sql = "SELECT * FROM room"; // Assuming "room" is the table name
+$sql = "SELECT * FROM room";
 $result = mysqli_query($conn, $sql);
 
 // Check for query errors
@@ -104,9 +104,7 @@ if (empty($ProfilePicture)) {
                         <li>
                             <a class="profile-pic" href="#">
                                 <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
-                                <!--<img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">-->
-                                <span class="text-white font-medium"><?php echo $StaffName; ?></span>
-							</a>
+									<span class="text-white font-medium"><?php echo $StaffName; ?></span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -259,6 +257,7 @@ if (empty($ProfilePicture)) {
 												<th>Room Price</th>
 												<th>Room Quantity</th>
 												<th>Room Available</th>
+                                                <th>Room Image</th>
 												<th>Room Description</th>
 												<th>Action</th>
 											</tr>
@@ -275,6 +274,7 @@ if (empty($ProfilePicture)) {
 											echo "<td>" . $row['roomPrice'] . "</td>";
 											echo "<td>" . $row['roomQuantity'] . "</td>";
 											echo "<td>" . $row['roomAvailable'] . "</td>";
+                                            echo "<td>" . $row['roomImage'] . "</td>";
 											echo "<td>" . $row['roomDescription'] . "</td>";
 											echo "<td><button class='btn btn-primary EditModalBtn' data-roomType='$roomType' data-roomNum='{$row['roomNum']}' data-roomPrice='{$row['roomPrice']}' data-roomQuantity='{$row['roomQuantity']}' data-roomAvailable='{$row['roomAvailable']}' data-roomImage='{$row['roomImage']}' data-roomDescription='{$row['roomDescription']}'>EDIT</button></td>";
 											echo "<td><button class='btn btn-danger deleteButton' data-roomType='$roomType'>DELETE</button></td>";
@@ -312,49 +312,53 @@ if (empty($ProfilePicture)) {
         <!-- ============================================================== -->
     </div>
 	<!-- EDIT ROOM MODAL -->
-	<div id="myModalRoom" class="modal">
-		<div class="modal-content">
-			<span id="closeModalBtnRoom" class="close">&times;</span>
-			<div class="col-lg-8">
-				<div class="card shadow-sm">
-					<div class="card-header bg-transparent border-0">
-						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT ROOM</h3>
-					</div>
-					<div class="card-body pt-0">
-						<form method="post" action="EditfunctionRoomS.php">
-							<div class="form-group">
-								<label for="roomType">Room Type</label>
-								<input type="text" id="roomType" name="roomType" class="form-control" readonly>
-							</div>
-							<div class="form-group">
-								<label for="roomNum">Room Number</label>
-								<input type="text" id="roomNum" name="roomNum" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomPrice">Room Price</label>
-								<input type="text" id="roomPrice" name="roomPrice" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomQuantity">Room Quantity</label>
-								<input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomAvailable">Room Available</label>
-								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomDescription">Room Description</label>
-								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
-							</div>
-							<div class="form-group">
-								<button type="submit" name="edit_room" class="btn btn-primary">EDIT ROOM</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div id="myModalRoom" class="modal">
+    <div class="modal-content">
+        <span id="closeModalBtnRoom" class="close">&times;</span>
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-transparent border-0">
+                    <h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT ROOM</h3>
+                </div>
+                <div class="card-body pt-0">
+                    <form method="post" action="EditfunctionRoomS.php" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="roomType">Room Type</label>
+                            <input type="text" id="roomType" name="roomType" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomNum">Room Number</label>
+                            <input type="text" id="roomNum" name="roomNum" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="roomPrice">Room Price</label>
+                            <input type="text" id="roomPrice" name="roomPrice" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="roomQuantity">Room Quantity</label>
+                            <input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="roomAvailable">Room Available</label>
+                            <input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="roomImage">Room Image</label>
+                            <input type="file" id="roomImage" name="roomImage" accept="image/jpeg, image/png, image/jpg" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="roomDescription">Room Description</label>
+                            <textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="edit_room" class="btn btn-primary">EDIT ROOM</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 	<!-- ADD ROOM MODAL -->
 	<div id="myModalAddRoom" class="modal">
@@ -387,6 +391,10 @@ if (empty($ProfilePicture)) {
 								<label for="roomAvailableAdd">Room Available</label>
 								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
 							</div>
+                            <div class="form-group">
+                                <label for="roomImageAdd">Room Image</label>
+                                <input type="file" id="roomImage" name="roomImage" id="input-file" accept="image/jpeg, image/png, image/jpg" class="form-control">
+                            </div>   
 							<div class="form-group">
 								<label for="roomDescriptionAdd">Room Description</label>
 								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
@@ -427,10 +435,11 @@ if (empty($ProfilePicture)) {
     const roomPriceInput = document.getElementById("roomPrice");
     const roomQuantityInput = document.getElementById("roomQuantity");
     const roomAvailableInput = document.getElementById("roomAvailable");
+    const roomImageInput = document.getElementById("roomImage");
     const roomDescriptionInput = document.getElementById("roomDescription");
 
     // Function to open the modal and populate it with data
-    function openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomDescription) {
+    function openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomImage, roomDescription) {
         // Populate the modal inputs with the retrieved data
         roomTypeInput.value = roomType;
         roomNumInput.value = roomNum;
@@ -438,6 +447,13 @@ if (empty($ProfilePicture)) {
         roomQuantityInput.value = roomQuantity;
         roomAvailableInput.value = roomAvailable;
         roomDescriptionInput.value = roomDescription;
+
+        // Display the current room image, checking for an empty roomImage
+        if (roomImage) {
+            roomImageInput.src = roomImage;
+        } else {
+            roomImageInput.src = "images/HotelDefault.png"; // Set the default image
+        }
 
         // Show the modal
         modalRoom.style.display = "block";
@@ -451,8 +467,9 @@ if (empty($ProfilePicture)) {
             const roomPrice = button.getAttribute("data-roomPrice");
             const roomQuantity = button.getAttribute("data-roomQuantity");
             const roomAvailable = button.getAttribute("data-roomAvailable");
+            const roomImage = button.getAttribute("data-roomImage");
             const roomDescription = button.getAttribute("data-roomDescription");
-            openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomDescription);
+            openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomImage, roomDescription);
         });
     });
 
@@ -497,7 +514,25 @@ if (empty($ProfilePicture)) {
     deleteRoomButtons.forEach(function (button) {
         button.addEventListener("click", handleDeleteRoomButtonClick);
     });
+</script>
+	<script>
+	let inputFile = document.getElementById("roomImage");
+		inputFile.onchange = function () {
+			if (inputFile.files.length > 0) {
+				let selectedImage = inputFile.files[0];
+			currentRoomImage.src = URL.createObjectURL(selectedImage);
+			}
+		}
 	</script>
+	<script>
+    let inputFile = document.getElementById("input-file");
+        inputFile.onchange = function (){
+            if (inputFile.files.length > 0){
+                let selectedImage = inputFile.files[0];
+            profileImage.src = URL.createObjectURL(selectedImage);
+			}
+        }
+    </script> 
 	<?php
     // Close the database connection
     mysqli_close($conn);
