@@ -24,7 +24,7 @@ $ProfilePicture = $rowStaff['ProfilePicture'];
 
 // Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {
-  $ProfilePicture = "images\profile.png";
+    $ProfilePicture = "images\profile.png";
 }
 ?>
 <!DOCTYPE html>
@@ -104,8 +104,10 @@ if (empty($ProfilePicture)) {
                             <a class="profile-pic" href="#">
                                 <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
                                 <!--<img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">-->
-                                <span class="text-white font-medium"><?php echo $StaffName; ?></span>
-							</a>
+                                <span class="text-white font-medium">
+                                    <?php echo $StaffName; ?>
+                                </span>
+                            </a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -197,13 +199,28 @@ if (empty($ProfilePicture)) {
                                 <span class="hide-menu">Edit Facilities</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="events.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Events</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="eventEditS.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit events</span>
+                            </a>
+                        </li>
                         <!-- Staff Enquiry Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ViewEnquiryS.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">View Enquiry</span>
-                        </a>
-                    </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ViewEnquiryS.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">View Enquiry</span>
+                            </a>
+                        </li>
                         <!-- Log Out Link -->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php"
@@ -226,7 +243,7 @@ if (empty($ProfilePicture)) {
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-          <!-- Container fluid  -->
+            <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->

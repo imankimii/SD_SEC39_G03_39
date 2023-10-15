@@ -24,7 +24,7 @@ $ProfilePicture = $rowAdmin['ProfilePicture'];
 
 // Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {
-  $ProfilePicture = "images\profile.png";
+    $ProfilePicture = "images\profile.png";
 }
 ?>
 
@@ -46,7 +46,7 @@ if (empty($ProfilePicture)) {
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <!-- Custom CSS -->
-   <link href="dashcss/style.min.css" rel="stylesheet">
+    <link href="dashcss/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -104,7 +104,9 @@ if (empty($ProfilePicture)) {
                         <li>
                             <a class="profile-pic" href="#">
                                 <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
-									<span class="text-white font-medium"><?php echo $AdminName; ?></span></a>
+                                <span class="text-white font-medium">
+                                    <?php echo $AdminName; ?>
+                                </span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -127,78 +129,111 @@ if (empty($ProfilePicture)) {
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php" aria-expanded="false">
-                            <i class="far fa-clock" aria-hidden="true"></i>
-                            <span class="hide-menu">Dashboard</span>
-                        </a>
-						</li>
-						<!-- View Homepage Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
-								<i class="fa fa-home" aria-hidden="true"></i>
-								<span class="hide-menu">View Homepage</span>
-							</a>
-						</li>
-						<!-- Profile Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileAdmin.php" aria-expanded="false">
-								<i class="fa fa-user" aria-hidden="true"></i>
-								<span class="hide-menu">Profile</span>
-							</a>
-						</li>
-						<!-- Customer Table Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertable.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Customer Table</span>
-							</a>
-						</li>
-						<!-- Staff Table Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftable.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Staff Table</span>
-							</a>
-						</li>
-						<!-- Staff Room Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Room</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Edit Room</span>
-							</a>
-						</li>
-						<!-- Staff Facilities Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Facilities</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilityEdit.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Edit Facilities</span>
-							</a>
-						</li>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php"
+                                aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <!-- View Homepage Link -->
                         <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ContactUsEdit.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Edit Contact Us / About Us</span>
-                        </a>
-                    </li>
-						<!-- Log Out Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Log Out</span>
-							</a>
-						</li>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
+                                aria-expanded="false">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                                <span class="hide-menu">View Homepage</span>
+                            </a>
+                        </li>
+                        <!-- Profile Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileAdmin.php"
+                                aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        <!-- Customer Table Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertable.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Customer Table</span>
+                            </a>
+                        </li>
+                        <!-- Staff Table Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftable.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Staff Table</span>
+                            </a>
+                        </li>
+                        <!-- Staff Room Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Room</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit Room</span>
+                            </a>
+                        </li>
+                        <!-- Staff Facilities Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Facilities</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilityEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit Facilities</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="events.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Events</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="eventEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit events</span>
+                            </a>
+                        </li>
+                        <!-- Admin Enquiry Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ViewEnquiry.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">View Enquiry</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ContactUsEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit Contact Us / About Us</span>
+                            </a>
+                        </li>
+                        <!-- Log Out Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Log Out</span>
+                            </a>
+                        </li>
                     </ul>
 
                 </nav>
@@ -214,27 +249,6 @@ if (empty($ProfilePicture)) {
         <!-- ============================================================== -->
         <div class="page-wrapper">
             <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb bg-white">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Room Table</h4>
-                    </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <div class="d-md-flex">
-                            <ol class="breadcrumb ms-auto">
-                                <li><a href="#" class="fw-normal">Dashboard</a></li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
@@ -242,54 +256,55 @@ if (empty($ProfilePicture)) {
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-					<div class="col-sm-12">
-						<div class="white-box">
-							<h3 class="box-title">Room Table</h3>
-							<div class="table-responsive">
-								<table class="table table-striped table-bordered">
-									<thead>
-										<tr>
-											<tr>
-												<th>Room Type</th>
-												<th>Room Number</th>
-												<th>Room Price</th>
-												<th>Room Quantity</th>
-												<th>Room Available</th>
-                                                <th>Room Image</th>
-												<th>Room Description</th>
-												<th>Action</th>
-											</tr>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-										$rowNumber = 1;
-										while ($row = mysqli_fetch_assoc($result)) {
-											$roomType = $row['roomType'];
-											echo "<tr>";
-											echo "<td>" . $roomType . "</td>";
-											echo "<td>" . $row['roomNum'] . "</td>";
-											echo "<td>" . $row['roomPrice'] . "</td>";
-											echo "<td>" . $row['roomQuantity'] . "</td>";
-											echo "<td>" . $row['roomAvailable'] . "</td>";
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Room Table</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                        <tr>
+                                            <th>Room Type</th>
+                                            <th>Room Number</th>
+                                            <th>Room Price</th>
+                                            <th>Room Quantity</th>
+                                            <th>Room Available</th>
+                                            <th>Room Image</th>
+                                            <th>Room Description</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $rowNumber = 1;
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $roomType = $row['roomType'];
+                                            echo "<tr>";
+                                            echo "<td>" . $roomType . "</td>";
+                                            echo "<td>" . $row['roomNum'] . "</td>";
+                                            echo "<td>" . $row['roomPrice'] . "</td>";
+                                            echo "<td>" . $row['roomQuantity'] . "</td>";
+                                            echo "<td>" . $row['roomAvailable'] . "</td>";
                                             echo "<td>" . $row['roomImage'] . "</td>";
-											echo "<td>" . $row['roomDescription'] . "</td>";
-											echo "<td><button class='btn btn-primary EditModalBtn' data-roomType='$roomType' data-roomNum='{$row['roomNum']}' data-roomPrice='{$row['roomPrice']}' data-roomQuantity='{$row['roomQuantity']}' data-roomAvailable='{$row['roomAvailable']}' data-roomImage='{$row['roomImage']}' data-roomDescription='{$row['roomDescription']}'>EDIT</button></td>";
-											echo "<td><button class='btn btn-danger deleteButton' data-roomType='$roomType'>DELETE</button></td>";
-											echo "</tr>";
-										}
-										?>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="8"><button id="AddModalBtn" class='btn btn-success'>ADD</button></td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
+                                            echo "<td>" . $row['roomDescription'] . "</td>";
+                                            echo "<td><button class='btn btn-primary EditModalBtn' data-roomType='$roomType' data-roomNum='{$row['roomNum']}' data-roomPrice='{$row['roomPrice']}' data-roomQuantity='{$row['roomQuantity']}' data-roomAvailable='{$row['roomAvailable']}' data-roomImage='{$row['roomImage']}' data-roomDescription='{$row['roomDescription']}'>EDIT</button></td>";
+                                            echo "<td><button class='btn btn-danger deleteButton' data-roomType='$roomType'>DELETE</button></td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="8"><button id="AddModalBtn"
+                                                    class='btn btn-success'>ADD</button></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -309,103 +324,105 @@ if (empty($ProfilePicture)) {
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
     </div>
-	<!-- EDIT ROOM MODAL -->
-	<div id="myModalRoom" class="modal">
-		<div class="modal-content">
-			<span id="closeModalBtnRoom" class="close">&times;</span>
-			<div class="col-lg-8">
-				<div class="card shadow-sm">
-					<div class="card-header bg-transparent border-0">
-						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT ROOM</h3>
-					</div>
-					<div class="card-body pt-0">
-						<form method="post" action="EditfunctionRoom.php" enctype="multipart/form-data">
-							<div class="form-group">
-								<label for="roomType">Room Type</label>
-								<input type="text" id="roomType" name="roomType" class="form-control" readonly>
-							</div>
-							<div class="form-group">
-								<label for="roomNum">Room Number</label>
-								<input type="text" id="roomNum" name="roomNum" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomPrice">Room Price</label>
-								<input type="text" id="roomPrice" name="roomPrice" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomQuantity">Room Quantity</label>
-								<input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomAvailable">Room Available</label>
-								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomImage">Room Image</label>
-								<input type="file" id="roomImage" name="roomImage" accept="image/jpeg, image/png, image/jpg" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomDescription">Room Description</label>
-								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
-							</div>
-							<div class="form-group">
-								<button type="submit" name="edit_room" class="btn btn-primary">EDIT ROOM</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- EDIT ROOM MODAL -->
+    <div id="myModalRoom" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtnRoom" class="close">&times;</span>
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT ROOM</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                        <form method="post" action="EditfunctionRoom.php" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="roomType">Room Type</label>
+                                <input type="text" id="roomType" name="roomType" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="roomNum">Room Number</label>
+                                <input type="text" id="roomNum" name="roomNum" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomPrice">Room Price</label>
+                                <input type="text" id="roomPrice" name="roomPrice" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomQuantity">Room Quantity</label>
+                                <input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomAvailable">Room Available</label>
+                                <input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomImage">Room Image</label>
+                                <input type="file" id="roomImage" name="roomImage"
+                                    accept="image/jpeg, image/png, image/jpg" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomDescription">Room Description</label>
+                                <textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="edit_room" class="btn btn-primary">EDIT ROOM</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- ADD ROOM MODAL -->
-	<div id="myModalAddRoom" class="modal">
-		<div class="modal-content">
-			<span id="closeModalBtnAddRoom" class="close">&times;</span>
-			<div class="col-lg-8">
-				<div class="card shadow-sm">
-					<div class="card-header bg-transparent border-0">
-						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD ROOM</h3>
-					</div>
-					<div class="card-body pt-0">
-						<form method="post" action="AddfunctionRoom.php">
-							<div class="form-group">
-								<label for="roomTypeAdd">Room Type</label>
-								<input type="text" id="roomType" name="roomType" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomNumAdd">Room Number</label>
-								<input type="text" id="roomNum" name="roomNum" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomPriceAdd">Room Price</label>
-								<input type="text" id="roomPrice" name="roomPrice" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomQuantityAdd">Room Quantity</label>
-								<input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="roomAvailableAdd">Room Available</label>
-								<input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
-							</div>
+    <!-- ADD ROOM MODAL -->
+    <div id="myModalAddRoom" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtnAddRoom" class="close">&times;</span>
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD ROOM</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                        <form method="post" action="AddfunctionRoom.php">
+                            <div class="form-group">
+                                <label for="roomTypeAdd">Room Type</label>
+                                <input type="text" id="roomType" name="roomType" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomNumAdd">Room Number</label>
+                                <input type="text" id="roomNum" name="roomNum" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomPriceAdd">Room Price</label>
+                                <input type="text" id="roomPrice" name="roomPrice" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomQuantityAdd">Room Quantity</label>
+                                <input type="text" id="roomQuantity" name="roomQuantity" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomAvailableAdd">Room Available</label>
+                                <input type="text" id="roomAvailable" name="roomAvailable" class="form-control">
+                            </div>
                             <div class="form-group">
                                 <label for="roomImageAdd">Room Image</label>
-                                <input type="file" id="roomImage" name="roomImage" id="input-file" accept="image/jpeg, image/png, image/jpg" class="form-control">
-                            </div>   
-							<div class="form-group">
-								<label for="roomDescriptionAdd">Room Description</label>
-								<textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
-							</div>
-							<div class="form-group">
-								<button type="submit" name="add_room" class="btn btn-primary">ADD ROOM</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                <input type="file" id="roomImage" name="roomImage" id="input-file"
+                                    accept="image/jpeg, image/png, image/jpg" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomDescriptionAdd">Room Description</label>
+                                <textarea id="roomDescription" name="roomDescription" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="add_room" class="btn btn-primary">ADD ROOM</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -422,116 +439,116 @@ if (empty($ProfilePicture)) {
     <script src="js2/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js2/custom.js"></script>
-	
-	<script>
-    // Select all elements with the class "EditModalBtn"
-    const editRoomButtons = document.querySelectorAll(".EditModalBtn");
-    const modalRoom = document.getElementById("myModalRoom");
-    const closeModalBtnRoom = document.getElementById("closeModalBtnRoom");
-    const roomTypeInput = document.getElementById("roomType");
-    const roomNumInput = document.getElementById("roomNum");
-    const roomPriceInput = document.getElementById("roomPrice");
-    const roomQuantityInput = document.getElementById("roomQuantity");
-    const roomAvailableInput = document.getElementById("roomAvailable");
-    const roomImageInput = document.getElementById("roomImage");
-    const roomDescriptionInput = document.getElementById("roomDescription");
 
-    // Function to open the modal and populate it with data
-    function openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomImage, roomDescription) {
-        // Populate the modal inputs with the retrieved data
-        roomTypeInput.value = roomType;
-        roomNumInput.value = roomNum;
-        roomPriceInput.value = roomPrice;
-        roomQuantityInput.value = roomQuantity;
-        roomAvailableInput.value = roomAvailable;
-        roomDescriptionInput.value = roomDescription;
+    <script>
+        // Select all elements with the class "EditModalBtn"
+        const editRoomButtons = document.querySelectorAll(".EditModalBtn");
+        const modalRoom = document.getElementById("myModalRoom");
+        const closeModalBtnRoom = document.getElementById("closeModalBtnRoom");
+        const roomTypeInput = document.getElementById("roomType");
+        const roomNumInput = document.getElementById("roomNum");
+        const roomPriceInput = document.getElementById("roomPrice");
+        const roomQuantityInput = document.getElementById("roomQuantity");
+        const roomAvailableInput = document.getElementById("roomAvailable");
+        const roomImageInput = document.getElementById("roomImage");
+        const roomDescriptionInput = document.getElementById("roomDescription");
 
-        // Display the current room image, checking for an empty roomImage
-        if (roomImage) {
-            roomImageInput.src = roomImage;
-        } else {
-            roomImageInput.src = "images/HotelDefault.png"; // Set the default image
+        // Function to open the modal and populate it with data
+        function openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomImage, roomDescription) {
+            // Populate the modal inputs with the retrieved data
+            roomTypeInput.value = roomType;
+            roomNumInput.value = roomNum;
+            roomPriceInput.value = roomPrice;
+            roomQuantityInput.value = roomQuantity;
+            roomAvailableInput.value = roomAvailable;
+            roomDescriptionInput.value = roomDescription;
+
+            // Display the current room image, checking for an empty roomImage
+            if (roomImage) {
+                roomImageInput.src = roomImage;
+            } else {
+                roomImageInput.src = "images/HotelDefault.png"; // Set the default image
+            }
+
+            // Show the modal
+            modalRoom.style.display = "block";
         }
 
-        // Show the modal
-        modalRoom.style.display = "block";
-    }
-
-    // Add a click event listener to each edit button
-    editRoomButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            const roomType = button.getAttribute("data-roomType");
-            const roomNum = button.getAttribute("data-roomNum");
-            const roomPrice = button.getAttribute("data-roomPrice");
-            const roomQuantity = button.getAttribute("data-roomQuantity");
-            const roomAvailable = button.getAttribute("data-roomAvailable");
-            const roomImage = button.getAttribute("data-roomImage");
-            const roomDescription = button.getAttribute("data-roomDescription");
-            openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomImage, roomDescription);
+        // Add a click event listener to each edit button
+        editRoomButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const roomType = button.getAttribute("data-roomType");
+                const roomNum = button.getAttribute("data-roomNum");
+                const roomPrice = button.getAttribute("data-roomPrice");
+                const roomQuantity = button.getAttribute("data-roomQuantity");
+                const roomAvailable = button.getAttribute("data-roomAvailable");
+                const roomImage = button.getAttribute("data-roomImage");
+                const roomDescription = button.getAttribute("data-roomDescription");
+                openRoomModal(roomType, roomNum, roomPrice, roomQuantity, roomAvailable, roomImage, roomDescription);
+            });
         });
-    });
 
-    // Close the room modal when the close button is clicked
-    closeModalBtnRoom.addEventListener("click", function () {
-        modalRoom.style.display = "none";
-    });
-
-    // Close the room modal if the user clicks anywhere outside of it
-    window.addEventListener("click", function (event) {
-        if (event.target === modalRoom) {
+        // Close the room modal when the close button is clicked
+        closeModalBtnRoom.addEventListener("click", function () {
             modalRoom.style.display = "none";
+        });
+
+        // Close the room modal if the user clicks anywhere outside of it
+        window.addEventListener("click", function (event) {
+            if (event.target === modalRoom) {
+                modalRoom.style.display = "none";
+            }
+        });
+
+        // Handling ADD ROOM modal
+        document.getElementById("AddModalBtn").addEventListener("click", function () {
+            document.getElementById("myModalAddRoom").style.display = "block";
+        });
+
+        document.getElementById("closeModalBtnAddRoom").addEventListener("click", function () {
+            document.getElementById("myModalAddRoom").style.display = "none";
+        });
+
+        // Close the ADD ROOM modal if the user clicks anywhere outside of it
+        window.addEventListener("click", function (event) {
+            const modal = document.getElementById("myModalAddRoom");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Handling DELETE ROOM button
+        const deleteRoomButtons = document.querySelectorAll(".deleteButton");
+
+        function handleDeleteRoomButtonClick(event) {
+            const roomType = event.target.getAttribute("data-roomType");
+            // Redirect to the deletion script (DeletefunctionRoom.php)
+            window.location.href = 'DeletefunctionRoom.php?roomType=' + roomType;
         }
-    });
 
-    // Handling ADD ROOM modal
-    document.getElementById("AddModalBtn").addEventListener("click", function () {
-        document.getElementById("myModalAddRoom").style.display = "block";
-    });
-
-    document.getElementById("closeModalBtnAddRoom").addEventListener("click", function () {
-        document.getElementById("myModalAddRoom").style.display = "none";
-    });
-
-    // Close the ADD ROOM modal if the user clicks anywhere outside of it
-    window.addEventListener("click", function (event) {
-        const modal = document.getElementById("myModalAddRoom");
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // Handling DELETE ROOM button
-    const deleteRoomButtons = document.querySelectorAll(".deleteButton");
-
-    function handleDeleteRoomButtonClick(event) {
-        const roomType = event.target.getAttribute("data-roomType");
-        // Redirect to the deletion script (DeletefunctionRoom.php)
-        window.location.href = 'DeletefunctionRoom.php?roomType=' + roomType;
-    }
-
-    deleteRoomButtons.forEach(function (button) {
-        button.addEventListener("click", handleDeleteRoomButtonClick);
-    });
-</script>
-	<script>
-	let inputFile = document.getElementById("roomImage");
-		inputFile.onchange = function () {
-			if (inputFile.files.length > 0) {
-				let selectedImage = inputFile.files[0];
-			currentRoomImage.src = URL.createObjectURL(selectedImage);
-			}
-		}
-	</script>
-	<script>
-    let inputFile = document.getElementById("input-file");
-        inputFile.onchange = function (){
-            if (inputFile.files.length > 0){
+        deleteRoomButtons.forEach(function (button) {
+            button.addEventListener("click", handleDeleteRoomButtonClick);
+        });
+    </script>
+    <script>
+        let inputFile = document.getElementById("roomImage");
+        inputFile.onchange = function () {
+            if (inputFile.files.length > 0) {
                 let selectedImage = inputFile.files[0];
-            profileImage.src = URL.createObjectURL(selectedImage);
-			}
+                currentRoomImage.src = URL.createObjectURL(selectedImage);
+            }
         }
-    </script> 
-	<?php
+    </script>
+    <script>
+        let inputFile = document.getElementById("input-file");
+        inputFile.onchange = function () {
+            if (inputFile.files.length > 0) {
+                let selectedImage = inputFile.files[0];
+                profileImage.src = URL.createObjectURL(selectedImage);
+            }
+        }
+    </script>
+    <?php
     // Close the database connection
     mysqli_close($conn);
     ?>

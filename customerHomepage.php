@@ -112,7 +112,7 @@ mysqli_close($conn);
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
                 <a href="Facilities.php">Facilities</a>
-                <a href="Room.php">Book room</a>
+                <a href="Room.php">Room</a>
                 <a href="LogOut.php">Log Out</a>
               </div>
             </div>

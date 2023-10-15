@@ -1,12 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['StaffEmail'])) {
-  header('Location: LogIn.php');
-  exit();
+if (!isset($_SESSION['AdminEmail'])) {
+    header('Location: LogIn.php');
+    exit();
 }
 require_once "database_connection.php";
 
-$sql = "SELECT * FROM staff";
+$sql = "SELECT * FROM enquiry";
 $result = mysqli_query($conn, $sql);
 
 // Check for query errors
@@ -14,20 +14,19 @@ if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
 
-$StaffEmail = $_SESSION['StaffEmail'];
-$sqlStaff = "SELECT * FROM staff WHERE StaffEmail = '$StaffEmail'";
-$resultStaff = mysqli_query($conn, $sqlStaff);
-$rowStaff = mysqli_fetch_assoc($resultStaff);
-$StaffName = $rowStaff['StaffName'];
-$StaffEmail = $rowStaff['StaffEmail'];
-$ProfilePicture = $rowStaff['ProfilePicture'];
+$AdminEmail = $_SESSION['AdminEmail'];
+$sqlAdmin = "SELECT * FROM Admin WHERE AdminEmail = '$AdminEmail'";
+$resultAdmin = mysqli_query($conn, $sqlAdmin);
+$rowAdmin = mysqli_fetch_assoc($resultAdmin);
+$AdminName = $rowAdmin['AdminName'];
+$AdminEmail = $rowAdmin['AdminEmail'];
+$ProfilePicture = $rowAdmin['ProfilePicture'];
 
 // Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {
-  $ProfilePicture = "images\profile.png";
+    $ProfilePicture = "images\profile.png";
 }
 ?>
-
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -46,7 +45,7 @@ if (empty($ProfilePicture)) {
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <!-- Custom CSS -->
-   <link href="dashcss/style.min.css" rel="stylesheet">
+    <link href="dashcss/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -105,8 +104,10 @@ if (empty($ProfilePicture)) {
                             <a class="profile-pic" href="#">
                                 <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
                                 <!--<img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">-->
-                                <span class="text-white font-medium"><?php echo $StaffName; ?></span>
-							</a>
+                                <span class="text-white font-medium">
+                                    <?php echo $AdminName; ?>
+                                </span>
+                            </a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -127,84 +128,114 @@ if (empty($ProfilePicture)) {
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <!-- User Profile-->
+                        <!-- Dashboard Link -->
                         <li class="sidebar-item pt-2">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardStaff.php" aria-expanded="false">
-                            <i class="far fa-clock" aria-hidden="true"></i>
-                            <span class="hide-menu">Dashboard</span>
-                        </a>
-                    </li>
-                    <!-- View Homepage Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
-                            <i class="fa fa-home" aria-hidden="true"></i>
-                            <span class="hide-menu">View Homepage</span>
-                        </a>
-                    </li>
-                    <!-- Profile Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileStaff.php" aria-expanded="false">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <span class="hide-menu">Profile</span>
-                        </a>
-                    </li>
-                    <!-- Customer Table Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertableS.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Customer Table</span>
-                        </a>
-                    </li>
-                    <!-- Staff Table Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftableS.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Staff Table</span>
-                        </a>
-                    </li>
-                    <!-- Staff Room Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Room</span>
-                        </a>
-                    </li>
-                    <!-- Staff Room Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEditS.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Edit Room</span>
-                        </a>
-                    </li>
-                    <!-- Staff Facilities Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Facilities</span>
-                        </a>
-                    </li><!-- Staff Room Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilityEditS.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Edit Facilities</span>
-                        </a>
-                    </li>
-                    <!-- Staff Enquiry Link -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ViewEnquiryS.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">View Enquiry</span>
-                        </a>
-                    </li>
-					<!-- Log Out Link -->
-					<li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Log Out</span>
-                        </a>
-                    </li>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php"
+                                aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <!-- View Homepage Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
+                                aria-expanded="false">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                                <span class="hide-menu">View Homepage</span>
+                            </a>
+                        </li>
+                        <!-- Profile Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileAdmin.php"
+                                aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        <!-- Customer Table Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertable.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Customer Table</span>
+                            </a>
+                        </li>
+                        <!-- Staff Table Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftable.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Staff Table</span>
+                            </a>
+                        </li>
+                        <!-- Staff Room Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Room</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit Room</span>
+                            </a>
+                        </li>
+                        <!-- Staff Facilities Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Facilities</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilityEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit Facilities</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="events.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Events</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="eventEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit events</span>
+                            </a>
+                        </li>
+                        <!-- Admin Enquiry Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ViewEnquiry.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">View Enquiry</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ContactUsEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit Contact Us / About Us</span>
+                            </a>
+                        </li>
+                        <!-- Log Out Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Log Out</span>
+                            </a>
+                        </li>
                     </ul>
-
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -217,7 +248,6 @@ if (empty($ProfilePicture)) {
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
@@ -227,38 +257,31 @@ if (empty($ProfilePicture)) {
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">Staff Table</h3>
+                            <h3 class="box-title">Enquiry</h3>
                             <div class="table-responsive">
-								<table class="table text-nowrap">
-									<thead>
-										<tr>
-											<th class="border-top-0">Staff ID</th>
-											<th class="border-top-0">Staff Name</th>
-											<th class="border-top-0">Staff Email</th>
-											<th class="border-top-0">Gender</th>
-											<th class="border-top-0">Race</th>
-											<th class="border-top-0">No Phone</th>
-											<th class="border-top-0">State</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-										$rowNumber = 1;
-										while ($row = mysqli_fetch_assoc($result)) {
-											echo "<tr>";
-											echo "<td>" . $row['StaffID'] . "</td>";
-											echo "<td>" . $row['StaffName'] . "</td>";
-											echo "<td>" . $row['StaffEmail'] . "</td>";
-											echo "<td>" . $row['Gender'] . "</td>";
-											echo "<td>" . $row['Race'] . "</td>";
-											echo "<td>" . $row['NoPhone'] . "</td>";
-											echo "<td>" . $row['State'] . "</td>";
-											echo "</tr>";
-										}
-										?>
-									</tbody>
-								</table>
-							</div>
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">Name</th>
+                                            <th class="border-top-0">No Phone</th>
+                                            <th class="border-top-0">Email</th>
+                                            <th class="border-top-0">Message</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row['enquiryName'] . "</td>";
+                                            echo "<td> +60" . $row['enquiryPhone'] . "</td>";
+                                            echo "<td>" . $row['enquiryEmail'] . "</td>";
+                                            echo "<td>" . $row['enquiryMessage'] . "</td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -297,8 +320,8 @@ if (empty($ProfilePicture)) {
     <script src="js2/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js2/custom.js"></script>
-	
-	<?php
+
+    <?php
     // Close the database connection
     mysqli_close($conn);
     ?>

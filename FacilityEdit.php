@@ -24,7 +24,7 @@ $ProfilePicture = $rowAdmin['ProfilePicture'];
 
 // Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {
-  $ProfilePicture = "images\profile.png";
+    $ProfilePicture = "images\profile.png";
 }
 ?>
 
@@ -102,7 +102,9 @@ if (empty($ProfilePicture)) {
                         <li>
                             <a class="profile-pic" href="#">
                                 <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
-                                <span class="text-white font-medium"><?php echo $AdminName; ?></span></a>
+                                <span class="text-white font-medium">
+                                    <?php echo $AdminName; ?>
+                                </span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -125,78 +127,111 @@ if (empty($ProfilePicture)) {
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php" aria-expanded="false">
-                            <i class="far fa-clock" aria-hidden="true"></i>
-                            <span class="hide-menu">Dashboard</span>
-                        </a>
-						</li>
-						<!-- View Homepage Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
-								<i class="fa fa-home" aria-hidden="true"></i>
-								<span class="hide-menu">View Homepage</span>
-							</a>
-						</li>
-						<!-- Profile Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileAdmin.php" aria-expanded="false">
-								<i class="fa fa-user" aria-hidden="true"></i>
-								<span class="hide-menu">Profile</span>
-							</a>
-						</li>
-						<!-- Customer Table Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertable.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Customer Table</span>
-							</a>
-						</li>
-						<!-- Staff Table Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftable.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Staff Table</span>
-							</a>
-						</li>
-						<!-- Staff Room Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Room</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Edit Room</span>
-							</a>
-						</li>
-						<!-- Staff Facilities Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Facilities</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilityEdit.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Edit Facilities</span>
-							</a>
-						</li>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php"
+                                aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <!-- View Homepage Link -->
                         <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ContactUsEdit.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Edit Contact Us / About Us</span>
-                        </a>
-                    </li>
-						<!-- Log Out Link -->
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php" aria-expanded="false">
-								<i class="fa fa-table" aria-hidden="true"></i>
-								<span class="hide-menu">Log Out</span>
-							</a>
-						</li>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
+                                aria-expanded="false">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                                <span class="hide-menu">View Homepage</span>
+                            </a>
+                        </li>
+                        <!-- Profile Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profileAdmin.php"
+                                aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        <!-- Customer Table Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customertable.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Customer Table</span>
+                            </a>
+                        </li>
+                        <!-- Staff Table Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="stafftable.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Staff Table</span>
+                            </a>
+                        </li>
+                        <!-- Staff Room Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Room.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Room</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="RoomEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit Room</span>
+                            </a>
+                        </li>
+                        <!-- Staff Facilities Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Facilities</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="FacilityEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit Facilities</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="events.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Events</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="eventEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit events</span>
+                            </a>
+                        </li>
+                        <!-- Admin Enquiry Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ViewEnquiry.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">View Enquiry</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ContactUsEdit.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Edit Contact Us / About Us</span>
+                            </a>
+                        </li>
+                        <!-- Log Out Link -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LogOut.php"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Log Out</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -211,27 +246,6 @@ if (empty($ProfilePicture)) {
         <!-- ============================================================== -->
         <div class="page-wrapper">
             <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb bg-white">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Facilities Table</h4>
-                    </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <div class="d-md-flex">
-                            <ol class="breadcrumb ms-auto">
-                                <li><a href="#" class="fw-normal">Dashboard</a></li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
@@ -245,35 +259,36 @@ if (empty($ProfilePicture)) {
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
                                     <thead>
-										<tr>
-											<th>Facility Type</th>
-											<th>Facility Price</th>
-											<th>Facility Available</th>
-											<th>Facility Description</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-										$rowNumber = 1;
-										while ($row = mysqli_fetch_assoc($result)) {
-											$facilityType = $row['facilityType'];
-											echo "<tr>";
-											echo "<td>" . $facilityType . "</td>";
-											echo "<td>" . $row['facilityPrice'] . "</td>";
-											echo "<td>" . $row['facilityAvailable'] . "</td>";
-											echo "<td>" . $row['facilityDescription'] . "</td>";
-											echo "<td><button class='btn btn-primary EditModalBtn' data-facilityType='$facilityType' data-facilityPrice='{$row['facilityPrice']}' data-facilityAvailable='{$row['facilityAvailable']}' data-facilityDescription='{$row['facilityDescription']}'>EDIT</button></td>";
-											echo "<td><button class='btn btn-danger deleteButton' data-facilityType='$facilityType'>DELETE</button></td>";
-											echo "</tr>";
-										}
-										?>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="6"><button id="AddModalBtn" class='btn btn-success'>ADD</button></td>
-										</tr>
-									</tfoot>
+                                        <tr>
+                                            <th>Facility Type</th>
+                                            <th>Facility Price</th>
+                                            <th>Facility Available</th>
+                                            <th>Facility Description</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $rowNumber = 1;
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $facilityType = $row['facilityType'];
+                                            echo "<tr>";
+                                            echo "<td>" . $facilityType . "</td>";
+                                            echo "<td>" . $row['facilityPrice'] . "</td>";
+                                            echo "<td>" . $row['facilityAvailable'] . "</td>";
+                                            echo "<td>" . $row['facilityDescription'] . "</td>";
+                                            echo "<td><button class='btn btn-primary EditModalBtn' data-facilityType='$facilityType' data-facilityPrice='{$row['facilityPrice']}' data-facilityAvailable='{$row['facilityAvailable']}' data-facilityDescription='{$row['facilityDescription']}'>EDIT</button></td>";
+                                            echo "<td><button class='btn btn-danger deleteButton' data-facilityType='$facilityType'>DELETE</button></td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6"><button id="AddModalBtn"
+                                                    class='btn btn-success'>ADD</button></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -312,8 +327,7 @@ if (empty($ProfilePicture)) {
                         <form method="post" action="EditfunctionFacility.php">
                             <div class="form-group">
                                 <label for="facilityType">Facility Type</label>
-                                <input type="text" id="facilityType" name="facilityType" class="form-control"
-                                    readonly>
+                                <input type="text" id="facilityType" name="facilityType" class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="facilityPrice">Facility Price</label>
@@ -321,15 +335,16 @@ if (empty($ProfilePicture)) {
                             </div>
                             <div class="form-group">
                                 <label for="facilityAvailable">Facility Available</label>
-                                <input type="text" id="facilityAvailable" name="facilityAvailable"
-                                    class="form-control">
+                                <input type="text" id="facilityAvailable" name="facilityAvailable" class="form-control">
                             </div>
-							<div class="form-group">
-								<label for="facilityDescription">Facility Description</label>
-								<textarea id="facilityDescription" name="facilityDescription" class="form-control"><?php echo $facilityDescription; ?></textarea>
-							</div>
                             <div class="form-group">
-                                <button type="submit" name="edit_facility" class="btn btn-primary">EDIT FACILITY</button>
+                                <label for="facilityDescription">Facility Description</label>
+                                <textarea id="facilityDescription" name="facilityDescription"
+                                    class="form-control"><?php echo $facilityDescription; ?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="edit_facility" class="btn btn-primary">EDIT
+                                    FACILITY</button>
                             </div>
                         </form>
                     </div>
@@ -359,8 +374,7 @@ if (empty($ProfilePicture)) {
                             </div>
                             <div class="form-group">
                                 <label for="facilityAvailableAdd">Facility Available</label>
-                                <input type="text" id="facilityAvailable" name="facilityAvailable"
-                                    class="form-control">
+                                <input type="text" id="facilityAvailable" name="facilityAvailable" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="facilityDescriptionAdd">Facility Description</label>
@@ -404,16 +418,16 @@ if (empty($ProfilePicture)) {
         const facilityDescriptionInput = document.getElementById("facilityDescription");
 
         // Function to open the modal and populate it with data
-		function openFacilityModal(facilityType, facilityPrice, facilityAvailable, facilityImage, facilityDescription) {
-			// Populate the modal inputs with the retrieved data
-			facilityTypeInput.value = facilityType;
-			facilityPriceInput.value = facilityPrice;
-			facilityAvailableInput.value = facilityAvailable;
-			facilityDescriptionInput.value = facilityDescription; // Use .value here
+        function openFacilityModal(facilityType, facilityPrice, facilityAvailable, facilityImage, facilityDescription) {
+            // Populate the modal inputs with the retrieved data
+            facilityTypeInput.value = facilityType;
+            facilityPriceInput.value = facilityPrice;
+            facilityAvailableInput.value = facilityAvailable;
+            facilityDescriptionInput.value = facilityDescription; // Use .value here
 
-			// Show the modal
-			modalFacility.style.display = "block";
-		}
+            // Show the modal
+            modalFacility.style.display = "block";
+        }
 
 
         // Add a click event listener to each edit button

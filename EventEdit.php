@@ -6,8 +6,7 @@ if (!isset($_SESSION['AdminEmail'])) {
 }
 require_once "database_connection.php";
 
-// SQL query to retrieve customer information (assuming the table name is 'customer')
-$sql = "SELECT * FROM customer";
+$sql = "SELECT * FROM events"; // Assuming "events" is the table name
 $result = mysqli_query($conn, $sql);
 
 // Check for query errors
@@ -16,7 +15,7 @@ if (!$result) {
 }
 
 $AdminEmail = $_SESSION['AdminEmail'];
-$sqlAdmin = "SELECT * FROM admin WHERE AdminEmail = '$AdminEmail'";
+$sqlAdmin = "SELECT * FROM Admin WHERE AdminEmail = '$AdminEmail'";
 $resultAdmin = mysqli_query($conn, $sqlAdmin);
 $rowAdmin = mysqli_fetch_assoc($resultAdmin);
 $AdminName = $rowAdmin['AdminName'];
@@ -38,9 +37,9 @@ if (empty($ProfilePicture)) {
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard template, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
     <meta name="description"
-        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inspired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Hotel S Damansara Dashboard</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
@@ -53,7 +52,7 @@ if (empty($ProfilePicture)) {
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <![endif]-->
 </head>
 
 <body>
@@ -77,7 +76,6 @@ if (empty($ProfilePicture)) {
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
@@ -98,16 +96,17 @@ if (empty($ProfilePicture)) {
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
                                 <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
+                                <!--<img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">-->
                                 <span class="text-white font-medium">
                                     <?php echo $AdminName; ?>
-                                </span></a>
+                                </span>
+                            </a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -128,7 +127,7 @@ if (empty($ProfilePicture)) {
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <!-- User Profile-->
+                        <!-- Dashboard Link -->
                         <li class="sidebar-item pt-2">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php"
                                 aria-expanded="false">
@@ -236,7 +235,6 @@ if (empty($ProfilePicture)) {
                             </a>
                         </li>
                     </ul>
-
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -259,46 +257,49 @@ if (empty($ProfilePicture)) {
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">Customer Table</h3>
+                            <h3 class="box-title">Events Table</h3>
                             <div class="table-responsive">
-                                <table class="table text-nowrap">
+                                <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">Customer Name</th>
-                                            <th class="border-top-0">Customer Email</th>
-                                            <th class="border-top-0">Gender</th>
-                                            <th class="border-top-0">Race</th>
-                                            <th class="border-top-0">No Phone</th>
-                                            <th class="border-top-0">State</th>
+                                            <th>Event Type</th>
+                                            <th>Event Price</th>
+                                            <th>Event Available</th>
+                                            <th>Event Description</th>
+                                            <th>Event Image</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $rowNumber = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            $id = $row['CustEmail'];
+                                            $eventType = $row['eventType'];
                                             echo "<tr>";
-                                            echo "<td>" . $rowNumber++ . "</td>";
-                                            echo "<td>" . $row['CustName'] . "</td>";
-                                            echo "<td>" . $row['CustEmail'] . "</td>";
-                                            echo "<td>" . $row['Gender'] . "</td>";
-                                            echo "<td>" . $row['Race'] . "</td>";
-                                            echo "<td>" . $row['NoPhone'] . "</td>";
-                                            echo "<td>" . $row['State'] . "</td>";
-                                            echo "<td colspan='8'><button class='btn btn-primary EditModalBtn' data-id='$id' data-name='{$row['CustName']}' data-email='{$row['CustEmail']}' data-gender='{$row['Gender']}' data-race='{$row['Race']}' data-noPhone='{$row['NoPhone']}' data-state='{$row['State']}'>EDIT</button></td>";
-                                            echo "<td colspan='8'><button class='btn btn-danger deleteButton' data-id='$id'>DELETE</button></td>";
+                                            echo "<td>" . $eventType . "</td>";
+                                            echo "<td>" . $row['eventPrice'] . "</td>";
+                                            echo "<td>" . $row['eventAvailable'] . "</td>";
+                                            echo "<td>" . $row['eventDescription'] . "</td>";
+                                            echo "<td>" . $row['eventImage'] . "</td>";
+                                            echo "<td><button class='btn btn-primary EditModalBtn' data-eventType='$eventType' data-eventPrice='{$row['eventPrice']}' data-eventAvailable='{$row['eventAvailable']}' data-eventDescription='{$row['eventDescription']}'>EDIT</button></td>";
+                                            echo "<td><button class='btn btn-danger deleteButton' data-eventType='$eventType'>DELETE</button></td>";
                                             echo "</tr>";
                                         }
                                         ?>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6"><button id="AddModalBtn"
+                                                    class='btn btn-success'>ADD</button></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- Right sidebar -->
@@ -317,53 +318,84 @@ if (empty($ProfilePicture)) {
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
-    <!-- EDIT CUSTOMER MODAL -->
-    <!-- ============================================================== -->
-    <div id="myModal" class="modal">
+    <!-- EDIT event MODAL -->
+    <div id="myModalevent" class="modal">
         <div class="modal-content">
-            <span id="closeModalBtn" class="close">&times;</span>
+            <span id="closeModalBtnevent" class="close">&times;</span>
             <div class="col-lg-8">
                 <div class="card shadow-sm">
                     <div class="card-header bg-transparent border-0">
-                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT CUSTOMER</h3>
+                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT event</h3>
                     </div>
                     <div class="card-body pt-0">
-                        <form method="post" action="EditfunctionCustomer.php">
+                        <form method="post" action="Editfunctionevent.php">
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" class="form-control"
-                                    value="<?php echo $CustName; ?>">
+                                <label for="eventType">event Type</label>
+                                <input type="text" id="eventType" name="eventType" class="form-control" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" class="form-control"
-                                    value="<?php echo $CustEmail; ?>">
+                                <label for="eventPrice">event Price</label>
+                                <input type="text" id="eventPrice" name="eventPrice" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="gender">Gender</label>
-                                <input type="text" id="gender" name="gender" class="form-control"
-                                    value="<?php echo $Gender; ?>">
+                                <label for="eventAvailable">event Available</label>
+                                <input type="text" id="eventAvailable" name="eventAvailable" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="race">Race</label>
-                                <input type="text" id="race" name="race" class="form-control"
-                                    value="<?php echo $Race; ?>">
+                                <label for="eventDescription">event Description</label>
+                                <textarea id="eventDescription" name="eventDescription"
+                                    class="form-control"><?php echo $eventDescription; ?></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="noPhone">No. Phone</label>
-                                <input type="text" id="noPhone" name="noPhone" class="form-control"
-                                    value="<?php echo $NoPhone; ?>">
+                                <label for="eventImage">Event Image</label>
+                                <input type="file" id="eventImage" name="eventImage"
+                                    accept="image/jpeg, image/png, image/jpg" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="state">State</label>
-                                <input type="text" id="state" name="state" class="form-control"
-                                    value="<?php echo $State; ?>">
+                                <button type="submit" name="edit_event" class="btn btn-primary">EDIT event</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD event MODAL -->
+    <div id="myModalAddevent" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtnAddevent" class="close">&times;</span>
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ADD event</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                        <form method="post" action="Addfunctionevent.php">
+                            <div class="form-group">
+                                <label for="eventTypeAdd">Event Type</label>
+                                <input type="text" id="eventType" name="eventType" class="form-control">
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="edit_customer" class="btn btn-primary">EDIT
-                                    CUSTOMER</button>
+                                <label for="eventPriceAdd">Event Price</label>
+                                <input type="text" id="eventPrice" name="eventPrice" class="form-control">
                             </div>
-                            </table>
+                            <div class="form-group">
+                                <label for="eventAvailableAdd">Event Available</label>
+                                <input type="text" id="eventAvailable" name="eventAvailable" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDescriptionAdd">Event Description</label>
+                                <textarea id="eventDescription" name="eventDescription" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventImage">Event Image</label>
+                                <input type="file" id="eventImage" name="eventImage"
+                                    accept="image/jpeg, image/png, image/jpg" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="add_event" class="btn btn-primary">ADD Event</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -389,72 +421,79 @@ if (empty($ProfilePicture)) {
 
     <script>
         // Select all elements with the class "EditModalBtn"
-        const editButtons = document.querySelectorAll(".EditModalBtn");
-        const modal = document.getElementById("myModal");
-        const closeModalBtn = document.getElementById("closeModalBtn");
-        const nameInput = document.getElementById("name");
-        const emailInput = document.getElementById("email");
-        const genderInput = document.getElementById("gender");
-        const raceInput = document.getElementById("race");
-        const noPhoneInput = document.getElementById("noPhone");
-        const stateInput = document.getElementById("state");
+        const editeventButtons = document.querySelectorAll(".EditModalBtn");
+        const modalevent = document.getElementById("myModalevent");
+        const closeModalBtnevent = document.getElementById("closeModalBtnevent");
+        const eventTypeInput = document.getElementById("eventType");
+        const eventPriceInput = document.getElementById("eventPrice");
+        const eventAvailableInput = document.getElementById("eventAvailable");
+        const eventDescriptionInput = document.getElementById("eventDescription");
 
         // Function to open the modal and populate it with data
-        function openModal(id, name, email, gender, race, noPhone, state) {
+        function openeventModal(eventType, eventPrice, eventAvailable, eventImage, eventDescription) {
             // Populate the modal inputs with the retrieved data
-            nameInput.value = name;
-            emailInput.value = email;
-            genderInput.value = gender;
-            raceInput.value = race;
-            noPhoneInput.value = noPhone;
-            stateInput.value = state;
+            eventTypeInput.value = eventType;
+            eventPriceInput.value = eventPrice;
+            eventAvailableInput.value = eventAvailable;
+            eventDescriptionInput.value = eventDescription; // Use .value here
 
             // Show the modal
-            modal.style.display = "block";
+            modalevent.style.display = "block";
         }
 
+
         // Add a click event listener to each edit button
-        editButtons.forEach(function (button) {
+        editeventButtons.forEach(function (button) {
             button.addEventListener("click", function () {
-                const id = button.getAttribute("data-id");
-                const name = button.getAttribute("data-name");
-                const email = button.getAttribute("data-email");
-                const gender = button.getAttribute("data-gender");
-                const race = button.getAttribute("data-race");
-                const noPhone = button.getAttribute("data-noPhone");
-                const state = button.getAttribute("data-state");
-                openModal(id, name, email, gender, race, noPhone, state);
+                const eventType = button.getAttribute("data-eventType");
+                const eventPrice = button.getAttribute("data-eventPrice");
+                const eventAvailable = button.getAttribute("data-eventAvailable");
+                const eventImage = button.getAttribute("data-eventImage");
+                const eventDescription = button.getAttribute("data-eventDescription");
+                openeventModal(eventType, eventPrice, eventAvailable, eventImage, eventDescription);
             });
         });
 
-        // Close the modal when the close button is clicked
-        closeModalBtn.addEventListener("click", function () {
-            modal.style.display = "none";
+        // Close the event modal when the close button is clicked
+        closeModalBtnevent.addEventListener("click", function () {
+            modalevent.style.display = "none";
         });
 
-        // Close the modal if the user clicks anywhere outside of it
+        // Close the event modal if the user clicks anywhere outside of it
         window.addEventListener("click", function (event) {
+            if (event.target === modalevent) {
+                modalevent.style.display = "none";
+            }
+        });
+
+        // Handling ADD event modal
+        document.getElementById("AddModalBtn").addEventListener("click", function () {
+            document.getElementById("myModalAddevent").style.display = "block";
+        });
+
+        document.getElementById("closeModalBtnAddevent").addEventListener("click", function () {
+            document.getElementById("myModalAddevent").style.display = "none";
+        });
+
+        // Close the ADD event modal if the user clicks anywhere outside of it
+        window.addEventListener("click", function (event) {
+            const modal = document.getElementById("myModalAddevent");
             if (event.target === modal) {
                 modal.style.display = "none";
             }
         });
-    </script>
-    <script>
-        // Select all elements with the class "deleteButton"
-        const deleteButtons = document.querySelectorAll(".deleteButton");
 
-        // Function to handle DELETE button click event
-        function handleDeleteButtonClick(event) {
-            // Retrieve the data-id attribute value (which is the customer ID)
-            const id = event.target.getAttribute("data-id");
+        // Handling DELETE event button
+        const deleteeventButtons = document.querySelectorAll(".deleteButton");
 
-            // Redirect to the deletion script (DeletefunctionStaff.php)
-            window.location.href = 'DeletefunctionCustomer.php?id=' + id;
+        function handleDeleteeventButtonClick(event) {
+            const eventType = event.target.getAttribute("data-eventType");
+            // Redirect to the deletion script (Deletefunctionevent.php)
+            window.location.href = 'Deletefunctionevent.php?eventType=' + eventType;
         }
 
-        // Add a click event listener to each DELETE button
-        deleteButtons.forEach(function (button) {
-            button.addEventListener("click", handleDeleteButtonClick);
+        deleteeventButtons.forEach(function (button) {
+            button.addEventListener("click", handleDeleteeventButtonClick);
         });
     </script>
     <?php

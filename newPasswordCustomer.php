@@ -45,7 +45,7 @@ $conn->close();
         <section class="signup">
             <div class="container">
                 <div class="signup-content">
-                    <form action="newPassword.php" method="POST" id="forgotpassword-form" autocomplete="off">
+                    <form action="newPasswordCustomer.php" method="POST" id="forgotpassword-form" autocomplete="off">
                         <h2 class="form-title">New Password</h2>
 						
 						<!-- Password -->
