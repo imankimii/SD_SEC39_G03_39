@@ -187,19 +187,6 @@ if (empty($ProfilePicture)) {
                             <span class="hide-menu">Edit Facilities</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="events.php"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Events</span>
-                            </a>
-                        </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="EventEditS.php" aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Edit Event</span>
-                        </a>
-                    </li>
                     <!-- Staff Enquiry Link -->
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ViewEnquiryS.php" aria-expanded="false">
