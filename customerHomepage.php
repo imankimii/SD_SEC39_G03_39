@@ -112,7 +112,7 @@ mysqli_close($conn);
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
                 <a href="Facilities.php">Facilities</a>
-                <a href="Room.php">Room</a>
+                <a href="RoomC.php">Room</a>
                 <a href="LogOut.php">Log Out</a>
               </div>
             </div>
@@ -172,7 +172,7 @@ mysqli_close($conn);
 			modern contemporary, evoking style and flavor with grace, warm hospitality and efficiency, with a good night's stay.
           </p>
           <div>
-            <a href="" class="slider-link">
+            <a href="RoomC.php" class="slider-link">
               BOOK ROOM
             </a>
           </div>

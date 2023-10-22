@@ -1,12 +1,13 @@
 <?php
 session_start();
 if (!isset($_SESSION['StaffEmail'])) {
-  header('Location: LogIn.php');
-  exit();
+    header('Location: LogIn.php');
+    exit();
 }
 require_once "database_connection.php";
 
-$sql = "SELECT * FROM staff";
+// SQL query to retrieve booking information (table name is 'booking')
+$sql = "SELECT * FROM bookinghistory";
 $result = mysqli_query($conn, $sql);
 
 // Check for query errors
@@ -22,9 +23,9 @@ $StaffName = $rowStaff['StaffName'];
 $StaffEmail = $rowStaff['StaffEmail'];
 $ProfilePicture = $rowStaff['ProfilePicture'];
 
-// Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
+// Check if ProfilePicture is null or empty and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {
-  $ProfilePicture = "images\profile.png";
+    $ProfilePicture = "images/profile.png";
 }
 ?>
 
@@ -46,7 +47,7 @@ if (empty($ProfilePicture)) {
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <!-- Custom CSS -->
-   <link href="dashcss/style.min.css" rel="stylesheet">
+    <link href="dashcss/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -104,9 +105,9 @@ if (empty($ProfilePicture)) {
                         <li>
                             <a class="profile-pic" href="#">
                                 <img src="<?php echo $ProfilePicture; ?>" alt="user-img" width="36" class="img-circle">
-                                <!--<img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">-->
-                                <span class="text-white font-medium"><?php echo $StaffName; ?></span>
-							</a>
+                                <span class="text-white font-medium">
+                                    <?php echo $StaffName; ?>
+                                </span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -231,43 +232,51 @@ if (empty($ProfilePicture)) {
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Staff Table</h3>
-                            <div class="table-responsive">
+					<div class="col-sm-12">
+						<div class="white-box">
+							<h3 class="box-title">Booking Table</h3>
+							<div class="table-responsive">
 								<table class="table text-nowrap">
 									<thead>
 										<tr>
-											<th class="border-top-0">Staff ID</th>
-											<th class="border-top-0">Staff Name</th>
-											<th class="border-top-0">Staff Email</th>
-											<th class="border-top-0">Gender</th>
-											<th class="border-top-0">Race</th>
-											<th class="border-top-0">No Phone</th>
-											<th class="border-top-0">State</th>
+											<th class="border-top-0">Booking ID</th>
+											<th class="border-top-0">Customer Email</th>
+											<th class="border-top-0">Check-In Date</th>
+											<th class="border-top-0">Check-Out Date</th>
+											<th class="border-top-0">No. of Occupants</th>
+											<th class="border-top-0">Facility Choice</th>
+											<th class="border-top-0">Special Requests</th>
+											<th class="border-top-0">Total Price</th>
+											<th class="border-top-0">Status</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
 										$rowNumber = 1;
 										while ($row = mysqli_fetch_assoc($result)) {
+											$bookingID = $row['BookingID'];
 											echo "<tr>";
-											echo "<td>" . $row['StaffID'] . "</td>";
-											echo "<td>" . $row['StaffName'] . "</td>";
-											echo "<td>" . $row['StaffEmail'] . "</td>";
-											echo "<td>" . $row['Gender'] . "</td>";
-											echo "<td>" . $row['Race'] . "</td>";
-											echo "<td>" . $row['NoPhone'] . "</td>";
-											echo "<td>" . $row['State'] . "</td>";
+											echo "<td>" . $bookingID . "</td>";
+											echo "<td>" . $row['CustEmail'] . "</td>";
+											echo "<td>" . $row['CheckInDate'] . "</td>";
+											echo "<td>" . $row['CheckOutDate'] . "</td>";
+											echo "<td>" . $row['NoOccupant'] . "</td>";
+											echo "<td>" . $row['FacilityChoice'] . "</td>";
+											echo "<td>" . $row['SpecialReq'] . "</td>";
+											echo "<td>" . $row['TotalPrice'] . "</td>";
+											echo "<td>" . $row['status'] . "</td>";
+											echo "<td colspan='8'><button class='btn btn-primary EditModalBtn' data-id='$bookingID' data-custemail='{$row['CustEmail']}' data-checkindate='{$row['CheckInDate']}' data-checkoutdate='{$row['CheckOutDate']}' data-nooccupant='{$row['NoOccupant']}' data-facilitychoice='{$row['FacilityChoice']}' data-specialreq='{$row['SpecialReq']}' data-totalprice='{$row['TotalPrice']}' data-status='{$row['status']}'>EDIT</button></td>";
+											//echo "<td colspan='8'><button class='btn btn-danger deleteButton' data-id='$bookingID'>DELETE</button></td>";
+											echo "<td colspan='8'><button class='btn btn-danger cancelButton' data-id='$bookingID'>CANCEL</button></td>";
 											echo "</tr>";
 										}
 										?>
 									</tbody>
 								</table>
 							</div>
-                        </div>
-                    </div>
-                </div>
+						</div>
+					</div>
+				</div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -288,6 +297,64 @@ if (empty($ProfilePicture)) {
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
+    <!-- EDIT CUSTOMER MODAL -->
+    <!-- ============================================================== -->
+    <div id="myModal" class="modal">
+		<div class="modal-content">
+			<span id="closeModalBtn" class="close">&times;</span>
+			<div class="col-lg-8">
+				<div class="card shadow-sm">
+					<div class="card-header bg-transparent border-0">
+						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT BOOKING</h3>
+					</div>
+					<div class="card-body pt-0">
+						<form method="post" action="EditfunctionBookingS.php">
+							<div class="form-group">
+								<label for="bookingID">Booking ID</label>
+								<input type="text" id="bookingID" name="bookingID" class="form-control" value="" readonly>
+							</div>
+							<div class="form-group">
+								<label for="custEmail">Customer Email</label>
+								<input type="email" id="custEmail" name="custEmail" class="form-control" value="" readonly>
+							</div>
+							<div class="form-group">
+								<label for="checkInDate">Check-In Date</label>
+								<input type="date" id="checkInDate" name="checkInDate" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="checkOutDate">Check-Out Date</label>
+								<input type="date" id="checkOutDate" name="checkOutDate" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="noOccupant">No. of Occupants</label>
+								<input type="number" id="noOccupant" name="noOccupant" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="facilityChoice">Facility Choice</label>
+								<input type="text" id="facilityChoice" name="facilityChoice" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="specialReq">Special Requests</label>
+								<textarea id="specialReq" name="specialReq" class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="totalPrice">Total Price</label>
+								<input type="text" id="totalPrice" name="totalPrice" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="status">Status</label>
+								<input type="text" id="status" name="status" class="form-control">
+							</div>
+							<div class="form-group">
+								<button type="submit" name="edit_booking" class="btn btn-primary">EDIT BOOKING</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
@@ -303,8 +370,95 @@ if (empty($ProfilePicture)) {
     <script src="js2/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js2/custom.js"></script>
-	
-	<?php
+
+    <script>
+    // Select all elements with the class "EditModalBtn"
+	const editButtons = document.querySelectorAll(".EditModalBtn");
+	const modal = document.getElementById("myModal");
+	const closeModalBtn = document.getElementById("closeModalBtn");
+	const custEmailInput = document.getElementById("custEmail");
+	const checkInDateInput = document.getElementById("checkInDate");
+	const checkOutDateInput = document.getElementById("checkOutDate");
+	const noOccupantInput = document.getElementById("noOccupant");
+	const facilityChoiceInput = document.getElementById("facilityChoice");
+	const specialReqInput = document.getElementById("specialReq");
+	const totalPriceInput = document.getElementById("totalPrice");
+	const statusInput = document.getElementById("status");
+
+	// Function to open the modal and populate it with data
+	function openModal(bookingID, custEmail, checkInDate, checkOutDate, noOccupant, facilityChoice, specialReq, totalPrice, status) {
+		// Populate the modal inputs with the retrieved data
+		document.getElementById("bookingID").value = bookingID;
+		custEmailInput.value = custEmail;
+		checkInDateInput.value = checkInDate;
+		checkOutDateInput.value = checkOutDate;
+		noOccupantInput.value = noOccupant;
+		facilityChoiceInput.value = facilityChoice;
+		specialReqInput.value = specialReq;
+		totalPriceInput.value = totalPrice;
+		statusInput.value = status;
+
+		// Show the modal
+		modal.style.display = "block";
+	}
+
+	// Add a click event listener to each edit button
+	editButtons.forEach(function (button) {
+		button.addEventListener("click", function () {
+			const bookingID = button.getAttribute("data-id");
+			const custEmail = button.getAttribute("data-custemail");
+			const checkInDate = button.getAttribute("data-checkindate");
+			const checkOutDate = button.getAttribute("data-checkoutdate");
+			const noOccupant = button.getAttribute("data-nooccupant");
+			const facilityChoice = button.getAttribute("data-facilitychoice");
+			const specialReq = button.getAttribute("data-specialreq");
+			const totalPrice = button.getAttribute("data-totalprice");
+			const status = button.getAttribute("data-status");
+
+			openModal(bookingID, custEmail, checkInDate, checkOutDate, noOccupant, facilityChoice, specialReq, totalPrice, status);
+		});
+	});
+
+	// Close the modal when the close button is clicked
+	closeModalBtn.addEventListener("click", function () {
+		modal.style.display = "none";
+	});
+
+	// Close the modal if the user clicks anywhere outside of it
+	window.addEventListener("click", function (event) {
+		if (event.target === modal) {
+			modal.style.display = "none";
+		}
+	});
+	</script>
+    <script>
+    // Select all elements with the class "cancelButton"
+    const cancelButtons = document.querySelectorAll(".cancelButton");
+
+    // Function to handle CANCEL button click event
+    function handleCancelButtonClick(event) {
+        // Retrieve the data-id attribute value (which is the booking ID)
+        const id = event.target.getAttribute("data-id");
+
+        // Send an AJAX request to update the status in the database
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "CancelBookingS.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Reload the page to see the updated data
+                window.location.reload();
+            }
+        };
+        xhr.send("bookingID=" + id);
+    }
+
+    // Add a click event listener to each CANCEL button
+    cancelButtons.forEach(function (button) {
+        button.addEventListener("click", handleCancelButtonClick);
+    });
+</script>
+    <?php
     // Close the database connection
     mysqli_close($conn);
     ?>

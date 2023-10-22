@@ -177,6 +177,12 @@ if (empty($ProfilePicture)) {
                             <span class="hide-menu">Edit Room</span>
                         </a>
                     </li>
+					<li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="roomBookingHistoryS.php" aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Room Booking History</span>
+                        </a>
+                    </li>
                     <!-- Staff Facilities Link -->
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Facilities.php" aria-expanded="false">

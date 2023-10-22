@@ -24,17 +24,20 @@ function getFacilityInfo($conn, $facilityType)
 {
     $facilityInfo = array();
 
-    // Query the database to get facility information for the specified facility type
-    $sql = "SELECT facilityAvailable, facilityPrice, facilityImage, facilityDescription FROM facilities WHERE facilityType = '$facilityType'";
-    $result = $conn->query($sql);
+    // Use a prepared statement to fetch binary image data
+    $sql = "SELECT facilityAvailable, facilityPrice, facilityImage, facilityDescription FROM facilities WHERE facilityType = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $facilityType);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($facilityAvailable, $facilityPrice, $facilityImage, $facilityDescription);
 
-    if ($result->num_rows > 0) {
-        // Retrieve facility information
-        $row = $result->fetch_assoc();
-        $facilityInfo['facilityAvailability'] = $row["facilityAvailable"];
-        $facilityInfo['facilityPrice'] = $row["facilityPrice"];
-        $facilityInfo['facilityImage'] = $row["facilityImage"];
-        $facilityInfo['facilityDescription'] = $row["facilityDescription"];
+    if ($stmt->num_rows > 0) {
+        $stmt->fetch();
+        $facilityInfo['facilityAvailability'] = $facilityAvailable;
+        $facilityInfo['facilityPrice'] = $facilityPrice;
+        $facilityInfo['facilityImage'] = $facilityImage;
+        $facilityInfo['facilityDescription'] = $facilityDescription;
     } else {
         // Handle the case when the facility type is not found
         $facilityInfo['facilityAvailability'] = 0; // Facility not available
@@ -149,7 +152,7 @@ $facilityTypes = getAllFacilityTypes($conn);
                     <div class="col-lg-12">
                         <div class="box">
                             <div class="img-box">
-                                <img src="<?php echo $facilityImage; ?>" alt="<?php echo $facilityType; ?>">
+                                <img src="images/<?php echo $facilityImage; ?>" alt="<?php echo $facilityType; ?>">
                             </div>
                             <div class="detail-box">
                                 <h5>

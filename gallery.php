@@ -60,7 +60,7 @@
                 <a href="gallery.php">Events</a>
                 <a href="service.php">Service</a>
                 <a href="Facilities.php">Facilities</a>
-                <a href="Room.php">Book room</a>
+				<a href="Room.php">Book room</a>
               </div>
             </div>
           </div>
@@ -130,8 +130,8 @@
         </div>
       </div>
       <div class="btn-box">
-        <a href="Events.php">
-          Book Events
+        <a href="">
+          View All
         </a>
       </div>
     </div>
@@ -150,56 +150,54 @@
               Company History
             </h4>
             <p class="mb-0">
-              Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This stunning hotel
-              is equipped with modern structures and at night sports so many flickering lights that makes it appear as
-              if out of a 1960’s Hong Kong movie.
+             Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This stunning hotel is equipped with modern structures and at night sports so many flickering lights that makes it appear as if out of a 1960’s Hong Kong movie.
             </p>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
-          <h4>Contact Us</h4>
-          <div class="info_contact">
-            <?php
-            // Include the database connection script
-            require_once "database_connection.php";
+			<h4>Contact Us</h4>
+			<div class="info_contact">
+				<?php
+				// Include the database connection script
+				require_once "database_connection.php";
 
-            // Fetch contact information from the 'contactus' table
-            $sql = "SELECT address, phone, email FROM contactus";
-            $result = mysqli_query($conn, $sql);
+				// Fetch contact information from the 'contactus' table
+				$sql = "SELECT address, phone, email FROM contactus";
+				$result = mysqli_query($conn, $sql);
 
-            if ($result && mysqli_num_rows($result) > 0) {
-              $row = mysqli_fetch_assoc($result);
-              $address = $row['address'];
-              $phone = $row['phone'];
-              $email = $row['email'];
+				if ($result && mysqli_num_rows($result) > 0) {
+					$row = mysqli_fetch_assoc($result);
+					$address = $row['address'];
+					$phone = $row['phone'];
+					$email = $row['email'];
 
-              // Display the contact information
-              echo '<a href="#">
+					// Display the contact information
+					echo '<a href="#">
 							<i class="fa fa-map-marker" aria-hidden="true"></i>
 							<span>' . $address . '</span>
 						  </a>';
-              echo '<a href="#">
+					echo '<a href="#">
 							<i class="fa fa-phone" aria-hidden="true"></i>
 							<span>Call ' . $phone . '</span>
 						  </a>';
-              echo '<a href="mailto:' . $email . '">
+					echo '<a href="mailto:' . $email . '">
 							<i class="fa fa-envelope"></i>
 							<span>' . $email . '</span>
 						  </a>';
-            } else {
-              // Handle the case where no data is found in the 'contactus' table
-              echo "Contact information not available.";
-            }
+				} else {
+					// Handle the case where no data is found in the 'contactus' table
+					echo "Contact information not available.";
+				}
 
-            // Close the database connection
-            mysqli_close($conn);
-            ?>
-            <a href="">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              <span>Operation time (24 Hours)</span>
-            </a>
-          </div>
-        </div>
+				// Close the database connection
+				mysqli_close($conn);
+				?>
+				<a href="">
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<span>Operation time (24 Hours)</span>
+				</a>
+			</div>
+		</div>
         <div class="col-md-6 col-lg-3">
           <h4>
             Follow Us

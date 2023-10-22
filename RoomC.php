@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['CustEmail'])) {
+  header('Location: LogIn.php');
+  exit();
+}
 require_once "database_connection.php";
 $errors = array();
 

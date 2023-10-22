@@ -6,7 +6,8 @@ if (!isset($_SESSION['AdminEmail'])) {
 }
 require_once "database_connection.php";
 
-$sql = "SELECT * FROM contactus";
+// SQL query to retrieve booking information (table name is 'booking')
+$sql = "SELECT * FROM bookinghistory";
 $result = mysqli_query($conn, $sql);
 
 // Check for query errors
@@ -22,9 +23,9 @@ $AdminName = $rowAdmin['AdminName'];
 $AdminEmail = $rowAdmin['AdminEmail'];
 $ProfilePicture = $rowAdmin['ProfilePicture'];
 
-// Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
+// Check if ProfilePicture is null or empty and set it to the default picture URL if needed
 if (empty($ProfilePicture)) {
-    $ProfilePicture = "images\profile.png";
+    $ProfilePicture = "images/profile.png";
 }
 ?>
 
@@ -37,9 +38,9 @@ if (empty($ProfilePicture)) {
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard template, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
     <meta name="description"
-        content="Ample Admin Lite is powerful and clean admin dashboard template, inspired from Bootstrap Framework">
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Hotel S Damansara Dashboard</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
@@ -52,7 +53,7 @@ if (empty($ProfilePicture)) {
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<![endif]-->
 </head>
 
 <body>
@@ -76,6 +77,7 @@ if (empty($ProfilePicture)) {
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
+
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
@@ -96,6 +98,7 @@ if (empty($ProfilePicture)) {
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
+
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
@@ -125,7 +128,7 @@ if (empty($ProfilePicture)) {
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <!-- Dashboard Link -->
+                        <!-- User Profile-->
                         <li class="sidebar-item pt-2">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboardAdmin.php" aria-expanded="false">
                             <i class="far fa-clock" aria-hidden="true"></i>
@@ -225,6 +228,7 @@ if (empty($ProfilePicture)) {
                         </a>
                     </li>
                     </ul>
+
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -245,70 +249,53 @@ if (empty($ProfilePicture)) {
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Contact Us</h3>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Address</th>
-                                            <th>No. Phone</th>
-                                            <th>Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        // Fetch and display data for the "Contact Us" section
-                                        $contactResult = mysqli_query($conn, "SELECT address, phone, email FROM contactus");
-                                        while ($row = mysqli_fetch_assoc($contactResult)) {
-                                            echo "<tr>";
-                                            echo "<td>" . $row['address'] . "</td>";
-                                            echo "<td>" . $row['phone'] . "</td>";
-                                            echo "<td>" . $row['email'] . "</td>";
-                                            echo "<td><button class='btn btn-primary EditModalBtn' data-type='contactus' data-address='{$row['address']}' data-phone='{$row['phone']}' data-email='{$row['email']}' >EDIT</button></td>";
-                                            echo "</tr>";
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title">About Us</h3>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>About Us Description</th>
-                                            <th>Date Last Edited</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        // Fetch and display data for the "About Us" section
-                                        $aboutResult = mysqli_query($conn, "SELECT AboutDescription, date FROM aboutus");
-                                        while ($row = mysqli_fetch_assoc($aboutResult)) {
-                                            echo "<tr>";
-                                            echo "<td>" . $row['AboutDescription'] . "</td>";
-                                            echo "<td>" . $row['date'] . "</td>";
-                                            echo "<td><button class='btn btn-primary EditModalBtn' data-type='aboutus' data-about-description='{$row['AboutDescription']}' data-about-date='{$row['date']}'>EDIT</button></td>";
-                                            echo "</tr>";
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+					<div class="col-sm-12">
+						<div class="white-box">
+							<h3 class="box-title">Booking Table</h3>
+							<div class="table-responsive">
+								<table class="table text-nowrap">
+									<thead>
+										<tr>
+											<th class="border-top-0">Booking ID</th>
+											<th class="border-top-0">Customer Email</th>
+											<th class="border-top-0">Check-In Date</th>
+											<th class="border-top-0">Check-Out Date</th>
+											<th class="border-top-0">No. of Occupants</th>
+											<th class="border-top-0">Facility Choice</th>
+											<th class="border-top-0">Special Requests</th>
+											<th class="border-top-0">Total Price</th>
+											<th class="border-top-0">Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+										$rowNumber = 1;
+										while ($row = mysqli_fetch_assoc($result)) {
+											$bookingID = $row['BookingID'];
+											echo "<tr>";
+											echo "<td>" . $bookingID . "</td>";
+											echo "<td>" . $row['CustEmail'] . "</td>";
+											echo "<td>" . $row['CheckInDate'] . "</td>";
+											echo "<td>" . $row['CheckOutDate'] . "</td>";
+											echo "<td>" . $row['NoOccupant'] . "</td>";
+											echo "<td>" . $row['FacilityChoice'] . "</td>";
+											echo "<td>" . $row['SpecialReq'] . "</td>";
+											echo "<td>" . $row['TotalPrice'] . "</td>";
+											echo "<td>" . $row['status'] . "</td>";
+											echo "<td colspan='8'><button class='btn btn-primary EditModalBtn' data-id='$bookingID' data-custemail='{$row['CustEmail']}' data-checkindate='{$row['CheckInDate']}' data-checkoutdate='{$row['CheckOutDate']}' data-nooccupant='{$row['NoOccupant']}' data-facilitychoice='{$row['FacilityChoice']}' data-specialreq='{$row['SpecialReq']}' data-totalprice='{$row['TotalPrice']}' data-status='{$row['status']}'>EDIT</button></td>";
+											//echo "<td colspan='8'><button class='btn btn-danger deleteButton' data-id='$bookingID'>DELETE</button></td>";
+											echo "<td colspan='8'><button class='btn btn-danger cancelButton' data-id='$bookingID'>CANCEL</button></td>";
+											echo "</tr>";
+										}
+										?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
                 <!-- ============================================================== -->
-                <!-- End Page Content -->
+                <!-- End PAge Content -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- Right sidebar -->
@@ -327,70 +314,63 @@ if (empty($ProfilePicture)) {
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
-    <!-- EDIT CONTACT US MODAL -->
+    <!-- EDIT CUSTOMER MODAL -->
     <!-- ============================================================== -->
-    <div id="myModalContactUs" class="modal">
-        <div class="modal-content">
-            <span id="closeModalBtnContactUs" class="close">&times;</span>
-            <div class="col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-transparent border-0">
-                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i> EDIT CONTACT US</h3>
-                    </div>
-                    <div class="card-body pt-0">
-                        <form method="post" action="EditfunctionContact.php">
-                            <div class="form-group">
-                                <label for="address">Address</label>
-                                <input type="text" id="address" name="address" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" id="phone" name="phone" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" id="email" name="email" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" name="edit_contact" class="btn btn-primary">EDIT CONTACT
-                                    US</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ============================================================== -->
-    <!-- EDIT ABOUT US MODAL -->
-    <!-- ============================================================== -->
-    <div id="myModalAboutUs" class="modal">
-        <div class="modal-content">
-            <span id="closeModalBtnAboutUs" class="close">&times;</span>
-            <div class="col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-transparent border-0">
-                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i> EDIT ABOUT US</h3>
-                    </div>
-                    <div class="card-body pt-0">
-                        <form method="post" action="EditfunctionAbout.php">
-                            <div class="form-group">
-                                <label for="aboutDescription">About Us Description</label>
-                                <textarea id="aboutDescription" name="aboutDescription" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="aboutDate">Date</label>
-                                <input type="text" id="aboutDate" name="date" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" name="edit_about" class="btn btn-primary">EDIT ABOUT US</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="myModal" class="modal">
+		<div class="modal-content">
+			<span id="closeModalBtn" class="close">&times;</span>
+			<div class="col-lg-8">
+				<div class="card shadow-sm">
+					<div class="card-header bg-transparent border-0">
+						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT BOOKING</h3>
+					</div>
+					<div class="card-body pt-0">
+						<form method="post" action="EditfunctionBooking.php">
+							<div class="form-group">
+								<label for="bookingID">Booking ID</label>
+								<input type="text" id="bookingID" name="bookingID" class="form-control" value="" readonly>
+							</div>
+							<div class="form-group">
+								<label for="custEmail">Customer Email</label>
+								<input type="email" id="custEmail" name="custEmail" class="form-control" value="" readonly>
+							</div>
+							<div class="form-group">
+								<label for="checkInDate">Check-In Date</label>
+								<input type="date" id="checkInDate" name="checkInDate" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="checkOutDate">Check-Out Date</label>
+								<input type="date" id="checkOutDate" name="checkOutDate" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="noOccupant">No. of Occupants</label>
+								<input type="number" id="noOccupant" name="noOccupant" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="facilityChoice">Facility Choice</label>
+								<input type="text" id="facilityChoice" name="facilityChoice" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="specialReq">Special Requests</label>
+								<textarea id="specialReq" name="specialReq" class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="totalPrice">Total Price</label>
+								<input type="text" id="totalPrice" name="totalPrice" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="status">Status</label>
+								<input type="text" id="status" name="status" class="form-control">
+							</div>
+							<div class="form-group">
+								<button type="submit" name="edit_booking" class="btn btn-primary">EDIT BOOKING</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -409,75 +389,92 @@ if (empty($ProfilePicture)) {
     <script src="js2/custom.js"></script>
 
     <script>
-        // Select all elements with the class "EditModalBtn"
-        const editButtons = document.querySelectorAll(".EditModalBtn");
-        const modalContactUs = document.getElementById("myModalContactUs");
-        const modalAboutUs = document.getElementById("myModalAboutUs");
-        const closeModalBtnContactUs = document.getElementById("closeModalBtnContactUs");
-        const closeModalBtnAboutUs = document.getElementById("closeModalBtnAboutUs");
-        const addressInputContactUs = document.getElementById("address");
-        const phoneInputContactUs = document.getElementById("phone");
-        const emailInputContactUs = document.getElementById("email");
-        const aboutDescriptionInput = document.getElementById("aboutDescription");
-        const dateInputAboutUs = document.getElementById("aboutDate"); // Corrected attribute name
+    // Select all elements with the class "EditModalBtn"
+	const editButtons = document.querySelectorAll(".EditModalBtn");
+	const modal = document.getElementById("myModal");
+	const closeModalBtn = document.getElementById("closeModalBtn");
+	const custEmailInput = document.getElementById("custEmail");
+	const checkInDateInput = document.getElementById("checkInDate");
+	const checkOutDateInput = document.getElementById("checkOutDate");
+	const noOccupantInput = document.getElementById("noOccupant");
+	const facilityChoiceInput = document.getElementById("facilityChoice");
+	const specialReqInput = document.getElementById("specialReq");
+	const totalPriceInput = document.getElementById("totalPrice");
+	const statusInput = document.getElementById("status");
 
-        // Function to open the Contact Us modal and populate it with data
-        function openContactUsModal(address, phone, email) {
-            // Populate the Contact Us modal inputs with the retrieved data
-            addressInputContactUs.value = address;
-            phoneInputContactUs.value = phone;
-            emailInputContactUs.value = email;
+	// Function to open the modal and populate it with data
+	function openModal(bookingID, custEmail, checkInDate, checkOutDate, noOccupant, facilityChoice, specialReq, totalPrice, status) {
+		// Populate the modal inputs with the retrieved data
+		document.getElementById("bookingID").value = bookingID;
+		custEmailInput.value = custEmail;
+		checkInDateInput.value = checkInDate;
+		checkOutDateInput.value = checkOutDate;
+		noOccupantInput.value = noOccupant;
+		facilityChoiceInput.value = facilityChoice;
+		specialReqInput.value = specialReq;
+		totalPriceInput.value = totalPrice;
+		statusInput.value = status;
 
-            // Show the Contact Us modal
-            modalContactUs.style.display = "block";
-        }
+		// Show the modal
+		modal.style.display = "block";
+	}
 
-        // Function to open the About Us modal and populate it with data
-        function openAboutUsModal(aboutDescription, date) {
-            // Populate the About Us modal inputs with the retrieved data
-            aboutDescriptionInput.value = aboutDescription;
-            dateInputAboutUs.value = date; // Set the date in the input field
+	// Add a click event listener to each edit button
+	editButtons.forEach(function (button) {
+		button.addEventListener("click", function () {
+			const bookingID = button.getAttribute("data-id");
+			const custEmail = button.getAttribute("data-custemail");
+			const checkInDate = button.getAttribute("data-checkindate");
+			const checkOutDate = button.getAttribute("data-checkoutdate");
+			const noOccupant = button.getAttribute("data-nooccupant");
+			const facilityChoice = button.getAttribute("data-facilitychoice");
+			const specialReq = button.getAttribute("data-specialreq");
+			const totalPrice = button.getAttribute("data-totalprice");
+			const status = button.getAttribute("data-status");
 
-            // Show the About Us modal
-            modalAboutUs.style.display = "block";
-        }
+			openModal(bookingID, custEmail, checkInDate, checkOutDate, noOccupant, facilityChoice, specialReq, totalPrice, status);
+		});
+	});
 
-        // Add click event listeners for edit buttons
-        editButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                const type = button.getAttribute("data-type");
-                if (type === "contactus") {
-                    const address = button.getAttribute("data-address");
-                    const phone = button.getAttribute("data-phone");
-                    const email = button.getAttribute("data-email");
-                    openContactUsModal(address, phone, email);
-                } else if (type === "aboutus") {
-                    const aboutDescription = button.getAttribute("data-about-description");
-                    const date = button.getAttribute("data-about-date"); // Corrected attribute name
-                    openAboutUsModal(aboutDescription, date);
-                }
-            });
-        });
+	// Close the modal when the close button is clicked
+	closeModalBtn.addEventListener("click", function () {
+		modal.style.display = "none";
+	});
 
-        // Close the Contact Us modal when the close button is clicked
-        closeModalBtnContactUs.addEventListener("click", function () {
-            modalContactUs.style.display = "none";
-        });
+	// Close the modal if the user clicks anywhere outside of it
+	window.addEventListener("click", function (event) {
+		if (event.target === modal) {
+			modal.style.display = "none";
+		}
+	});
+	</script>
+    <script>
+    // Select all elements with the class "cancelButton"
+    const cancelButtons = document.querySelectorAll(".cancelButton");
 
-        // Close the About Us modal when the close button is clicked
-        closeModalBtnAboutUs.addEventListener("click", function () {
-            modalAboutUs.style.display = "none";
-        });
+    // Function to handle CANCEL button click event
+    function handleCancelButtonClick(event) {
+        // Retrieve the data-id attribute value (which is the booking ID)
+        const id = event.target.getAttribute("data-id");
 
-        // Close the modals if the user clicks anywhere outside of them
-        window.addEventListener("click", function (event) {
-            if (event.target === modalContactUs) {
-                modalContactUs.style.display = "none";
-            } else if (event.target === modalAboutUs) {
-                modalAboutUs.style.display = "none";
+        // Send an AJAX request to update the status in the database
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "CancelBooking.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Reload the page to see the updated data
+                window.location.reload();
             }
-        });
-    </script>
+        };
+        xhr.send("bookingID=" + id);
+    }
+
+    // Add a click event listener to each CANCEL button
+    cancelButtons.forEach(function (button) {
+        button.addEventListener("click", handleCancelButtonClick);
+    });
+</script>
     <?php
     // Close the database connection
     mysqli_close($conn);
