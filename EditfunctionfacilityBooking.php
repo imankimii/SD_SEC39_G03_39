@@ -17,32 +17,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_booking'])) {
     }
 
     // Update the booking in the database using a prepared statement
-    $sql = "UPDATE bookinghistory SET 
-        checkInDate = ?,
-        checkOutDate = ?,
-        noOccupant = ?,
-        facilityChoice = ?,
-        specialReq = ?,
+    $sql = "UPDATE facilityhistory SET 
+        walkInDate = ?,
+        noPerson = ?,
+        hours = ?,
         totalPrice = ?,
         status = ?
-        WHERE bookingID = ?";
+        WHERE bookfacilityID = ?";
 
     $stmt = $conn->prepare($sql);
     if ($stmt) {
-        $checkInDate = $_POST['checkInDate'];
-        $checkOutDate = $_POST['checkOutDate'];
-        $noOccupant = $_POST['noOccupant'];
-        $facilityChoice = $_POST['facilityChoice'];
-        $specialReq = $_POST['specialReq'];
+        $walkInDate = $_POST['walkInDate'];
+        $noPerson = $_POST['noPerson'];
+        $hours = $_POST['hours'];
         $totalPrice = $_POST['totalPrice'];
         $status = $_POST['status'];
 
-        $stmt->bind_param("ssissdss", $checkInDate, $checkOutDate, $noOccupant, $facilityChoice, $specialReq, $totalPrice, $status, $bookingID);
+        $stmt->bind_param("siddss", $walkInDate, $noPerson, $hours, $totalPrice, $status, $bookingID);
 
         if ($stmt->execute()) {
             // Booking history updated successfully
             $stmt->close();
-            header('Location: roomBookingHistory.php');
+            header('Location: facilityBookingHistory.php');
             exit();
         } else {
             echo "Error: " . $stmt->error;

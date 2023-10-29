@@ -45,27 +45,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['CustEmail'])) {
         $status = 'pending';
 
         // Insert data into the 'bookinghistory' table, including the new ID and status
-        $sql = "INSERT INTO bookinghistory (BookingID, CustEmail, CheckInDate, CheckOutDate, NoOccupant, FacilityChoice, SpecialReq, TotalPrice, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
+        $sql = "INSERT INTO bookinghistory (BookingID, CustEmail, roomType, CheckInDate, CheckOutDate, NoOccupant, FacilityChoice, SpecialReq, TotalPrice, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$stmt = $conn->prepare($sql);
 
-        if ($stmt) {
-            $stmt->bind_param("sssssssds", $newID, $CustEmail, $checkInDate, $checkOutDate, $noOccupant, $facilityChoiceString, $specialRequest, $totalPrice, $status);
+		if ($stmt) {
+			$stmt->bind_param("ssssssssds", $newID, $CustEmail, $roomType, $checkInDate, $checkOutDate, $noOccupant, $facilityChoiceString, $specialRequest, $totalPrice, $status);
+
 
             if ($stmt->execute()) {
-                // Data inserted successfully
-                echo "Data inserted successfully.<br>";
-                header('Location: customerHomepage.php');
-                exit();
-            } else {
-                // Handle the case where the insertion fails
-                echo "Error: " . $stmt->error;
-            }
+				// Data inserted successfully
+				echo "Data inserted successfully.<br>";
+				header('Location: customerHomepage.php');
+				exit();
+			} else {
+				// Handle the case where the insertion fails
+				echo "Error: " . $stmt->error;
+			}
 
-            $stmt->close();
-        } else {
-            // Handle the case where the prepare failed
-            echo "Prepare statement failed: " . $conn->error;
-        }
+			$stmt->close();
+		} else {
+			// Handle the case where the prepare failed
+			echo "Prepare statement failed: " . $conn->error;
+		}
     } else {
         // Handle cases where facilities were not selected
         echo "No facilities selected.";
@@ -93,12 +94,11 @@ function generateNewID($conn) {
     }
 
     // Extract the numeric part and increment it
-    $numericPart = (int)substr($highestID, 4); // Assuming "HDH" is constant
+    $numericPart = (int)substr($highestID, 3); // Assuming "HDH" is constant
     $numericPart++;
 
-    // Create the new ID by combining "HDH" and the incremented numeric part
+    // Create the new ID by combining "HDH" and the incremented numeric part with leading zeros
     $newID = "HDH" . sprintf('%02d', $numericPart); // Padded to two digits
 
     return $newID;
 }
-?>

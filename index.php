@@ -297,7 +297,7 @@ mysqli_close($conn);
               <p>
                 The hall can accomodate various events and the hall it is expandable
               </p>
-              <a href="">
+              <a href="Facilities.php">
                 Read More
               </a>
             </div>
@@ -315,7 +315,7 @@ mysqli_close($conn);
               <p>
                 Buffet dining service is also available in the hotel
               </p>
-              <a href="">
+              <a href="Facilities.php">
                 Read More
               </a>
             </div>
@@ -333,7 +333,7 @@ mysqli_close($conn);
               <p>
                 Shuttle service toward nearest public transport is available
               </p>
-              <a href="">
+              <a href="Facilities.php">
                 Read More
               </a>
             </div>

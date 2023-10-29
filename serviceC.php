@@ -1,62 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['CustEmail'])) {
-  header('Location: LogIn.php');
-  exit();
-}
-require_once "database_connection.php";
-$errors = array();
-
-// Function to get all available room types from the database
-function getAllRoomTypes($conn)
-{
-    $roomTypes = array();
-    $sql = "SELECT DISTINCT roomType FROM room";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $roomTypes[] = $row["roomType"];
-        }
-    }
-
-    return $roomTypes;
-}
-
-// Function to get room information from the database for a specific room type
-function getRoomInfo($conn, $roomType)
-{
-    $roomInfo = array();
-
-    // Use a prepared statement to fetch binary image data
-    $sql = "SELECT roomAvailable, roomPrice, roomImage, roomDescription FROM room WHERE roomType = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $roomType);
-    $stmt->execute();
-    $stmt->store_result();
-    $stmt->bind_result($roomAvailable, $roomPrice, $roomImage, $roomDescription);
-
-    if ($stmt->num_rows > 0) {
-        $stmt->fetch();
-        $roomInfo['roomAvailability'] = $roomAvailable;
-        $roomInfo['roomPrice'] = $roomPrice;
-        $roomInfo['roomImage'] = $roomImage;
-        $roomInfo['roomDescription'] = $roomDescription;
-    } else {
-        // Handle the case when the room type is not found
-        $roomInfo['roomAvailability'] = 0; // Room not available
-        $roomInfo['roomPrice'] = "N/A";
-        $roomInfo['roomImage'] = "images/HotelDefault.png";
-        $roomInfo['roomDescription'] = "N/A";
-    }
-
-    return $roomInfo;
-}
-
-// Get all available room types
-$roomTypes = getAllRoomTypes($conn);
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -80,15 +21,13 @@ $roomTypes = getAllRoomTypes($conn);
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
 
-  <!-- lightbox Gallery-->
-  <link rel="stylesheet" href="css/ekko-lightbox.css" />
-
   <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -129,57 +68,76 @@ $roomTypes = getAllRoomTypes($conn);
   </header>
   <!-- end header section -->
 
+  <!-- service section -->
 
-  <!-- room section -->
-  <section class="blog_section layout_padding">
-    <div class="container-fluid">
-      <div class="heading_container">
-        <h2>Room</h2>
+  <section class="service_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Services
+        </h2>
       </div>
       <div class="row">
-        <?php
-        // Loop through each room type
-        foreach ($roomTypes as $roomType) {
-          // Get room information from the database for each room type
-          $roomInfo = getRoomInfo($conn, $roomType);
-          $roomAvailability = $roomInfo['roomAvailability'];
-          $roomPriceDisplay = $roomInfo['roomPrice'];
-          $roomImage = $roomInfo['roomImage'];
-          $roomDescription = $roomInfo['roomDescription'];
-
-          // Check if roomImage is empty and set a default image URL
-          if (empty($roomImage)) {
-            $roomImage = "images/HotelDefault.png"; // Use forward slashes for the path
-          }
-          ?>
-          <div class="col-lg-12">
-            <div class="box">
-              <div class="img-box">
-                <img src="images/<?php echo $roomImage; ?>" alt="<?php echo $roomType; ?>">
-              </div>
-              <div class="detail-box">
-                <h5><?php echo $roomType; ?></h5>
-                <p><?php echo $roomDescription; ?></p>
-                <p>Room price: RM <?php echo $roomPriceDisplay; ?> per night</p>
-                <?php if ($roomAvailability > 0) { ?>
-					<p>Quantity: <?php echo $roomAvailability; ?> Room</p>
-					<p>Room availability: Room is available</p>
-					<!-- Modify the "Book Room" link to include the room type as a query parameter -->
-					<a href="Roombooking.php?roomType=<?php echo urlencode($roomType); ?>">Book Room</a>
-				<?php } else { ?>
-					<p>Quantity: <?php echo $roomAvailability; ?> Room</p>
-					<p>Room availability: Room not available</p>
-					<button disabled>Not Available</button>
-				<?php } ?>
-              </div>
+        <div class="col-md-6 col-lg-4 mx-auto">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/s1.jpg" alt="" style="width:128px;height:128px;">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Hall rental
+              </h5>
+              <p>
+                The hall can accomodate various events and the hall is expandable
+              </p>
+              <a href="">
+                Read More
+              </a>
             </div>
           </div>
-        <?php } ?>
+        </div>
+        <div class="col-md-6 col-lg-4 mx-auto">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/s2.jpg" alt="" style="width:128px;height:128px;">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Dining
+              </h5>
+              <p>
+                Buffet dining service is also available in the hotel
+              </p>
+              <a href="">
+                Read More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mx-auto">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/s3.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Shuttle Service
+              </h5>
+              <p>
+                Shuttle service toward nearest public transport is available
+              </p>
+              <a href="">
+                Read More
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
   </section>
 
-  <!-- end room section -->
+  <!-- end service section -->
 
   <!-- info section -->
   <section class="info_section innerpage_info_section">
@@ -191,9 +149,7 @@ $roomTypes = getAllRoomTypes($conn);
               Company History
             </h4>
             <p class="mb-0">
-              Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This stunning hotel
-              is equipped with modern structures and at night sports so many flickering lights that makes it appear as
-              if out of a 1960’s Hong Kong movie.
+              Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This stunning hotel is equipped with modern structures and at night sports so many flickering lights that makes it appear as if out of a 1960’s Hong Kong movie.
             </p>
           </div>
         </div>

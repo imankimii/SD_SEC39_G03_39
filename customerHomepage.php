@@ -92,7 +92,7 @@ mysqli_close($conn);
   <header class="header_section">
     <div class="container-fluid">
       <nav class="navbar navbar-expand-lg custom_nav-container">
-        <a class="navbar-brand" href="index.php">
+        <a class="navbar-brand" href="customerHomepage.php">
           <span>
             Hotel S Damansara
           </span>
@@ -107,11 +107,12 @@ mysqli_close($conn);
             </button>
             <div id="myNav" class="overlay">
               <div class="overlay-content">
+				<a href="customerHomepage.php">Home</a>
                 <a href="profilePage.php">Profile</a>
-                <a href="about.php">About</a>
-                <a href="gallery.php">Events</a>
-                <a href="service.php">Service</a>
-                <a href="Facilities.php">Facilities</a>
+                <a href="aboutC.php">About</a>
+                <a href="galleryC.php">Events</a>
+                <a href="serviceC.php">Service</a>
+                <a href="FacilitiesC.php">Facilities</a>
                 <a href="RoomC.php">Room</a>
                 <a href="LogOut.php">Log Out</a>
               </div>
@@ -305,7 +306,7 @@ mysqli_close($conn);
               <p>
                 The hall can accomodate various events and the hall it is expandable
               </p>
-              <a href="">
+              <a href="FacilitiesC.php">
                 Read More
               </a>
             </div>
@@ -323,7 +324,7 @@ mysqli_close($conn);
               <p>
                 Buffet dining service is also available in the hotel
               </p>
-              <a href="">
+              <a href="FacilitiesC.php">
                 Read More
               </a>
             </div>
@@ -341,7 +342,7 @@ mysqli_close($conn);
               <p>
                 Shuttle service toward nearest public transport is available
               </p>
-              <a href="">
+              <a href="FacilitiesC.php">
                 Read More
               </a>
             </div>

@@ -195,6 +195,12 @@ if (empty($ProfilePicture)) {
                             <span class="hide-menu">Edit Facilities</span>
                         </a>
                     </li>
+					<li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="facilityBookingHistory.php" aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Facility Booking History</span>
+                        </a>
+                    </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="events.php" aria-expanded="false">
                             <i class="fa fa-table" aria-hidden="true"></i>
@@ -258,6 +264,7 @@ if (empty($ProfilePicture)) {
 										<tr>
 											<th class="border-top-0">Booking ID</th>
 											<th class="border-top-0">Customer Email</th>
+											<th class="border-top-0">Room Type</th>
 											<th class="border-top-0">Check-In Date</th>
 											<th class="border-top-0">Check-Out Date</th>
 											<th class="border-top-0">No. of Occupants</th>
@@ -275,6 +282,7 @@ if (empty($ProfilePicture)) {
 											echo "<tr>";
 											echo "<td>" . $bookingID . "</td>";
 											echo "<td>" . $row['CustEmail'] . "</td>";
+											echo "<td>" . $row['roomType'] . "</td>";
 											echo "<td>" . $row['CheckInDate'] . "</td>";
 											echo "<td>" . $row['CheckOutDate'] . "</td>";
 											echo "<td>" . $row['NoOccupant'] . "</td>";
@@ -282,7 +290,7 @@ if (empty($ProfilePicture)) {
 											echo "<td>" . $row['SpecialReq'] . "</td>";
 											echo "<td>" . $row['TotalPrice'] . "</td>";
 											echo "<td>" . $row['status'] . "</td>";
-											echo "<td colspan='8'><button class='btn btn-primary EditModalBtn' data-id='$bookingID' data-custemail='{$row['CustEmail']}' data-checkindate='{$row['CheckInDate']}' data-checkoutdate='{$row['CheckOutDate']}' data-nooccupant='{$row['NoOccupant']}' data-facilitychoice='{$row['FacilityChoice']}' data-specialreq='{$row['SpecialReq']}' data-totalprice='{$row['TotalPrice']}' data-status='{$row['status']}'>EDIT</button></td>";
+											echo "<td colspan='8'><button class='btn btn-primary EditModalBtn' data-id='$bookingID' data-custemail='{$row['CustEmail']}' data-roomtype='{$row['roomType']}' data-checkindate='{$row['CheckInDate']}' data-checkoutdate='{$row['CheckOutDate']}' data-nooccupant='{$row['NoOccupant']}' data-facilitychoice='{$row['FacilityChoice']}' data-specialreq='{$row['SpecialReq']}' data-totalprice='{$row['TotalPrice']}' data-status='{$row['status']}'>EDIT</button></td>";
 											//echo "<td colspan='8'><button class='btn btn-danger deleteButton' data-id='$bookingID'>DELETE</button></td>";
 											echo "<td colspan='8'><button class='btn btn-danger cancelButton' data-id='$bookingID'>CANCEL</button></td>";
 											echo "</tr>";
@@ -324,7 +332,7 @@ if (empty($ProfilePicture)) {
 					<div class="card-header bg-transparent border-0">
 						<h3 class="mb-0"><i class="far fa-clone pr-1"></i>EDIT BOOKING</h3>
 					</div>
-					<div class="card-body pt-0">
+					<div class="card-body pt-0" style="max-height: 80vh; overflow-y: auto;">
 						<form method="post" action="EditfunctionBooking.php">
 							<div class="form-group">
 								<label for="bookingID">Booking ID</label>
@@ -335,16 +343,20 @@ if (empty($ProfilePicture)) {
 								<input type="email" id="custEmail" name="custEmail" class="form-control" value="" readonly>
 							</div>
 							<div class="form-group">
+								<label for="roomType">Room Type</label>
+								<input type="text" id="roomType" name="roomType" class="form-control" value="" readonly>
+							</div>
+							<div class="form-group">
 								<label for="checkInDate">Check-In Date</label>
-								<input type="date" id="checkInDate" name="checkInDate" class="form-control">
+								<input type="date" id="checkInDate" name="checkInDate" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label for="checkOutDate">Check-Out Date</label>
-								<input type="date" id="checkOutDate" name="checkOutDate" class="form-control">
+								<input type="date" id="checkOutDate" name="checkOutDate" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label for="noOccupant">No. of Occupants</label>
-								<input type="number" id="noOccupant" name="noOccupant" class="form-control">
+								<input type="number" id="noOccupant" name="noOccupant" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label for="facilityChoice">Facility Choice</label>
@@ -356,11 +368,11 @@ if (empty($ProfilePicture)) {
 							</div>
 							<div class="form-group">
 								<label for="totalPrice">Total Price</label>
-								<input type="text" id="totalPrice" name="totalPrice" class="form-control">
+								<input type="text" id="totalPrice" name="totalPrice" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label for="status">Status</label>
-								<input type="text" id="status" name="status" class="form-control">
+								<input type="text" id="status" name="status" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<button type="submit" name="edit_booking" class="btn btn-primary">EDIT BOOKING</button>
@@ -394,6 +406,7 @@ if (empty($ProfilePicture)) {
 	const modal = document.getElementById("myModal");
 	const closeModalBtn = document.getElementById("closeModalBtn");
 	const custEmailInput = document.getElementById("custEmail");
+	const roomTypeInput = document.getElementById("roomType");
 	const checkInDateInput = document.getElementById("checkInDate");
 	const checkOutDateInput = document.getElementById("checkOutDate");
 	const noOccupantInput = document.getElementById("noOccupant");
@@ -403,10 +416,11 @@ if (empty($ProfilePicture)) {
 	const statusInput = document.getElementById("status");
 
 	// Function to open the modal and populate it with data
-	function openModal(bookingID, custEmail, checkInDate, checkOutDate, noOccupant, facilityChoice, specialReq, totalPrice, status) {
+	function openModal(bookingID, custEmail, roomType, checkInDate, checkOutDate, noOccupant, facilityChoice, specialReq, totalPrice, status) {
 		// Populate the modal inputs with the retrieved data
 		document.getElementById("bookingID").value = bookingID;
 		custEmailInput.value = custEmail;
+		roomTypeInput.value = roomType;
 		checkInDateInput.value = checkInDate;
 		checkOutDateInput.value = checkOutDate;
 		noOccupantInput.value = noOccupant;
@@ -424,6 +438,7 @@ if (empty($ProfilePicture)) {
 		button.addEventListener("click", function () {
 			const bookingID = button.getAttribute("data-id");
 			const custEmail = button.getAttribute("data-custemail");
+			const roomType = button.getAttribute("data-roomtype");
 			const checkInDate = button.getAttribute("data-checkindate");
 			const checkOutDate = button.getAttribute("data-checkoutdate");
 			const noOccupant = button.getAttribute("data-nooccupant");
@@ -432,7 +447,7 @@ if (empty($ProfilePicture)) {
 			const totalPrice = button.getAttribute("data-totalprice");
 			const status = button.getAttribute("data-status");
 
-			openModal(bookingID, custEmail, checkInDate, checkOutDate, noOccupant, facilityChoice, specialReq, totalPrice, status);
+			openModal(bookingID, custEmail, roomType, checkInDate, checkOutDate, noOccupant, facilityChoice, specialReq, totalPrice, status);
 		});
 	});
 
