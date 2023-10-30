@@ -242,7 +242,7 @@ foreach ($facilityTypes as $facilityType) {
 					
 					<input type="hidden" id="totalPrice" name="totalPrice" value="">
 					
-					<button type="submit" style="text-align: center; width: 100%;">Book Now</button>
+					<button type="submit" style="text-align: center; width: 100%;"><a href="toyyibpay/index.php">Book Now</button>
 				</form>
         </section>
     </main>

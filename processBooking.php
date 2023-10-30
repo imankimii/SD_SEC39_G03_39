@@ -53,14 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['CustEmail'])) {
 
 
             if ($stmt->execute()) {
-				// Data inserted successfully
-				echo "Data inserted successfully.<br>";
-				header('Location: customerHomepage.php');
-				exit();
-			} else {
-				// Handle the case where the insertion fails
-				echo "Error: " . $stmt->error;
-			}
+                // Data inserted successfully
+                echo "Data inserted successfully.<br>";
+                header('Location: toyyibpay/index.php');
+                exit();
+            } else {
+                // Handle the case where the insertion fails
+                echo "Error: " . $stmt->error;
+            }
 
 			$stmt->close();
 		} else {
