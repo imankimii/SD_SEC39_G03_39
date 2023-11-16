@@ -1,69 +1,91 @@
 <?php
 session_start();
+
 // Check if the Admin is logged in
 if (!isset($_SESSION['AdminEmail'])) {
-  header('Location: LogIn.php');
-  exit();
+    header('Location: LogIn.php');
+    exit();
 }
+
 require_once "database_connection.php";
 
-/* Fetch Admin Name and Email */
+// Fetch Admin Name and Email
 $AdminEmail = $_SESSION['AdminEmail'];
 $sql = "SELECT * FROM admin WHERE AdminEmail = '$AdminEmail'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 $AdminName = $row['AdminName'];
 $AdminEmail = $row['AdminEmail'];
-$ProfilePicture = $row['ProfilePicture'];
 
-// Check if ProfilePicture is null or empty, and set it to the default picture URL if needed
-if (empty($ProfilePicture)) {
-  $ProfilePicture = "images\profile.png";
+// Set default profile picture if it's not provided
+$ProfilePicture = isset($ProfilePicture) ? $ProfilePicture : "images/profile.png";
+
+// Fetch data for the graph from the bookinghistory table
+$graphDataQuery = "SELECT MONTH(CheckInDate) as month, SUM(TotalPrice) as total_price
+                  FROM bookinghistory
+                  GROUP BY MONTH(CheckInDate)";
+$graphDataResult = mysqli_query($conn, $graphDataQuery);
+
+// Initialize arrays to store labels and series data for the graph
+$labels = [];
+$series = [[]];
+
+// Initialize total profit and total booking variables
+$totalProfit = 0;
+$totalBooking = 0;
+
+while ($row = mysqli_fetch_assoc($graphDataResult)) {
+    $labels[] = date("F", mktime(0, 0, 0, $row['month'], 1));
+    $series[0][] = $row['total_price'];
+
+    // Update total profit
+    $totalProfit += $row['total_price'];
+
+    // Fetch and update total booking count
+    $bookingCountQuery = "SELECT COUNT(*) as booking_count
+                         FROM bookinghistory
+                         WHERE MONTH(CheckInDate) = {$row['month']}";
+    $bookingCountResult = mysqli_query($conn, $bookingCountQuery);
+    $bookingCountRow = mysqli_fetch_assoc($bookingCountResult);
+    $totalBooking += $bookingCountRow['booking_count'];
 }
+
+// Fetch and update total staff count
+$totalStaffQuery = "SELECT COUNT(*) as total_staff FROM staff";
+$totalStaffResult = mysqli_query($conn, $totalStaffQuery);
+$totalStaffRow = mysqli_fetch_assoc($totalStaffResult);
+$totalStaff = $totalStaffRow['total_staff'];
 ?>
+
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
-    <meta name="description"
-        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description" content="Ample Admin Lite is powerful and clean admin dashboard template, inspired by Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Admin Hotel S Damansara Dashboard</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
-    <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <!-- Custom CSS -->
     <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
     <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
-    <!-- Custom CSS -->
     <link href="dashcss/style.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 </head>
 
 <body>
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
             <div class="lds-pos"></div>
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
+
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
@@ -101,14 +123,9 @@ if (empty($ProfilePicture)) {
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+
         <aside class="left-sidebar" data-sidebarbg="skin6">
-        <!-- Sidebar scroll-->
+            <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
             <!-- Sidebar navigation -->
             <nav class="sidebar-nav">
@@ -224,16 +241,8 @@ if (empty($ProfilePicture)) {
         </div>
             <!-- End Sidebar scroll-->
         </aside>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
+
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -247,186 +256,94 @@ if (empty($ProfilePicture)) {
                         </div>
                     </div>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
+
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Three charts -->
-                <!-- ============================================================== -->
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Visit</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-success">659</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Page Views</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash2"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-purple">869</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Unique Visitor</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash3"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-info">911</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- PRODUCTS YEARLY SALES -->
-                <!-- ============================================================== -->
-                <div class="row">
-					<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-						<div class="white-box">
-							<h3 class="box-title">Monthly Sales</h3>
-							<div id="ct-visits" style="height: 305px;"></div>
+						<div class="white-box analytics-info">
+							<h3 class="box-title">Total Profit</h3>
+							<ul class="list-inline two-part d-flex align-items-center mb-0">
+								<li>
+									<div id="sparklinedash"><canvas width="67" height="30"
+											style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+									</div>
+								</li>
+								<li class="ms-auto"><span class="counter text-success"><?php echo $totalProfit; ?> (Ringgit Malaysia)</span></li>
+							</ul>
 						</div>
 					</div>
+                    <div class="col-lg-4 col-md-12">
+						<div class="white-box analytics-info">
+							<h3 class="box-title">Total Booking</h3>
+							<ul class="list-inline two-part d-flex align-items-center mb-0">
+								<li>
+									<div id="sparklinedash2"><canvas width="67" height="30"
+											style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+									</div>
+								</li>
+								<li class="ms-auto"><span class="counter text-purple"><?php echo $totalBooking; ?></span></li>
+							</ul>
+						</div>
+					</div>
+                    <div class="col-lg-4 col-md-12">
+					<div class="white-box analytics-info">
+						<h3 class="box-title">Total Staff</h3>
+						<ul class="list-inline two-part d-flex align-items-center mb-0">
+							<li>
+								<div id="sparklinedash3"><canvas width="67" height="30"
+										style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+								</div>
+							</li>
+							<li class="ms-auto"><span class="counter text-info"><?php echo $totalStaff; ?></span></li>
+						</ul>
+					</div>
 				</div>
-                <!-- ============================================================== -->
-                <!-- Recent Comments -->
-                <!-- ============================================================== -->
+                </div>
+
                 <div class="row">
-                    <!-- .col -->
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="card white-box p-0">
-                            <div class="card-body">
-                                <h3 class="box-title mb-0">Recent Comments</h3>
-                            </div>
-                            <div class="comment-widgets">
-                                <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3 mt-0">
-                                    <div class="p-2"><img src="plugins/images/users/varun.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text ps-2 ps-md-3 w-100">
-                                        <h5 class="font-medium">Muhammad Faiz</h5>
-                                        <span class="mb-3 d-block">Great!!! </span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-										
-                                             <span class="badge bg-success rounded">4.5 star</span>
-                                             
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">July 28, 2023</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3">
-                                    <div class="p-2"><img src="plugins/images/users/genu.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text ps-2 ps-md-3 active w-100">
-                                        <h5 class="font-medium">Amirah Liyana</h5>
-                                        <span class="mb-3 d-block">I like the food services and the customer services is just great </span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-
-                                            <span class="badge bg-success rounded">5 star</span>
-                                            
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">May 20, 2023</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3">
-                                    <div class="p-2"><img src="plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text ps-2 ps-md-3 w-100">
-                                        <h5 class="font-medium">Muhammad Nabil</h5>
-                                        <span class="mb-3 d-block">The services is late for me and it need more improvement on their customer services </span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-
-                                            <span class="badge rounded bg-danger">2.5 Star</span>
-                                            
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2023</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Monthly Sales</h3>
+                            <div id="ct-visits" style="height: 305px;"></div>
                         </div>
                     </div>
-                    <!-- /.col -->
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js2/app-style-switcher.js"></script>
-    <script src="plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
-    <!--Wave Effects -->
-    <script src="js2/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="js2/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="js2/custom.js"></script>
-    <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
-    <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="js2/pages/dashboards/dashboard1.js"></script>
-	<script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-	<script>
-        // Sample data for the line graph
-        var data = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            series: [
-                [12, 8, 15, 10, 14, 18, 16, 20, 22, 19, 15, 13] // Replace with your actual sales data
-            ]
-        };
 
-        // Configuration options for the line graph
-        var options = {
-            width: '100%',
-            height: '300px',
-            showArea: false,
-            showPoint: true,
-            showLine: true,
-            fullWidth: true,
-            chartPadding: {
-                right: 40
-            }
-        };
+        <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js2/app-style-switcher.js"></script>
+        <script src="plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script src="js2/waves.js"></script>
+        <script src="js2/sidebarmenu.js"></script>
+        <script src="js2/custom.js"></script>
+        <script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
+        <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+        <script src="js2/pages/dashboards/dashboard1.js"></script>
+        <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 
-        // Initialize Chartist with the provided data and options
-        new Chartist.Line('#ct-visits', data, options);
-    </script>
-</body>
+        <script>
+            var data = {
+                labels: <?php echo json_encode($labels); ?>,
+                series: <?php echo json_encode($series); ?>
+            };
+
+            var options = {
+                width: '100%',
+                height: '300px',
+                showArea: false,
+                showPoint: true,
+                showLine: true,
+                fullWidth: true,
+                chartPadding: {
+                    right: 40
+                }
+            };
+
+            new Chartist.Line('#ct-visits', data, options);
+        </script>
+    </body>
 
 </html>

@@ -109,9 +109,9 @@ mysqli_close($conn);
               <div class="overlay-content">
 				<a href="customerHomepage.php">Home</a>
                 <a href="profilePage.php">Profile</a>
+				<a href="bookingHistory.php">Booking History</a>
                 <a href="aboutC.php">About</a>
                 <a href="galleryC.php">Events</a>
-                <a href="serviceC.php">Service</a>
                 <a href="FacilitiesC.php">Facilities</a>
                 <a href="RoomC.php">Room</a>
                 <a href="LogOut.php">Log Out</a>
@@ -290,7 +290,7 @@ mysqli_close($conn);
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          Services
+          Facility
         </h2>
       </div>
       <div class="row">

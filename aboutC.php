@@ -53,9 +53,9 @@
               <div class="overlay-content">
                 <a href="customerHomepage.php">Home</a>
                 <a href="profilePage.php">Profile</a>
+				<a href="bookingHistory.php">Booking History</a>
                 <a href="aboutC.php">About</a>
                 <a href="galleryC.php">Events</a>
-                <a href="serviceC.php">Service</a>
                 <a href="FacilitiesC.php">Facilities</a>
                 <a href="RoomC.php">Room</a>
                 <a href="LogOut.php">Log Out</a>

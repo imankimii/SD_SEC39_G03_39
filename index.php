@@ -281,7 +281,7 @@ mysqli_close($conn);
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          Services
+          Facility
         </h2>
       </div>
       <div class="row">

@@ -1,3 +1,18 @@
+<?php
+session_start(); // Start the session
+
+// Check if the customer is not logged in
+if (!isset($_SESSION['CustEmail'])) {
+    header('Location: LogIn.php');
+    exit();
+}
+
+// Include the database connection script
+require_once "database_connection.php";
+
+// Fetch the current user's CustEmail from the session
+$currentUserEmail = $_SESSION['CustEmail'];
+?>
 <!DOCTYPE html>
 <html>
 
@@ -21,16 +36,35 @@
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
 
-  <!-- lightbox Gallery-->
-  <link rel="stylesheet" href="css/ekko-lightbox.css" />
-
   <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+<style>
+  .table-responsive {
+    overflow-x: auto;
+  }
 
+  table {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 4px solid #000; /* Increase border width to 4px */
+  }
+
+  th, td {
+    white-space: nowrap;
+    border: 2px solid #000; /* Increase cell border width to 2px */
+    padding: 10px; /* Increase cell padding to 10px */
+  }
+
+  .table-responsive table {
+    margin: 0;
+  }
+</style>
 </head>
 
 <body>
@@ -71,74 +105,91 @@
   </header>
   <!-- end header section -->
 
-  <!-- gallery section -->
 
-  <div class="gallery_section layout_padding">
-    <div class="container-fluid">
-      <div class="heading_container heading_center">
-        <h2>
-          Events
-        </h2>
-      </div>
-      <div class="row">
-        <div class=" col-sm-6 col-md-4 px-0">
-          <div class="img-box">
-            <img src="images/g1.jpg" alt="">
-            <a href="images/g1.jpg" data-toggle="lightbox" data-title="Birthday Party" data-gallery="gallery">
-              <i class="fa fa-picture-o" aria-hidden="true"></i>
-            </a>
-          </div>
+<!-- Booking History section -->
+<section class="booking_history_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="detail-box">
+                    <div class="heading_container">
+                        <h2>
+                            Booking History
+                        </h2>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped" style="border-width: 4px; padding: 10px; width: 100%; max-width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Room Type</th>
+                                    <th>Check-In Date</th>
+                                    <th>Check-Out Date</th>
+                                    <th>No. of Occupants</th>
+                                    <th>Facility Choice</th>
+                                    <th>Special Requests</th>
+                                    <th>Total Price(RM)</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+								<?php
+								// Include the database connection script
+								require_once "database_connection.php";
+
+								// Fetch the booking history for the current user
+								$currentUserEmail = $_SESSION['CustEmail'];
+								$sql = "SELECT BookingID, roomType, CheckInDate, CheckOutDate, NoOccupant, FacilityChoice, SpecialReq, TotalPrice, status FROM bookinghistory WHERE CustEmail = ?";
+								$stmt = mysqli_prepare($conn, $sql);
+								mysqli_stmt_bind_param($stmt, "s", $currentUserEmail);
+								mysqli_stmt_execute($stmt);
+								$result = mysqli_stmt_get_result($stmt);
+
+								if ($result && mysqli_num_rows($result) > 0) {
+									while ($row = mysqli_fetch_assoc($result)) {
+										echo '<tr>';
+										echo '<td>' . $row['BookingID'] . '</td>';
+										echo '<td>' . $row['roomType'] . '</td>';
+										echo '<td>' . $row['CheckInDate'] . '</td>';
+										echo '<td>' . $row['CheckOutDate'] . '</td>';
+										echo '<td>' . $row['NoOccupant'] . '</td>';
+										echo '<td>';
+										// Explode the facility choices and display them with hours
+										$facilityChoices = explode(', ', $row['FacilityChoice']);
+										foreach ($facilityChoices as $choice) {
+											list($facility, $hours) = explode('(', $choice);
+											$hours = trim($hours, '()');
+											echo $facility . ' (' . $hours . ' hours)<br>';
+										}
+										echo '</td>';
+										echo '<td>';
+
+										// Check if Special Request is not empty
+										if (!empty($row['SpecialReq'])) {
+											echo $row['SpecialReq'];
+										} else {
+											echo 'None';
+										}
+
+										echo '</td>';
+										echo '<td>' . $row['TotalPrice'] . '</td>';
+										echo '<td>' . $row['status'] . '</td>';
+										echo '</tr>';
+									}
+								} else {
+									// Handle the case where no booking history is found for the user
+									echo '<tr><td colspan="9">No booking history found for ' . $currentUserEmail . '</td></tr>';
+								}
+								?>
+								</tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-6 col-md-4 px-0">
-          <div class="img-box">
-            <img src="images/g2.jpg" alt="">
-            <a href="images/g2.jpg" data-toggle="lightbox" data-title="Reunion" data-gallery="gallery">
-              <i class="fa fa-picture-o" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 px-0">
-          <div class="img-box">
-            <img src="images/g3.jpg" alt="">
-            <a href="images/g3.jpg" data-toggle="lightbox" data-title="Wedding" data-gallery="gallery">
-              <i class="fa fa-picture-o" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 px-0">
-          <div class="img-box">
-            <img src="images/g4.jpg" alt="">
-            <a href="images/g4.jpg" data-toggle="lightbox" data-title="Wedding" data-gallery="gallery">
-              <i class="fa fa-picture-o" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 px-0">
-          <div class="img-box">
-            <img src="images/g5.jpg" alt="">
-            <a href="images/g5.jpg" data-toggle="lightbox" data-title="Conference" data-gallery="gallery">
-              <i class="fa fa-picture-o" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 px-0">
-          <div class="img-box">
-            <img src="images/g6.jpg" alt="">
-            <a href="images/g6.jpg" data-toggle="lightbox" data-title="Seminar" data-gallery="gallery">
-              <i class="fa fa-picture-o" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="btn-box">
-        <a href="">
-          View All
-        </a>
-      </div>
     </div>
-  </div>
-
-  <!-- end gallery section -->
+</section>
+<!-- end Booking History section -->
 
 
   <!-- info section -->
@@ -151,7 +202,7 @@
               Company History
             </h4>
             <p class="mb-0">
-             Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This stunning hotel is equipped with modern structures and at night sports so many flickering lights that makes it appear as if out of a 1960’s Hong Kong movie.
+              Sri Damansara Hotel is a business run by a family from Sabah, east Malaysian Borneo. This stunning hotel is equipped with modern structures and at night sports so many flickering lights that makes it appear as if out of a 1960’s Hong Kong movie.
             </p>
           </div>
         </div>
@@ -241,8 +292,6 @@
   <script src="js/jquery-3.4.1.min.js"></script>
   <!-- bootstrap js -->
   <script src="js/bootstrap.js"></script>
-  <!-- lightbox Gallery-->
-  <script src="js/ekko-lightbox.min.js"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
 
