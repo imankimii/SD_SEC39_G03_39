@@ -2,7 +2,9 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['CustEmail'])) {
+
     require_once "database_connection.php";
+    require_once 'toyyibpay/toyyibpay_key.php';
 
     $CustEmail = $_SESSION['CustEmail'];
     $roomType = $_POST['roomType'];
@@ -44,12 +46,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['CustEmail'])) {
         // Set the status to "pending"
         $status = 'pending';
 
-        // Insert data into the 'bookinghistory' table, including the new ID and status
-        $sql = "INSERT INTO bookinghistory (BookingID, CustEmail, roomType, CheckInDate, CheckOutDate, NoOccupant, FacilityChoice, SpecialReq, TotalPrice, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		$stmt = $conn->prepare($sql);
+        // initiate bill
+        $post_data = array(
+            'userSecretKey' => $secret_key,
+            'categoryCode' => $category_code,
+            'billName' => 'Room Bill',
+            'billDescription' => "Bill " . $roomType,
+            'billPriceSetting' => 1,
+            'billPayorInfo' => 0,
+            'billAmount' => $totalPrice * 100,
+            'billReturnUrl' => 'http://localhost/diploma/ddwd3723/SD_Project/SD_SEC39_G03_39/toyyibpay/response.php',
+            'billExternalReferenceNo' => time() . rand(),
+            'billTo' => '',
+            'billEmail' => $CustEmail,
+            'billPhone' => '',
+            'billSplitPayment' => 0,
+            'billSplitPaymentArgs' => '',
+            'billPaymentChannel' => 0,
+        );
 
-		if ($stmt) {
-			$stmt->bind_param("ssssssssds", $newID, $CustEmail, $roomType, $checkInDate, $checkOutDate, $noOccupant, $facilityChoiceString, $specialRequest, $totalPrice, $status);
+        // php curl to post data to payment gateway
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_URL, 'https://dev.toyyibpay.com/index.php/api/createBill');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+
+        $result = curl_exec($curl);
+        $info = curl_getinfo($curl);
+        curl_close($curl);
+        $result = json_decode($result, true);
+
+        $bill_code = $result[0]['BillCode'];
+
+        // Insert data into the 'bookinghistory' table, including the new ID and status
+        $sql = "INSERT INTO bookinghistory (BookingID, CustEmail, roomType, CheckInDate, CheckOutDate, NoOccupant, FacilityChoice, SpecialReq, TotalPrice, billCode, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("ssssssssdss", $newID, $CustEmail, $roomType, $checkInDate, $checkOutDate, $noOccupant, $facilityChoiceString, $specialRequest, $totalPrice, $bill_code, $status);
 
 
             if ($stmt->execute()) {
@@ -62,11 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['CustEmail'])) {
                 echo "Error: " . $stmt->error;
             }
 
-			$stmt->close();
-		} else {
-			// Handle the case where the prepare failed
-			echo "Prepare statement failed: " . $conn->error;
-		}
+            $stmt->close();
+        } else {
+            // Handle the case where the prepare failed
+            echo "Prepare statement failed: " . $conn->error;
+        }
     } else {
         // Handle cases where facilities were not selected
         echo "No facilities selected.";
@@ -81,7 +116,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['CustEmail'])) {
 }
 
 // Function to generate a new ID
-function generateNewID($conn) {
+function generateNewID($conn)
+{
     // Get the current highest ID from the database
     $sql = "SELECT MAX(BookingID) FROM bookinghistory";
     $result = $conn->query($sql);
@@ -94,7 +130,7 @@ function generateNewID($conn) {
     }
 
     // Extract the numeric part and increment it
-    $numericPart = (int)substr($highestID, 3); // Assuming "HDH" is constant
+    $numericPart = (int) substr($highestID, 3); // Assuming "HDH" is constant
     $numericPart++;
 
     // Create the new ID by combining "HDH" and the incremented numeric part with leading zeros

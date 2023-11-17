@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -86,6 +87,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="carousel-container">
     <div id="imageCarousel" class="carousel slide" data-ride="carousel">
@@ -100,7 +102,7 @@
           <img src="image3.jpg" alt="Image 3">
         </div>
       </div>
-	  <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+      <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" ariahidden="true"></span>
         <span class="sr-only">Previous</span>
       </a>
@@ -112,7 +114,7 @@
       <!-- Booking form is inside the carousel container -->
       <div class="booking-form">
         <h1>Make your reservation</h1>
-        <form>
+        <form id="booking-form" class="booking-form" action="processBookingFacilities.php" method="POST">
           <div class="form-group">
             <input type="date" required>
           </div>
@@ -130,7 +132,7 @@
               <option value="4"> Gymnasium </option>
             </select>
           </div>
-		  <div class="form-group">
+          <div class="form-group">
             <input type="email" placeholder="Enter number of occupants" required>
           </div>
           <div class="form-group">
@@ -152,4 +154,5 @@
   <script src="js/bootstrap.js"></script>
   <script src="js/ekko-lightbox.min.js"></script>
 </body>
+
 </html>
