@@ -42,7 +42,7 @@ if ($payment_status === $status_id) {
         print("Error SQL Query Failed");
         die();
     }
-    header("Location: /diploma/ddwd3723/SD_Project/SD_SEC39_G03_39/customerHomepage.php");
+    header("Location: /diploma/ddwd3723/SD_Project/SD_SEC39_G03_39/bookingHistory.php");
 
 }
 exit;

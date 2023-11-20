@@ -106,7 +106,7 @@ $currentUserEmail = $_SESSION['CustEmail'];
   <!-- end header section -->
 
 
-<!-- Booking History section -->
+<!-- Room Booking History section -->
 <section class="booking_history_section layout_padding">
     <div class="container">
         <div class="row">
@@ -114,7 +114,7 @@ $currentUserEmail = $_SESSION['CustEmail'];
                 <div class="detail-box">
                     <div class="heading_container">
                         <h2>
-                            Booking History
+                            Room Booking History
                         </h2>
                     </div>
                     <div class="table-responsive">
@@ -189,8 +189,71 @@ $currentUserEmail = $_SESSION['CustEmail'];
         </div>
     </div>
 </section>
-<!-- end Booking History section -->
+<!-- end Room Booking History section -->
 
+<!-- Facility Booking History section -->
+<section class="booking_history_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="detail-box">
+                    <div class="heading_container">
+                        <h2>
+                            Facility Booking History
+                        </h2>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped" style="border-width: 4px; padding: 10px; width: 100%; max-width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Facility Type</th>
+                                    <th>Check-In Date</th>
+                                    <th>No. of Person</th>
+                                    <th>No. of Hours</th>
+                                    <th>Total Price(RM)</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+								<?php
+								// Include the database connection script
+								require_once "database_connection.php";
+
+								// Fetch the booking history for the current user
+								$currentUserEmail = $_SESSION['CustEmail'];
+								$sql = "SELECT bookfacilityID, facilityType, walkInDate, noPerson, hours, totalPrice, status FROM facilityhistory WHERE CustEmail = ?";
+								$stmt = mysqli_prepare($conn, $sql);
+								mysqli_stmt_bind_param($stmt, "s", $currentUserEmail);
+								mysqli_stmt_execute($stmt);
+								$result = mysqli_stmt_get_result($stmt);
+
+								if ($result && mysqli_num_rows($result) > 0) {
+									while ($row = mysqli_fetch_assoc($result)) {
+										echo '<tr>';
+										echo '<td>' . $row['bookfacilityID'] . '</td>';
+										echo '<td>' . $row['facilityType'] . '</td>';
+										echo '<td>' . $row['walkInDate'] . '</td>';
+										echo '<td>' . $row['noPerson'] . '</td>';
+										echo '<td>' . $row['hours'] . '</td>';
+										echo '<td>' . $row['totalPrice'] . '</td>';
+										echo '<td>' . $row['status'] . '</td>';
+										echo '</tr>';
+									}
+								} else {
+									// Handle the case where no booking history is found for the user
+									echo '<tr><td colspan="9">No booking history found for ' . $currentUserEmail . '</td></tr>';
+								}
+								?>
+								</tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end Facility Booking History section -->
 
   <!-- info section -->
   <section class="info_section innerpage_info_section">
